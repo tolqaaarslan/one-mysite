@@ -40,3 +40,38 @@
         parallaxElement.style.setProperty("--scroll", `${offset}px`);
       });
     });
+
+
+     // Başlangıç tarihi
+  const startDate = new Date("2014-05-06T19:00:00+03:00"); // Türkiye saatiyle
+  
+  const updateElapsedTime = () => {
+    const now = new Date();
+    const diff = now - startDate; // milisaniye cinsinden fark
+
+    // Zaman birimlerini hesapla
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30.44);
+    const years = Math.floor(months / 12);
+
+    // Kalan değerler
+    const remainingMonths = months % 12;
+    const remainingDays = Math.floor(days % 30.44);
+    const remainingHours = hours % 24;
+    const remainingMinutes = minutes % 60;
+    const remainingSeconds = seconds % 60;
+
+    // Yazıya dönüştür
+    const text =
+      `${years > 0 ? years + " yıl, " : ""}` +
+      `${remainingMonths > 0 ? remainingMonths + " ay, " : ""}` +
+      `${remainingDays} gün, ${remainingHours} saat, ${remainingMinutes} dk, ${remainingSeconds} sn`;
+
+    document.getElementById("time-since").textContent = text;
+  };
+
+  updateElapsedTime();
+  setInterval(updateElapsedTime, 1000); // her saniye güncelle
