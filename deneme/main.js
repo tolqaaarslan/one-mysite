@@ -1,77 +1,110 @@
- let players = [];
-    const videos = [
-      "Pfx7d4qhC5E", // Keane - Bedshaped
-      "dVGINIsLnqU", // Keane - Somewhere Only We Know
-      "RBumgq5yVrA"  // James Blunt - You're Beautiful
-    ];
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('main > section');
+    const sideNav = document.querySelector('.side-nav');
+    const upArrow = document.getElementById('up-arrow');
+    const downArrow = document.getElementById('down-arrow');
+    const animationElements = document.querySelectorAll('.animate-on-scroll');
 
-    // YouTube API yüklenince çağrılır
-    function onYouTubeIframeAPIReady() {
-      videos.forEach((id, index) => {
-        players[index] = new YT.Player(`video${index + 1}`, {
-          videoId: id,
-          playerVars: {
-            autoplay: 1,
-            controls: 1,
-            rel: 0,
-            showinfo: 0,
-            modestbranding: 1,
-            mute: 1
-          }
+    // --- Sağ Navigasyon Noktalarını Oluşturma ---
+    const dotsContainer = document.createDocumentFragment();
+    sections.forEach((section, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.dataset.section = section.id;
+        dot.addEventListener('click', () => {
+            section.scrollIntoView({ behavior: 'smooth' });
         });
-      });
-    }
+        dotsContainer.appendChild(dot);
+    });
+    // Okların arasına noktaları ekle
+    sideNav.insertBefore(dotsContainer, downArrow);
+    const dots = document.querySelectorAll('.dot');
 
-    // Scroll: görünür olan videoyu oynat, diğerlerini durdur
-    window.addEventListener("scroll", () => {
-      document.querySelectorAll(".overlay").forEach((section, i) => {
-        const rect = section.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
-
-        if (inView) {
-          players[i]?.playVideo();
-        } else {
-          players[i]?.pauseVideo();
-        }
-
-        // Parallax efekt: video biraz kayar
-        const parallaxElement = section.querySelector(".parallax");
-        const offset = rect.top * 0.2;
-        parallaxElement.style.setProperty("--scroll", `${offset}px`);
-      });
+    // --- Scroll Animasyon Gözlemcisi ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, {
+        threshold: 0.1 // Elemanın %10'u göründüğünde tetikle
     });
 
+    animationElements.forEach(el => {
+        observer.observe(el);
+    });
 
-     // Başlangıç tarihi
-  const startDate = new Date("2014-05-06T19:00:00+03:00"); // Türkiye saatiyle
-  
-  const updateElapsedTime = () => {
-    const now = new Date();
-    const diff = now - startDate; // milisaniye cinsinden fark
+    // --- Aktif Bölümü ve Navigasyonu Güncelleme ---
+    function updateActiveNav() {
+        let currentSectionIndex = 0;
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            // Ekranın ortasına en yakın bölümü bul
+            if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+                currentSectionIndex = index;
+            }
+        });
 
-    // Zaman birimlerini hesapla
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30.44);
-    const years = Math.floor(months / 12);
+        // Noktaları güncelle
+        dots.forEach((dot, index) => {
+            if (index === currentSectionIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
 
-    // Kalan değerler
-    const remainingMonths = months % 12;
-    const remainingDays = Math.floor(days % 30.44);
-    const remainingHours = hours % 24;
-    const remainingMinutes = minutes % 60;
-    const remainingSeconds = seconds % 60;
+        // Okları güncelle
+        upArrow.style.visibility = (currentSectionIndex > 0) ? 'visible' : 'hidden';
+        downArrow.style.visibility = (currentSectionIndex < sections.length - 1) ? 'visible' : 'hidden';
+    }
 
-    // Yazıya dönüştür
-    const text =
-      `${years > 0 ? years + " yıl, " : ""}` +
-      `${remainingMonths > 0 ? remainingMonths + " ay, " : ""}` +
-      `${remainingDays} gün, ${remainingHours} saat, ${remainingMinutes} dk, ${remainingSeconds} sn`;
+    // --- Ok Butonları Olayları ---
+    upArrow.addEventListener('click', () => {
+        const activeDot = document.querySelector('.dot.active');
+        const activeIndex = Array.from(dots).indexOf(activeDot);
+        if (activeIndex > 0) {
+            sections[activeIndex - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 
-    document.getElementById("time-since").textContent = text;
-  };
+    downArrow.addEventListener('click', () => {
+        const activeDot = document.querySelector('.dot.active');
+        const activeIndex = Array.from(dots).indexOf(activeDot);
+        if (activeIndex < sections.length - 1) {
+            sections[activeIndex + 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 
-  updateElapsedTime();
-  setInterval(updateElapsedTime, 1000); // her saniye güncelle
+    // --- Zaman Sayacı ---
+    const timerElement = document.getElementById('timer');
+    const startDate = new Date('2014-05-06T20:00:00');
+
+    function updateTimer() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        timerElement.innerHTML = `
+            ${days} gün ${String(hours).padStart(2, '0')} saat ${String(minutes).padStart(2, '0')} dakika ${String(seconds).padStart(2, '0')} saniye
+        `;
+    }
+
+    if (timerElement) {
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Sayfa yüklenir yüklenmez çalıştır
+    }
+
+    // --- Scroll Olayı ---
+    window.addEventListener('scroll', () => {
+        updateActiveNav();
+    });
+
+    // --- Başlangıç Durumu ---
+    updateActiveNav();
+});

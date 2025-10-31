@@ -1,55 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deneme Sayfası</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parallax Responsive Site</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts ve Font Awesome ikonları için -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
-  <!-- 1. Video Bölümü -->
-  <section class="overlay" id="overlay1">
-    <div class="video-container parallax" id="video1"></div>
-  </section>
+  <!-- Sayfa Başı (Header) -->
+  <header class="site-header">
+    <div class="logo">
+      <img src="https://via.placeholder.com/150x50.png?text=Logo" alt="Site Logosu" />
+    </div>
+  </header>
 
-  <section class="content" id="content1">
-    <p>Keane - Bedshaped sahnesi. Bu bölüm örnek olarak ilk video içerir.</p>
-  </section>
+  <!-- Sağ Navigasyon -->
+  <nav class="side-nav">
+    <div class="arrow" id="up-arrow">▲</div>
+    <!-- JavaScript ile doldurulacak -->
+    <div class="arrow" id="down-arrow">▼</div>
+  </nav>
 
-  <!-- 2. Video Bölümü -->
-  <section class="overlay" id="overlay2">
-    <div class="video-container parallax" id="video2"></div>
-  </section>
+  <main>
+    <!-- Hero Bölümü -->
+    <section id="hero" class="hero-section parallax-container">
+      <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=2070&auto=format&fit=crop');"></div>
+      <h1>Parallax Sitemize Hoş Geldiniz</h1>
+    </section>
 
-  <section class="content" id="content2">
-    <p>İkinci video sahnesi. Scroll ile bu alana geldiğinde önceki video durur, bu başlar.</p>
-  </section>
+    <!-- İçerik Bölümleri -->
+    <section id="section-1" class="content-section parallax-container">
+      <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2111&auto=format&fit=crop');"></div>
+      <div class="content-wrapper video-left">
+        <div class="video-area animate-on-scroll">
+          <iframe src="https://www.youtube.com/embed/L_LUpnjgPso" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="text-area animate-on-scroll">
+          <h2>Bölüm 1</h2>
+          <p>Bu bölümde video solda, metin ise sağda yer alıyor. Scroll animasyonu ile elemanlar yerine yerleşir.</p>
+        </div>
+      </div>
+    </section>
 
-  <!-- 3. Video Bölümü -->
-  <section class="overlay" id="overlay3">
-    <div class="video-container parallax" id="video3"></div>
-  </section>
+    <section id="section-2" class="content-section parallax-container">
+      <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=2070&auto=format&fit=crop');"></div>
+      <div class="content-wrapper video-right">
+        <div class="text-area animate-on-scroll">
+          <h2>Bölüm 2</h2>
+          <p>Bu bölümde ise yerleşim değişiyor: metin solda, video sağda. Animasyon yönü de bir önceki bölüme göre tersine döner.</p>
+        </div>
+        <div class="video-area animate-on-scroll">
+          <iframe src="https://www.youtube.com/embed/pC1iC3-I4iM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
 
-  <section class="content" id="content3">
-    <p>Üçüncü video sahnesi. Parallax efektli arka plan gibi davranır.</p>
-  </section>
+    <!-- Diğer 5 bölüm de bu şekilde tekrar eder -->
+    <section id="section-3" class="content-section parallax-container">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2071&auto=format&fit=crop');"></div>
+        <div class="content-wrapper video-left">
+            <div class="video-area animate-on-scroll"><iframe src="https://www.youtube.com/embed/843z_G2ho34" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>
+            <div class="text-area animate-on-scroll"><h2>Bölüm 3</h2><p>Her bölümde farklı bir arka plan ve içerik düzeni ile dinamik bir yapı oluşturulmuştur.</p></div>
+        </div>
+    </section>
+    <section id="section-4" class="content-section parallax-container">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1506280754536-8bed515b522a?q=80&w=1932&auto=format&fit=crop');"></div>
+        <div class="content-wrapper video-right">
+            <div class="text-area animate-on-scroll"><h2>Bölüm 4</h2><p>Kullanıcı kaydırma yaptıkça yeni içerikler animasyonlarla belirir, bu da etkileşimi artırır.</p></div>
+            <div class="video-area animate-on-scroll"><iframe src="https://www.youtube.com/embed/3qk-v_yS_6s" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>
+        </div>
+    </section>
+    <section id="section-5" class="content-section parallax-container">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1516331138075-f3adc1e149cd?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="content-wrapper video-left">
+            <div class="video-area animate-on-scroll"><iframe src="https://www.youtube.com/embed/u6e7p912y34" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>
+            <div class="text-area animate-on-scroll"><h2>Bölüm 5</h2><p>Responsive tasarım sayesinde bu yapı tüm cihazlarda sorunsuz çalışır.</p></div>
+        </div>
+    </section>
+    <section id="section-6" class="content-section parallax-container">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2069&auto=format&fit=crop');"></div>
+        <div class="content-wrapper video-right">
+            <div class="text-area animate-on-scroll"><h2>Bölüm 6</h2><p>Sağdaki navigasyon noktaları, kullanıcının sitedeki konumunu kolayca anlamasını sağlar.</p></div>
+            <div class="video-area animate-on-scroll"><iframe src="https://www.youtube.com/embed/k-P4s5sUaGk" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>
+        </div>
+    </section>
+    <section id="section-7" class="content-section parallax-container">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');"></div>
+        <div class="content-wrapper video-left">
+            <div class="video-area animate-on-scroll"><iframe src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRLp9T99_4k2_y0h4hjg" title="YouTube video player" frameborder="0" allowfullscreen></iframe></div>
+            <div class="text-area animate-on-scroll"><h2>Bölüm 7</h2><p>Bu son içerik bölümü ile parallax yolculuğumuz tamamlanıyor.</p></div>
+        </div>
+    </section>
 
-  <div id="elapsed-time" style="
-  text-align:center;
-  font-family:'Poiret One',sans-serif;
-  font-size:1.4rem;
-  color:#fddaec;
-  margin:2rem 0;
-">
+    <!-- Zaman Sayacı -->
+    <section id="timer-section" class="timer-section">
+      <h2>6 Mayıs 2014, 20:00'den Beri Geçen Süre</h2>
+      <div id="timer"></div>
+    </section>
 
-    <span id="time-since"></span><p> oldu... </p>
-  </div>
+    <!-- İletişim Formu -->
+    <section id="contact-section" class="contact-section">
+      <h2>İletişim</h2>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Adınız" required>
+        <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+        <textarea name="message" rows="5" placeholder="Mesajınız" required></textarea>
+        <button type="submit">Gönder</button>
+      </form>
+    </section>
+  </main>
 
-  <!-- YouTube API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- Footer -->
+  <footer class="site-footer-bottom">
+    <div class="footer-content">
+      <p>&copy; 2024 Tüm Hakları Saklıdır.</p>
+      <a href="https://x.com" target="_blank" aria-label="X (Twitter) profili"><i class="fab fa-xing"></i></a>
+    </div>
+  </footer>
+
+  <!-- Scroll Watcher -->
+  <div class="scroll-watcher"></div>
+
   <script src="main.js"></script>
 </body>
 
 </html>
+
