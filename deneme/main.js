@@ -11,12 +11,12 @@
         players[index] = new YT.Player(`video${index + 1}`, {
           videoId: id,
           playerVars: {
-            autoplay: 0,
+            autoplay: 1,
             controls: 1,
             rel: 0,
             showinfo: 0,
             modestbranding: 1,
-            mute: 0
+            mute: 1
           }
         });
       });
