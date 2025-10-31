@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Deneme Sayfası</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- 🎥 Video Arka Plan -->
-  <div class="video-bg">
-    <iframe
-      src="https://www.youtube.com/embed/Pfx7d4qhC5E?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1"
-      title="Keane - Bedshaped"
-      frameborder="0"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
+  <!-- 1. Video Bölümü -->
+  <div class="overlay" id="overlay1">
+    <div class="video-container" data-video="https://www.youtube.com/embed/Pfx7d4qhC5E?enablejsapi=1&controls=0&showinfo=0&modestbranding=1&mute=1"></div>
   </div>
 
-  <!-- 🟣 Mor Bölüm (yazı içeriği) -->
-  <div class="content">
-    <h1>Parallax Video Test Sayfası</h1>
-    <p>Bu sayfa, YouTube’dan gömülü bir videonun sessiz ve otomatik şekilde oynatıldığı, 
-    parallax efektli bir örnek sayfadır. Fareyle video üzerine geldiğinde kontroller aktifleşir.</p>
+  <div class="content" id="content1">
+    <p>Keane - Bedshaped sahnesi. Bu bölüm örnek olarak ilk video içerir.</p>
   </div>
 
-  <!-- 📩 Footer (isteğe bağlı form alanı) -->
-  <footer>
-    <h3>Mesaj Gönder</h3>
-    <form>
-      <input type="text" placeholder="Adınız"><br>
-      <textarea rows="4" placeholder="Mesajınız..."></textarea><br>
-      <button type="submit">Gönder</button>
-    </form>
-  </footer>
+  <!-- 2. Video Bölümü -->
+  <div class="overlay" id="overlay2">
+    <div class="video-container" data-video="https://www.youtube.com/embed/dVGINIsLnqU?enablejsapi=1&controls=0&showinfo=0&modestbranding=1&mute=1"></div>
+  </div>
+
+  <div class="content" id="content2">
+    <p>İkinci video sahnesi. Scroll ile bu alana geldiğinde önceki video durur, bu başlar.</p>
+  </div>
+
+  <!-- 3. Video Bölümü -->
+  <div class="overlay" id="overlay3">
+    <div class="video-container" data-video="https://www.youtube.com/embed/RBumgq5yVrA?enablejsapi=1&controls=0&showinfo=0&modestbranding=1&mute=1"></div>
+  </div>
+
+  <div class="content" id="content3">
+    <p>Üçüncü video sahnesi. Parallax efektli arka plan gibi davranır.</p>
+  </div>
+
+  <!-- YouTube API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="main.jss"></script>
 </body>
+
 </html>
