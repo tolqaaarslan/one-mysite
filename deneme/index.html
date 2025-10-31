@@ -2,10 +2,37 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Deneme Sayfası</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Bu bir deneme sayfasıdır</h1>
-  <p>Burayı test etmek için kullanabilirsin.</p>
+  <!-- 🎥 Video Arka Plan -->
+  <div class="video-bg">
+    <iframe
+      src="https://www.youtube.com/embed/Pfx7d4qhC5E?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1"
+      title="Keane - Bedshaped"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- 🟣 Mor Bölüm (yazı içeriği) -->
+  <div class="content">
+    <h1>Parallax Video Test Sayfası</h1>
+    <p>Bu sayfa, YouTube’dan gömülü bir videonun sessiz ve otomatik şekilde oynatıldığı, 
+    parallax efektli bir örnek sayfadır. Fareyle video üzerine geldiğinde kontroller aktifleşir.</p>
+  </div>
+
+  <!-- 📩 Footer (isteğe bağlı form alanı) -->
+  <footer>
+    <h3>Mesaj Gönder</h3>
+    <form>
+      <input type="text" placeholder="Adınız"><br>
+      <textarea rows="4" placeholder="Mesajınız..."></textarea><br>
+      <button type="submit">Gönder</button>
+    </form>
+  </footer>
 </body>
 </html>

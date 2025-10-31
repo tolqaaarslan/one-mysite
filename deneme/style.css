@@ -1,0 +1,89 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: white;
+      background-color: #111;
+      overflow-x: hidden;
+    }
+
+    /* 🔹 Video arka plan (parallax efektiyle sabit durur) */
+    .video-bg {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .video-bg iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      pointer-events: none; /* video tıklanamaz halde */
+      transition: filter 0.3s ease;
+    }
+
+    .video-bg:hover iframe {
+      pointer-events: auto; /* fare üstüne gelince tıklanabilir hale gelir */
+    }
+
+    /* 🔹 İçerik (mor bölüm) */
+    .content {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(90, 0, 100, 0.9);
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    /* 🔹 Footer */
+    footer {
+      background: #222;
+      padding: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    footer input, footer textarea {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    footer button {
+      background: #8a2be2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    footer button:hover {
+      background: #a14be6;
+    }
