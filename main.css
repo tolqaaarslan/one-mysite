@@ -1,6 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
+body {
+  margin: 0;
+  padding: 0;
+  background: #000000;
+  overflow: hidden;
+}
 h1 {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -16,8 +22,8 @@ p {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.4em;
   font-weight: bold;
-  color: #222;
-  text-shadow: 0 0 40px #FFFFFF, 0 0 30px #FFFFFF, 0 0 20px #FFFFFF;
+  color: #ffffff;
+  text-shadow: 0 0 40px #000000, 0 0 30px #000000, 0 0 20px #000000;
 }
 
 .container {
