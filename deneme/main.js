@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('main > section');
+    const sections = document.querySelectorAll('.content-section');
     const sideNav = document.querySelector('.side-nav');
     const upArrow = document.getElementById('up-arrow');
     const downArrow = document.getElementById('down-arrow');
-    const animationElements = document.querySelectorAll('.animate-on-scroll');
-
+    
     // --- Sağ Navigasyon Noktalarını Oluşturma ---
     const dotsContainer = document.createDocumentFragment();
     sections.forEach((section, index) => {
@@ -20,24 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
     sideNav.insertBefore(dotsContainer, downArrow);
     const dots = document.querySelectorAll('.dot');
 
-    // --- Scroll Animasyon Gözlemcisi ---
-    const observer = new IntersectionObserver((entries) => {
+    // --- Animasyon ve Aktif Bölüm Gözlemcisi ---
+    const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
+                // Bölüm ekrana girdiğinde .is-active sınıfını ekle
+                entry.target.classList.add('is-active');
+            } else {
+                // Bölüm ekrandan çıktığında .is-active sınıfını kaldır
+                entry.target.classList.remove('is-active');
             }
         });
     }, {
-        threshold: 0.1 // Elemanın %10'u göründüğünde tetikle
+        threshold: 0.3 // Bölümün %30'u göründüğünde tetikle (70vh'ye yakın bir etki)
     });
 
-    animationElements.forEach(el => {
-        observer.observe(el);
+    sections.forEach(section => {
+        observer.observe(section);
     });
 
     // --- Aktif Bölümü ve Navigasyonu Güncelleme ---
     function updateActiveNav() {
-        let currentSectionIndex = 0;
+        let currentSectionIndex = -1;
         sections.forEach((section, index) => {
             const rect = section.getBoundingClientRect();
             // Ekranın ortasına en yakın bölümü bul
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Okları güncelle
         upArrow.style.visibility = (currentSectionIndex > 0) ? 'visible' : 'hidden';
-        downArrow.style.visibility = (currentSectionIndex < sections.length - 1) ? 'visible' : 'hidden';
+        downArrow.style.visibility = (currentSectionIndex > -1 && currentSectionIndex < sections.length - 1) ? 'visible' : 'hidden';
     }
 
     // --- Ok Butonları Olayları ---

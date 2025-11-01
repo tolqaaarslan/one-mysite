@@ -45,7 +45,7 @@ body {
 }
 
 .hero-section {
-    height: 90vh; /* Ekranın %90'ını kaplar */
+    height: 95vh; /* Ekranın %90'ını kaplar */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +55,13 @@ body {
 .hero-section h1 {
     font-size: 3rem;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.content-section.parallax-container {
+    /* Başlangıçta arka plan opak siyah */
+    background-color: #00000000;
+    /* Arka plan rengi değişimi için yumuşak geçiş */
+    transition: background-color 0.8s ease-in-out;
 }
 
 .content-section {
@@ -68,57 +75,63 @@ body {
 
 .content-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    gap: 2rem;
+    align-items: stretch;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    gap: 6rem;
+    padding: 8rem;
+    box-sizing: border-box;
+    border-radius: 12px;
+    /* Animasyon için başlangıç durumu: görünmez ve hafif aşağıda */
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.80s ease-out, transform 0.80s ease-out;
 }
 
-.text-area, .video-area {
-    flex: 1;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.6);
+/* --- Video Alanı (solda büyük) --- */
+.video-area {
+    flex: 2;                   /* Metin alanına göre daha geniş */
+    background: rgba(2, 2, 2, 0.226); /* Görseldeki kırmızımsı etkiyi görmek istersen */
     border-radius: 8px;
-    backdrop-filter: blur(5px);
-}
-
-.text-area h2 {
-    margin-top: 0;
-    font-size: 2.5rem;
-    color: #4CAF50;
-}
-
-.text-area p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .video-area iframe {
     width: 100%;
+    height: 100%;
     aspect-ratio: 16 / 9;
     border: none;
     border-radius: 8px;
 }
 
-/* İçerik sırasını değiştirme */
+/* --- Metin Alanı (sağda dar) --- */
+.text-area {
+    flex: 1;                    /* Daha dar kısım */
+    background: rgba(200, 200, 200, 0.3); /* Hafif gri alan */
+    color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Video sağda olacak bölümler için ters sıra */
 .content-wrapper.video-right {
     flex-direction: row-reverse;
 }
 
-/* --- Scroll Animasyonları --- */
-.animate-on-scroll {
-    opacity: 0;
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+/* --- BÖLÜM AKTİF OLDUĞUNDA UYGULANACAK STİLLER --- */
+.content-section.is-active {
+    /* Arka planı transparent siyah yap */
+    background-color: rgba(0, 0, 0, 0.7);
 }
-
-.video-left .text-area { transform: translateY(-50px); }
-.video-left .video-area { transform: translateY(50px); }
-
-.video-right .text-area { transform: translateY(50px); }
-.video-right .video-area { transform: translateY(-50px); }
-
-.animate-on-scroll.is-visible {
+.content-section.is-active .content-wrapper {
+    /* İçeriği animasyonla görünür yap */
     opacity: 1;
     transform: translateY(0);
 }
@@ -254,7 +267,7 @@ body {
 
 /* --- Scroll Watcher --- */
 .scroll-watcher {
-    height: 4px;
+    height: 8px;
     position: fixed;
     bottom: 0;
     width: 100%;
