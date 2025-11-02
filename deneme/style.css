@@ -1,332 +1,335 @@
-/* --- Genel Stiller --- */
-body {
+/* Genel Sıfırlama ve Ayarlar */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #111;
-    color: #fff;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
-/* --- Header --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #111;
+    color: #fff;
+}
+
+/* Açılış Animasyonu Stilleri */
+body.loading {
+    background-color: #000; /* Arka planı tam siyah yap */
+    overflow: hidden; /* Yüklenirken kaydırmayı engelle */
+}
+
+/* Yüklenirken header'ın arka planını şeffaf yap */
+body.loading .site-header {
+    background-color: transparent;
+}
+
+/* Yüklenirken banner'ın karartma efektini kaldır ve sadece başlığı göster */
+body.loading .banner::before {
+    background-color: transparent;
+}
+
+/* Yüklenirken banner dışındaki ana içerik, footer ve yan navigasyonu gizle */
+body.loading main > *:not(.banner),
+body.loading .site-footer,
+body.loading .side-nav {
+    opacity: 0;
+}
+
+/* 1. Site Header */
 .site-header {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
     padding: 1rem 2rem;
-    background-color: rgba(0, 0, 0, 0.5); /* Siyah transparent arka plan */
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
     display: flex;
     align-items: center;
+    transition: background-color 0.5s ease; /* Geçiş efekti */
 }
 
-.logo img {
-    height: 40px;
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-/* --- Parallax ve Bölüm Yapısı --- */
-.parallax-container {
-    position: relative;
-    overflow: hidden;
-}
-
-.parallax-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+/* Genel Bölüm Stilleri */
+.banner, .part-header, .content-section {
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Parallax efekti için kritik */
-    z-index: -1;
-}
-
-.hero-section {
-    height: 100vh; /* Ekranın %90'ını kaplar */
+    background-attachment: fixed; /* Parallax efekti için */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    position: relative;
+    transition: opacity 0.8s ease; /* Yumuşak geçiş için */
 }
 
-.hero-section h1 {
+/* Arka plan resimlerine karartma efekti */
+.banner::before, .part-header::before, .content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    transition: background-color 0.8s ease 0.2s; /* Geçiş efekti ve küçük bir gecikme */
+}
+
+/* İçeriklerin overlay'in üzerinde kalması için */
+.banner h1, .part-header h2, .content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+/* 2. Banner */
+.banner {
+    height: 90vh;
+    /* margin-top: 60px; Artık header relative olduğu için bu gereksiz. */
+}
+
+.banner h1 {
+    font-size: 4rem;
+}
+
+/* 4. Bölüm Başlıkları */
+.part-header {
+    height: 15vh;
+}
+
+.part-header h2 {
     font-size: 3rem;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-.content-section.parallax-container {
-    /* Başlangıçta arka plan opak siyah */
-    background-color: #00000000;
-    /* Arka plan rengi değişimi için yumuşak geçiş */
-    transition: background-color 0.8s ease-in-out;
-}
-
+/* 5. Ana İçerik Section'ları */
 .content-section {
-    min-height: 100vh;
-    padding: 100px 5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
+    height: 100vh;
 }
 
+/* 5. & 6. İçerik Düzeni */
 .content-wrapper {
+    width: 90%;
+    height: 70%;
     display: flex;
-    align-items: stretch;
     justify-content: space-between;
-    margin: 0 auto;
-    gap: 2rem;
-    padding: 2rem;
-    box-sizing: border-box;
-    border-radius: 12px;
-    /* Animasyon için başlangıç durumu: görünmez ve hafif aşağıda */
-    opacity: 0;
-    transform: translateY(100px);
-    transition: opacity 0.80s ease-out, transform 0.80s ease-out;
-    background-color: rgba(0, 0, 0, 0.4);
-    max-width: 1200px; /* Kapsayıcının çok genişlemesini önler */
-    height: 70vh; /* Bölüm yüksekliğinin %80'ini kaplar */
-    width: 70vw;
-}
-
-/* --- Video Alanı (solda büyük) --- */
-.video-area {
-    flex: 2;                   /* Metin alanına göre daha geniş */
-    background: rgba(2, 2, 2, 0.226); /* Görseldeki kırmızımsı etkiyi görmek istersen */
-    border-radius: 8px;
-    padding: 0;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 5rem; /* Boşluğu biraz azalttık */
+    /* Animasyon için başlangıç durumu */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.video-area iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-}
-
-/* --- Metin Alanı (sağda dar) --- */
-.text-area {
-    flex: 1;                    /* Daha dar kısım */
-    background: rgba(200, 200, 200, 0.3); /* Hafif gri alan */
-    color: #fff;
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Video sağda olacak bölümler için ters sıra */
-.content-wrapper.video-right {
-    flex-direction: row-reverse;
-}
-
-/* --- BÖLÜM AKTİF OLDUĞUNDA UYGULANACAK STİLLER --- */
-.content-section.is-active {
-    /* Arka planı transparent siyah yap */
-    background-color: rgba(0, 0, 0, 0.7);
-}
-.content-section.is-active .content-wrapper {
-    /* İçeriği animasyonla görünür yap */
+/* JavaScript ile eklenecek 'visible' class'ı animasyonu tetikleyecek */
+.content-wrapper.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* --- Sağ Navigasyon --- */
+/* Çift sıralı section'larda (2, 4, 6...) düzeni tersine çevir */
+.content-section:nth-child(even) .content-wrapper {
+    flex-direction: row-reverse;
+}
+
+.video-container {
+    width: 80%;
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Çift sıralı section'larda margin'leri de tersine çeviriyoruz */
+.content-section:nth-child(even) .video-container {
+    margin-left: 0;
+    margin-right: 2%;
+}
+
+.content-section:nth-child(odd) .video-container {
+    margin-left: 2%;
+    margin-right: 0;
+}
+
+/* YouTube iframe'i için stil */
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Play Butonu Stili */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.play-button::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: 55% center;
+}
+
+.text-container {
+    width: 25%; /* Genişliği biraz artırıldı */
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.7);
+    padding: 2rem;
+    border-radius: 8px;
+    overflow-y: auto; /* Yazı taşarsa scroll çıkar */
+    display: flex;
+    align-items: center;
+}
+
+/* Margin'leri düzenliyoruz */
+.content-section:nth-child(odd) .text-container {
+    margin-right: 2%;
+}
+.content-section:nth-child(even) .text-container {
+    margin-right: 0;
+}
+
+.text-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 9. Footer */
+.site-footer {
+    padding: 2rem;
+    background-color: #000;
+    text-align: center;
+}
+
+/* 10. Yan Navigasyon */
 .side-nav {
     position: fixed;
     top: 50%;
-    right: 30px;
+    right: 20px;
     transform: translateY(-50%);
+    z-index: 101;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    z-index: 999;
+    gap: 10px;
+    transition: opacity 0.8s ease; /* Yumuşak geçiş için */
 }
 
-.dot {
-    width: 6px;
-    height: 6px;
-    border: 2px solid #fff;
+.nav-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border: 2px solid white;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-.dot.active {
-    background-color: #fff;
-    transform: scale(1.2);
+.nav-dot.active {
+    background-color: white;
 }
 
-.arrow {
+.nav-arrow {
+    background: none;
+    border: none;
+    color: white;
     font-size: 15px;
     cursor: pointer;
-    color: #fff;
+    padding: 5px;
+}
+
+.nav-arrow:hover {
     opacity: 0.7;
-    transition: opacity 0.3s;
-    user-select: none;
-    visibility: hidden; /* Başlangıçta gizli */
 }
 
-.arrow:hover {
-    opacity: 1;
-}
-
-/* --- Zaman Sayacı --- */
-.timer-section {
-    padding: 80px 20px;
-    text-align: center;
-    background-color: #1a1a1a;
-}
-
-.timer-section h2 {
-    margin-bottom: 20px;
-}
-
-#timer {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #4CAF50;
-    letter-spacing: 2px;
-}
-
-/* --- İletişim Formu --- */
-.contact-section {
-    padding: 80px 20px;
-    text-align: center;
-    background-color: #222;
-}
-
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    font-size: 1rem;
-}
-
-.contact-form button {
-    padding: 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #4CAF50;
-    color: #fff;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.contact-form button:hover {
-    background-color: #45a049;
-}
-
-/* --- Footer --- */
-.site-footer-bottom {
-    background-color: #111;
-    padding: 1rem 2rem;
-    border-top: 1px solid #333;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-content p {
-    margin: 0;
-    color: #888;
-}
-
-.footer-content a {
-    color: #888;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.footer-content a:hover {
-    color: #fff;
-}
-
-/* --- Scroll Watcher --- */
+/* 11. Scroll Watcher */
 .scroll-watcher {
-    height: 6px;
+    height: 5px;
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-    background-color: #555; /* Gri arka plan */
-    z-index: 2000;
+    background-color: #000;
+    z-index: 102;
     transform-origin: left;
-    scale: 0 1; /* Başlangıçta genişliği 0 */
-    background-image: linear-gradient(to right, #4CAF50, #8BC34A); /* Yeşil dolgu */
-    animation: scroll-watcher linear;
+    transform: scaleX(0);
+    animation: scroll-progress linear;
     animation-timeline: scroll();
 }
 
-@keyframes scroll-watcher {
-    to { scale: 1 1; }
+@keyframes scroll-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
 }
 
-/* --- Mobil Uyum (Responsive) --- */
-@media (max-width: 768px) {
-    .content-wrapper,
-    .content-wrapper.video-right {
-        flex-direction: column;
+/* CSS Değişkeni ile rengi kontrol etme */
+:root {
+    --scroll-watcher-color: #00ff00; /* Yeşil */
+}
+
+.scroll-watcher {
+    background-color: var(--scroll-watcher-color);
+}
+
+/* Medya Sorgusu: Küçük ekranlar için (Tablet ve Telefon) */
+@media (max-width: 992px) {
+    .content-wrapper {
+        flex-direction: column-reverse; /* Metin üste, video alta */
+        height: auto; /* Yüksekliği içeriğe göre ayarla */
+        gap: 2rem;
+        width: 90%;
     }
 
-    .hero-section h1 {
-        font-size: 2rem;
+    /* Çift sıralı section'lardaki ters çevirmeyi iptal et */
+    .content-section:nth-child(even) .content-wrapper {
+        flex-direction: column-reverse;
     }
 
-    .side-nav {
-        display: none; /* Mobilde navigasyonu gizle */
+    .video-container, .text-container {
+        width: 100%; /* Tam genişlik kapla */
+        height: auto;
+        margin: 0 !important; /* Tüm margin'leri sıfırla */
     }
-}
 
-
-body {
-  --sb-track-color: #000000;
-  --sb-thumb-color: #8BC34A;
-  --sb-size: 8px;
-}
-
-body::-webkit-scrollbar {
-  width: var(--sb-size)
-}
-
-body::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 30px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 30px;
-  border: 2px solid #232E33;
-}
-
-@supports not selector(::-webkit-scrollbar) {
-  body {
-    scrollbar-color: var(--sb-thumb-color)
-                     var(--sb-track-color);
-  }
+    .text-container {
+        height: 25vh; /* Metin alanı için sabit bir yükseklik */
+        padding: 1.5rem;
+    }
 }
