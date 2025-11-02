@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sayfa yüklendiğinde animasyonu başlat
     const typewriterElement = document.getElementById('typewriter-text');
-    const textToType = "for my old two friends";
+    const textToType = "for my old two friends..";
     
     // Daktilo animasyonunu başlat, bittiğinde siteyi yükle
     // Hızı buradan ayarlayabilirsiniz. Düşük değer = hızlı, yüksek değer = yavaş.
