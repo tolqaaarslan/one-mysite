@@ -94,47 +94,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.2 }); // Elemanın %20'si görününce animasyonu başlat
+    }, { threshold: 0.5 }); // Elemanın %20'si görününce animasyonu başlat
 
     contentWrappers.forEach(wrapper => animationObserver.observe(wrapper));
 
     // 5. YouTube Videolarını Hazırla
     function initializeYouTubeVideos() {
-        const videoContainers = document.querySelectorAll('.video-container');
-
-        videoContainers.forEach((container, index) => {
+        // Plyr.io'yu tüm video konteynerleri için başlat
+        document.querySelectorAll('.video-container').forEach((container, index) => {
             const videoId = container.dataset.youtubeId;
+            const startSeconds = container.dataset.startSeconds || 0;
             if (!videoId) return;
 
-            // Thumbnail'i ayarla
-            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-            container.style.backgroundImage = `url('${thumbnailUrl}')`;
+            // Plyr'ın oynatıcıyı yerleştireceği bir div oluşturuyoruz.
+            // Bu, .video-container'ın stilini bozmamasını sağlar.
+            const playerElement = document.createElement('div');
+            container.appendChild(playerElement);
 
-            // Play butonunu oluştur
-            const playButton = document.createElement('div');
-            playButton.className = 'play-button';
-            container.appendChild(playButton);
-
-            // Tıklama olayını ekle
-            playButton.addEventListener('click', () => {
-                const playerDiv = document.createElement('div');
-                playerDiv.id = `player-${index}`;
-                container.innerHTML = ''; // Butonu ve thumbnail'i temizle
-                container.appendChild(playerDiv);
-
-                new YT.Player(playerDiv.id, {
-                    height: '100%',
-                    width: '100%',
-                    videoId: videoId,
-                    playerVars: {
-                        'autoplay': 1,
-                        'controls': 1,
-                        'showinfo': 0, // Videonun üstündeki başlığı gizler (bazı durumlarda çalışmayabilir)
-                        'rel': 0, // Video bitince alakalı videoları göstermez
-                        'modestbranding': 1, // YouTube logosunu küçültür
-                        'start': container.dataset.startSeconds || 0
-                    }
-                });
+            // Yeni Plyr oynatıcısını oluştur
+            const player = new Plyr(playerElement, {
+                // Plyr seçenekleri
+                // 'youtube' seçeneği, videoId'yi ve diğer parametreleri içeren bir nesne bekler.
+                source: 'youtube',
+                videoId: videoId,
+                // YouTube oynatıcı parametreleri
+                youtube: {
+                    start: startSeconds,
+                    rel: 0, // Alakalı videoları kapat
+                    modestbranding: 1 // YouTube logosunu küçült
+                }
             });
         });
     }
@@ -144,16 +132,46 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeYouTubeVideos();
     };
 
-    // 7. Sayfa yükleme animasyonunu bitir
-    setTimeout(() => {
+    // 7. Daktilo animasyonu ve sayfa yükleme sıralaması
+    function startTypewriter(element, text, speed, callback) {
+        let i = 0;
+        element.innerHTML = ""; // Metni temizle
+        
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                // Animasyon bittiğinde imleci statik yap (yanıp sönmeyi durdur)
+                element.style.borderRight = "none";
+                if (callback) callback();
+            }
+        }
+        type();
+    }
+
+    // Sayfa yüklendiğinde animasyonu başlat
+    const typewriterElement = document.getElementById('typewriter-text');
+    const textToType = "for my old two friends";
+    
+    // Daktilo animasyonunu başlat, bittiğinde siteyi yükle
+    // Hızı buradan ayarlayabilirsiniz. Düşük değer = hızlı, yüksek değer = yavaş.
+    startTypewriter(typewriterElement, textToType, 70, () => {
+        // Animasyon bittikten sonra 500ms bekle ve devam et
+        setTimeout(() => {
+            // Yükleme ekranını kaldır
         document.body.classList.remove('loading');
 
-        // 2. Rastgele arka plan resimlerini ata (Animasyon bittikten sonra)
-        const allSections = document.querySelectorAll('.banner, .part-header, .content-section');
-        allSections.forEach(section => {
-            const randomId = Math.floor(Math.random() * 500);
-            section.style.backgroundImage = `url('https://picsum.photos/1920/1080?random=${randomId}')`;
-        });
-
-    }, 1000); // 1000 milisaniye = 1 saniye
+            // Arka plan resimlerini ata
+            const banner = document.querySelector('.banner');
+            if (banner) banner.style.backgroundImage = "url('bg.gif')";
+            
+            const otherSections = document.querySelectorAll('.part-header, .content-section');
+            otherSections.forEach(section => {
+                const randomId = Math.floor(Math.random() * 500);
+                section.style.backgroundImage = `url('https://picsum.photos/1920/1080?random=${randomId}')`;
+            });
+        }, 500); // Yazı bittikten sonraki kısa bekleme süresi
+    });
 });
