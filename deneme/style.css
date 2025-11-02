@@ -1,177 +1,367 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('[data-nav-label]');
-    const navDotsContainer = document.querySelector('.nav-dots');
-    const navUp = document.getElementById('nav-up');
-    const navDown = document.getElementById('nav-down');
+/* Genel Sıfırlama ve Ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    // 1. Yan navigasyon noktalarını oluştur
-    sections.forEach(section => {
-        const dot = document.createElement('button');
-        dot.classList.add('nav-dot');
-        dot.setAttribute('data-target', `#${section.id}`);
-        dot.setAttribute('title', section.dataset.navLabel);
-        dot.addEventListener('click', () => {
-            section.scrollIntoView({ behavior: 'smooth' });
-        });
-        navDotsContainer.appendChild(dot);
-    });
+html {
+    scroll-behavior: smooth;
+}
 
-    const navDots = document.querySelectorAll('.nav-dot');
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #111;
+    color: #fff;
+}
 
-    // 3. Scroll olaylarını dinle ve aktif bölümü güncelle
-    const observer = new IntersectionObserver((entries) => {
-        let activeSectionId = null;
+/* Açılış Animasyonu Stilleri */
+body.loading {
+    background-color: #000; /* Arka planı tam siyah yap */
+    overflow: hidden; /* Yüklenirken kaydırmayı engelle */
+}
 
-        entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-                activeSectionId = entry.target.id;
-            }
-        });
+/* Yüklenirken header'ın arka planını şeffaf yap */
+body.loading .site-header {
+    background-color: transparent;
+}
 
-        // Eğer tam ortada bir bölüm yoksa, görünür olan ilk bölümü aktif say
-        if (!activeSectionId) {
-            const firstVisible = entries.find(e => e.isIntersecting);
-            if (firstVisible) {
-                activeSectionId = firstVisible.target.id;
-            }
-        }
+/* Yüklenirken banner'ın karartma efektini kaldır ve sadece başlığı göster */
+body.loading .banner::before {
+    background-color: transparent;
+}
 
-        if (activeSectionId) {
-            navDots.forEach(dot => {
-                if (dot.dataset.target === `#${activeSectionId}`) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
+/* Yüklenirken banner dışındaki ana içerik, footer ve yan navigasyonu gizle */
+body.loading main > *:not(.banner),
+body.loading .site-footer,
+body.loading .side-nav {
+    opacity: 0;
+}
 
-        // Okların görünürlüğünü ayarla
-        const scrollY = window.scrollY;
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+/* 1. Site Header */
+.site-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.5s ease; /* Geçiş efekti */
+}
 
-        navUp.style.display = scrollY > 100 ? 'block' : 'none';
-        navDown.style.display = scrollY < totalHeight - 100 ? 'block' : 'none';
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Indie Flower', cursive; /* Yeni eklenen font */
+}
 
-    }, { threshold: [0.1, 0.5, 0.9] }); // Farklı görünürlük oranlarında tetikle
+.logo a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+}
 
-    sections.forEach(section => {
-        observer.observe(section);
-    });
 
-    // 4. Navigasyon oklarına tıklama olayı ekle
-    function findCurrentSectionIndex() {
-        let currentIndex = -1;
-        navDots.forEach((dot, index) => {
-            if (dot.classList.contains('active')) {
-                currentIndex = index;
-            }
-        });
-        return currentIndex;
+
+/* Genel Bölüm Stilleri */
+.banner, .part-header, .content-section {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax efekti için */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: opacity 0.8s ease; /* Yumuşak geçiş için */
+}
+
+/* Arka plan resimlerine karartma efekti */
+.banner::before, .part-header::before, .content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    transition: background-color 0.8s ease 0.2s; /* Geçiş efekti ve küçük bir gecikme */
+}
+
+/* İçeriklerin overlay'in üzerinde kalması için */
+.banner h1, .part-header h2, .content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+/* 2. Banner */
+.banner {
+    height: 90vh;
+    /* margin-top: 60px; Artık header relative olduğu için bu gereksiz. */
+}
+
+.banner h1 {
+    font-family: "Indie Flower", cursive; /* Yeni eklenen font */
+    font-size: 3.5rem; /* Boyutu küçülttük */
+    /* Daktilo imleci için */
+    display: inline-block;
+    border-right: 4px solid rgba(255, 255, 255, 0.75);
+    animation: blink 0.7s steps(1) infinite;
+}
+
+/* İmlecin yanıp sönme animasyonu */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* 4. Bölüm Başlıkları */
+.part-header {
+    height: 25vh;
+}
+
+.part-header h2 {
+    font-size: 3rem;
+}
+
+/* 5. Ana İçerik Section'ları */
+.content-section {
+    height: 100vh;
+}
+
+/* 5. & 6. İçerik Düzeni */
+.content-wrapper {
+    width: 90%;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem; /* Boşluğu biraz azalttık */
+    /* Animasyon için başlangıç durumu */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* JavaScript ile eklenecek 'visible' class'ı animasyonu tetikleyecek */
+.content-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Çift sıralı section'larda (2, 4, 6...) düzeni tersine çevir */
+.content-section:nth-child(even) .content-wrapper {
+    flex-direction: row-reverse;
+}
+
+.video-container {
+    width: 80%;
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Çift sıralı section'larda margin'leri de tersine çeviriyoruz */
+.content-section:nth-child(even) .video-container {
+    margin-left: 0;
+    margin-right: 2%;
+}
+
+.content-section:nth-child(odd) .video-container {
+    margin-left: 2%;
+    margin-right: 0;
+}
+
+/* YouTube iframe'i için stil */
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Play Butonu Stili */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.play-button::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: 55% center;
+}
+
+.text-container {
+    width: 25%; /* Genişliği biraz artırıldı */
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.7);
+    padding: 2rem;
+    border-radius: 8px;
+    overflow-y: auto; /* Yazı taşarsa scroll çıkar */
+    display: flex;
+    align-items: center;
+}
+
+/* Margin'leri düzenliyoruz */
+.content-section:nth-child(odd) .text-container {
+    margin-right: 2%;
+}
+.content-section:nth-child(even) .text-container {
+    margin-right: 0;
+}
+
+.text-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 9. Footer */
+.site-footer {
+    padding: 2rem;
+    background-color: #000;
+    text-align: center;
+}
+
+/* 10. Yan Navigasyon */
+.side-nav {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.8s ease; /* Yumuşak geçiş için */
+}
+
+.nav-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-dot.active {
+    background-color: white;
+}
+
+.nav-arrow {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.nav-arrow:hover {
+    opacity: 0.7;
+}
+
+/* 11. Scroll Watcher */
+.scroll-watcher {
+    height: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    z-index: 102;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: scroll-progress linear;
+    animation-timeline: scroll();
+}
+
+@keyframes scroll-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+/* CSS Değişkeni ile rengi kontrol etme */
+:root {
+    --scroll-watcher-color: #00ff00; /* Yeşil */
+}
+
+.scroll-watcher {
+    background-color: var(--scroll-watcher-color);
+}
+
+/* Medya Sorgusu: Küçük ekranlar için (Tablet ve Telefon) */
+@media (max-width: 992px) {
+    .content-wrapper {
+        flex-direction: column-reverse; /* Metin üste, video alta */
+        height: auto; /* Yüksekliği içeriğe göre ayarla */
+        gap: 2rem;
+        width: 90%;
     }
 
-    navDown.addEventListener('click', () => {
-        const currentIndex = findCurrentSectionIndex();
-        if (currentIndex < sections.length - 1) {
-            sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-
-    navUp.addEventListener('click', () => {
-        const currentIndex = findCurrentSectionIndex();
-        if (currentIndex > 0) {
-            sections[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-
-    // 6. İçerik alanları için animasyon tetikleyici
-    const contentWrappers = document.querySelectorAll('.content-wrapper');
-    const animationObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Animasyon bir kere tetiklendikten sonra tekrar izlemeye gerek yok
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 }); // Elemanın %20'si görününce animasyonu başlat
-
-    contentWrappers.forEach(wrapper => animationObserver.observe(wrapper));
-
-    // 5. YouTube Videolarını Hazırla
-    function initializeYouTubeVideos() {
-        // Plyr.io'yu tüm video konteynerleri için başlat
-        document.querySelectorAll('.video-container').forEach((container, index) => {
-            const videoId = container.dataset.youtubeId;
-            const startSeconds = container.dataset.startSeconds || 0;
-            if (!videoId) return;
-
-            // Plyr'ın oynatıcıyı yerleştireceği bir div oluşturuyoruz.
-            // Bu, .video-container'ın stilini bozmamasını sağlar.
-            const playerElement = document.createElement('div');
-            container.appendChild(playerElement);
-
-            // Yeni Plyr oynatıcısını oluştur
-            const player = new Plyr(playerElement, {
-                // Plyr seçenekleri
-                // 'youtube' seçeneği, videoId'yi ve diğer parametreleri içeren bir nesne bekler.
-                source: 'youtube',
-                videoId: videoId,
-                // YouTube oynatıcı parametreleri
-                youtube: {
-                    start: startSeconds,
-                    rel: 0, // Alakalı videoları kapat
-                    modestbranding: 1 // YouTube logosunu küçült
-                }
-            });
-        });
+    /* Çift sıralı section'lardaki ters çevirmeyi iptal et */
+    .content-section:nth-child(even) .content-wrapper {
+        flex-direction: column-reverse;
     }
 
-    // YouTube API'si hazır olduğunda videoları başlat
-    window.onYouTubeIframeAPIReady = function() {
-        initializeYouTubeVideos();
-    };
-
-    // 7. Daktilo animasyonu ve sayfa yükleme sıralaması
-    function startTypewriter(element, text, speed, callback) {
-        let i = 0;
-        element.innerHTML = ""; // Metni temizle
-        
-        function type() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, speed);
-            } else {
-                // Animasyon bittiğinde imleci statik yap (yanıp sönmeyi durdur)
-                element.style.borderRight = "none";
-                if (callback) callback();
-            }
-        }
-        type();
+    .video-container, .text-container {
+        width: 100%; /* Tam genişlik kapla */
+        height: auto;
+        margin: 0 !important; /* Tüm margin'leri sıfırla */
     }
 
-    // Sayfa yüklendiğinde animasyonu başlat
-    const typewriterElement = document.getElementById('typewriter-text');
-    const textToType = "for my old two friends";
-    
-    // Daktilo animasyonunu başlat, bittiğinde siteyi yükle
-    // Hızı buradan ayarlayabilirsiniz. Düşük değer = hızlı, yüksek değer = yavaş.
-    startTypewriter(typewriterElement, textToType, 70, () => {
-        // Animasyon bittikten sonra 500ms bekle ve devam et
-        setTimeout(() => {
-            // Yükleme ekranını kaldır
-        document.body.classList.remove('loading');
+    .text-container {
+        height: 25vh; /* Metin alanı için sabit bir yükseklik */
+        padding: 1.5rem;
+    }
+}
 
-            // Arka plan resimlerini ata
-            const banner = document.querySelector('.banner');
-            if (banner) banner.style.backgroundImage = "url('bg.gif')";
-            
-            const otherSections = document.querySelectorAll('.part-header, .content-section');
-            otherSections.forEach(section => {
-                const randomId = Math.floor(Math.random() * 500);
-                section.style.backgroundImage = `url('https://picsum.photos/1920/1080?random=${randomId}')`;
-            });
-        }, 500); // Yazı bittikten sonraki kısa bekleme süresi
-    });
-});
+.plyr__video-embed iframe {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.plyr--video {
+    border-radius: 8px;
+    overflow: hidden;
+}
