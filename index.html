@@ -1,32 +1,164 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="nYuRqtlDSrz0pOLMgTdyrMVApyy-nWBHMuqZwvSHgUg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="logo/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="logo/android-chrome-512x512.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="logo/android-chrome-192x192.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinamik Web Sitesi</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Plyr.io CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" />
+    <!-- Google Fonts: Special Elite -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
 
 
-  <title>Tolga Arslan</title>
-  <link rel="stylesheet" href="main.css">
 </head>
+<body class="loading">
 
-<body>
-  <div class="container">
-    <div class="wrapper">
-      <div class="content">
-        <div class="item">
-          <!-- Place your content here to have it be centered vertically and horizontally  -->
-          <h1>COMING SOON</h1>
+    <!-- 1. Site Header -->
+    <header class="site-header">
+        <div class="logo"><a href="www.tolqaarslan.com">tolga arslan</a></div>
+    </header>
+
+    <!-- 10. Yan Navigasyon -->
+    <nav class="side-nav">
+        <button class="nav-arrow up" id="nav-up" style="display: none;">&#9650;</button>
+        <div class="nav-dots">
+            <!-- JavaScript ile doldurulacak -->
         </div>
-      </div>
-    </div>
-  </div>
-</body>
+        <button class="nav-arrow down" id="nav-down">&#9660;</button>
+    </nav>
 
+    <main>
+        <!-- 2. Banner -->
+        <section id="banner" class="full-screen-section banner" data-nav-label="Banner">
+            <h1 id="typewriter-text"></h1>
+        </section>
+
+        <!-- BÖLÜM 1 -->
+        <div class="part-header" id="part1-header" data-nav-label="Bölüm 1">
+            <h2>Bölüm 1</h2>
+        </div>
+        <section id="section1-1" class="content-section" data-nav-label="1.1">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="RgKAFK5djSk"></div>
+                <div class="text-container">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section1-2" class="content-section" data-nav-label="1.2">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="j7GO7AoehFs" data-start-seconds="24"></div>
+                <div class="text-container">
+                    <p>Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section1-3" class="content-section" data-nav-label="1.3">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="Pfx7d4qhC5E" data-start-seconds="38"></div>
+                <div class="text-container">
+                    <p>Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 2 -->
+        <div class="part-header" id="part2-header" data-nav-label="Bölüm 2">
+            <h2>Bölüm 2</h2>
+        </div>
+        <section id="section2-1" class="content-section" data-nav-label="2.1">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="7NK_JOkuSVY"></div>
+                <div class="text-container">
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section2-2" class="content-section" data-nav-label="2.2">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="oM-XJD4J36U"></div>
+                <div class="text-container">
+                    <p>Ut pharetra augue nec augue. Nam elit agna, endrerit sit amet, tincidunt ac, viverra sed, nulla. Donec porta diam eu massa. Quisque diam lorem, interdum.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section2-3" class="content-section" data-nav-label="2.3">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="yZIummTz9mM"></div>
+                <div class="text-container">
+                    <p>Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 3 -->
+        <div class="part-header" id="part3-header" data-nav-label="Bölüm 3">
+            <h2>Bölüm 3</h2>
+        </div>
+        <section id="section3-1" class="content-section" data-nav-label="3.1">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="n1PCW0C1aiM"></div>
+                <div class="text-container">
+                    <p>Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section3-2" class="content-section" data-nav-label="3.2">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="rLm_aSP369M"></div>
+                <div class="text-container">
+                    <p>Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section3-3" class="content-section" data-nav-label="3.3">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="if_PNmVE5uQ" data-start-seconds="11"></div>
+                <div class="text-container">
+                    <p>Nam convallis, pede vitae dapibus luctus, ligula elit laoreet ante, nonummy quis, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 4 -->
+        <div class="part-header" id="part4-header" data-nav-label="Bölüm 4">
+            <h2>Bölüm 4</h2>
+        </div>
+        <section id="section4-1" class="content-section" data-nav-label="4.1">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="Y2NkuFIlLEo"></div>
+                <div class="text-container">
+                    <p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat. Praesent dapibus, neque id.</p>
+                </div>
+            </div>
+        </section>
+        <section id="section4-2" class="content-section" data-nav-label="4.2">
+            <div class="content-wrapper">
+                <div class="video-container" data-youtube-id="ghb6eDopW8I"></div>
+                <div class="text-container">
+                    <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2024 - Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <!-- 11. Scroll Watcher -->
+    <div class="scroll-watcher"></div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="script.js"></script>
+    <!-- Plyr.io JS -->
+    <script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
+
+</body>
 </html>
