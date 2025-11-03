@@ -35,8 +35,8 @@ function initializeYouTubeVideos() {
         // 6. Oynatıcı olaylarını dinle ve aura efektini uygula
         if (glowColor) {
             player.on('play', () => {
-                // Video oynamaya başladığında, VİDEONUN etrafına renkli bir gölge ekle
-                container.style.boxShadow = `0 0 120px 40px ${glowColor}`;
+                // Video oynamaya başladığında, videonun etrafına daha büyük ve bulanık bir gölge ekle
+                container.style.boxShadow = `0 0 150px 50px ${glowColor}`;
             });
 
             player.on('pause', () => {

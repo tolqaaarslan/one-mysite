@@ -189,7 +189,7 @@ body.loading .side-nav {
 /* 5. Ana İçerik Section'ları */
 .content-section {
     height: 100vh;
-    /* Bu geçişi kaldırıp video-container'a taşıyacağız */
+    /* Bu geçişi video-container'a taşıdık */
 }
 
 /* 5. & 6. İçerik Düzeni */
@@ -235,7 +235,7 @@ body.loading .side-nav {
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     /* Yeni Ambilight efekti için */
-    transition: box-shadow 1.5s ease-in-out;
+    transition: box-shadow 2.5s ease-in-out;
 }
 
 /* Çift sıralı section'larda margin'leri de tersine çeviriyoruz */
