@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 wrapper.classList.remove('visible');
             }
         });
-    }, { threshold: 0.25 }); // Elemanın %25'i görününce animasyonu tetikle
+    }, { threshold: 0.60 }); // Elemanın %25'i görününce animasyonu tetikle
 
     contentWrappers.forEach(wrapper => animationObserver.observe(wrapper));
 

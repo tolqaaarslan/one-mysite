@@ -292,8 +292,9 @@ body.loading .side-nav {
 
 /* Çeviri için eklenen sınıflar */
 .original-text, .translated-text {
+    font-family: "Kite One", cursive;
     width: 100%;
-    transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .translated-text p {
@@ -400,7 +401,7 @@ body.loading .side-nav {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    transition: opacity 2.5s ease; /* Yumuşak geçiş için */
+    transition: opacity 3s ease; /* Yumuşak geçiş için */
 }
 
 .nav-dots {
@@ -465,18 +466,38 @@ body.loading .side-nav {
     background-color: var(--scroll-watcher-color);
 }
 
+/* Medya Sorgusu: Orta boyutlu ekranlar için (Tabletler ve küçük laptoplar) */
+@media (min-width: 993px) and (max-width: 1366px) {
+    .content-wrapper {
+        gap: 2rem; /* Boşluğu azalt */
+    }
+
+    .video-container {
+        width: 65%; /* Video alanını daralt */
+    }
+
+    .text-container {
+        width: 35%; /* Metin alanını genişlet */
+    }
+}
+
+
 /* Medya Sorgusu: Küçük ekranlar için (Tablet ve Telefon) */
 @media (max-width: 992px) {
+    .side-nav {
+        right: 5px; /* Yan navigasyonu sağ kenara biraz daha yaklaştır */
+    }
+
     .content-wrapper {
-        flex-direction: column-reverse; /* Metin üste, video alta */
+        flex-direction: column; /* Videoyu üste, metni alta al */
         height: auto; /* Yüksekliği içeriğe göre ayarla */
         gap: 2rem;
-        width: 90%;
+        width: 85%; /* Genişliği biraz daralttık */
     }
 
     /* Çift sıralı section'lardaki ters çevirmeyi iptal et */
     .content-section:nth-child(even) .content-wrapper {
-        flex-direction: column-reverse;
+        flex-direction: column; /* Her zaman video üstte olacak şekilde ayarla */
     }
 
     .video-container, .text-container {
@@ -486,8 +507,10 @@ body.loading .side-nav {
     }
 
     .text-container {
-        height: 25vh; /* Metin alanı için sabit bir yükseklik */
+        height: auto; /* Yüksekliği içeriğe göre otomatik ayarla */
+        min-height: 25vh; /* Çok kısa metinlerde bile minimum bir yükseklik sağla */
         padding: 1.5rem;
+        padding-bottom: 4rem; /* Çevir butonunun metnin üzerine gelmemesi için altta boşluk bırak */
     }
 }
 
