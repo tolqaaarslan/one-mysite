@@ -360,3 +360,28 @@ body.loading .side-nav {
 .plyr--video .plyr__control--overlaid svg {
     color: #fff;
 }
+
+/* YOUTUBE ARAYÜZÜNÜ GİZLEMEK İÇİN CSS HİLESİ */
+
+/* Plyr'ın video sarmalayıcısını referans noktası yap */
+.plyr__video-wrapper {
+    position: relative;
+}
+
+/* Üstteki YouTube başlığını ve butonlarını gizlemek için sahte bir üst şerit oluştur */
+.plyr__video-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px; /* YouTube'un üst barını kapatacak kadar yükseklik */
+    background-color: #000;
+    z-index: 3; /* Plyr kontrollerinin altında, iframe'in üstünde kalmalı */
+}
+
+/* Bu kural, Plyr'ın kendi kontrollerinin (oynatma çubuğu, ses ayarı vb.)
+   bizim eklediğimiz katmanların üzerinde kalmasını sağlar. */
+.plyr__controls {
+    z-index: 4 !important;
+}
