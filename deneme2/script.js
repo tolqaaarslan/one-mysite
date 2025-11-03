@@ -229,4 +229,19 @@ document.addEventListener('DOMContentLoaded', () => {
             initializeYouTubeVideos();
         }, 400); // Yazı bittikten sonraki kısa bekleme süresi
     });
+
+    // --- YENİ İSTEK: Çeviri Butonları ---
+    const translateButtons = document.querySelectorAll('.translate-btn');
+
+    translateButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const textContainer = button.closest('.text-container');
+            const originalText = textContainer.querySelector('.original-text');
+            const translatedText = textContainer.querySelector('.translated-text');
+
+            // Görünürlüğü değiştir
+            originalText.classList.toggle('hidden');
+            translatedText.classList.toggle('hidden');
+        });
+    });
 });

@@ -261,9 +261,18 @@ body.loading .side-nav {
     background-color: rgba(20, 20, 20, 0.7);
     padding: 2rem;
     border-radius: 8px;
-    overflow-y: auto; /* Yazı taşarsa scroll çıkar */
-    display: flex;
-    align-items: center;
+    position: relative; /* Butonun konumlandırılması için */
+    overflow: hidden; /* İçeriğin taşmasını ve scrollbar'ı tamamen engelle */
+    display: flex; /* Dikey ortalama için flexbox kullan */
+    flex-direction: column; /* Hizalama yönünü dikeye çevir */
+    justify-content: center; /* İçeriği dikey eksende ortala */
+
+    /* Kaydırma çubuğunu gizle (Chrome, Safari, Edge) */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE ve Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 /* Margin'leri düzenliyoruz */
@@ -275,8 +284,102 @@ body.loading .side-nav {
 }
 
 .text-container p {
+    font-size: 1rem; /* Varsayılan font boyutunu biraz küçülttük */
+    line-height: 1.7;
+    text-align: center; /* Tüm metinleri yatayda ortala */
+    margin: 0; /* Paragraflar arası varsayılan boşluğu kaldır */
+}
+
+/* Çeviri için eklenen sınıflar */
+.original-text, .translated-text {
+    width: 100%;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.translated-text p {
+    font-style: italic; /* Çeviri metnini italik yapabiliriz */
+}
+
+.hidden {
+    display: none;
+}
+
+.translate-btn {
+    position: absolute; /* Mutlak konumlandırma */
+    bottom: 1rem; /* Alttan boşluk */
+    right: 1rem; /* Sağdan boşluk */
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    opacity: 0.6;
+}
+
+.translate-btn svg {
+    width: 18px; /* İkon boyutu */
+    height: 18px;
+}
+
+.translate-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.note {
+    font-size: 0.9rem;
+    font-family: 'Indie Flower', cursive;
+    color: #00b327;
+    margin-top: 2rem; /* Notun üstündeki boşluk */
+}
+
+/* Her metin kutusu için özel boyutlandırma ve hizalama */
+
+.text1 p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.text2 p {
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+.text3 p {
+    font-size: 0.85rem; /* Bu metin uzun olduğu için fontu küçültüyoruz */
+    line-height: 1.7;
+}
+
+.text4 p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.text5 p {
     font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.text6 p, .text7 p, .text8 p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+}
+
+.text9 p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.text10 p {
+    font-size: 0.8rem; /* Bu metin çok uzun, fontu küçültüyoruz */
     line-height: 1.6;
+}
+
+.text11 p {
+    font-size: 0.95rem;
+    line-height: 1.8;
 }
 
 /* 9. Footer */
