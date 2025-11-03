@@ -18,7 +18,9 @@ function initializeYouTubeVideos() {
             youtube: {
                 start: startSeconds,
                 rel: 0, // Alakalı videoları kapat
-                modestbranding: 1 // YouTube logosunu küçült
+                showinfo: 0, // Video başlığı, yükleyen gibi bilgileri gizle
+                modestbranding: 1, // YouTube logosunu küçült
+                iv_load_policy: 3 // Video notasyonlarını (annotation) gizle
             }
         };
         playerElement.setAttribute('data-plyr-config', JSON.stringify(config));

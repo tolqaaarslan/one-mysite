@@ -347,3 +347,16 @@ body.loading .side-nav {
     border-radius: 8px;
     overflow: hidden; /* Bu, iframe'in köşelerinin dışarı taşmasını engeller */
 }
+
+/* PLYR.IO OYNATICI ÖZELLEŞTİRMELERİ */
+
+/* Ortadaki büyük oynat butonunun arkaplanını siyah yap */
+.plyr--video .plyr__control--overlaid {
+    background: #000;
+    border: 2px solid white; /* Kenarlık ekleyerek daha belirgin yapalım */
+}
+
+/* Butonun içindeki üçgen SVG ikonunu beyaz yap */
+.plyr--video .plyr__control--overlaid svg {
+    color: #fff;
+}
