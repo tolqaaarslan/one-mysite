@@ -1,9 +1,11 @@
 // 5. YouTube Videolarını Hazırla (EN GÜVENİLİR YÖNTEM)
 function initializeYouTubeVideos() {
     // Tüm video konteynerlerini dolaş
-    document.querySelectorAll('.video-container').forEach((container) => {
+    document.querySelectorAll('.video-container').forEach(container => {
         const videoId = container.dataset.youtubeId;
         const startSeconds = container.dataset.startSeconds || 0;
+        const glowColor = container.dataset.glowColor; // Aura rengini al
+        const parentSection = container.closest('.content-section'); // Videonun içinde bulunduğu bölümü bul
         if (!videoId) return;
 
         // 1. Plyr'ın oynatıcıyı yerleştireceği İÇ elementi oluşturuyoruz.
@@ -29,7 +31,22 @@ function initializeYouTubeVideos() {
         container.appendChild(playerElement);
 
         // 5. Plyr'ı bu yeni 'playerElement' üzerinde başlatıyoruz.
-        new Plyr(playerElement);
+        const player = new Plyr(playerElement);
+
+        // 6. Oynatıcı olaylarını dinle ve aura efektini uygula
+        if (glowColor && parentSection) {
+            player.on('play', () => {
+                // Video oynamaya başladığında, bölümün etrafına renkli bir gölge ekle
+                parentSection.style.boxShadow = `inset 0 0 150px 50px ${glowColor}`;
+            });
+
+            player.on('pause', () => {
+                // Video duraklatıldığında veya bittiğinde gölgeyi kaldır
+                parentSection.style.boxShadow = 'none';
+            });
+
+            // 'ended' olayı da 'pause'u tetikler, bu yüzden ayrıca handle etmeye gerek yok.
+        }
     });
 }
 
@@ -121,15 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. İçerik alanları için animasyon tetikleyici
     const contentWrappers = document.querySelectorAll('.content-wrapper');
+
     const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Element ekrana girdiğinde 'visible' sınıfını ekle
                 entry.target.classList.add('visible');
                 // Animasyon bir kere tetiklendikten sonra tekrar izlemeye gerek yok
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 }); // Elemanın %20'si görününce animasyonu başlat
+    }, { threshold: 0.2 }); // Elemanın %20'si görününce animasyonu başlat
 
     contentWrappers.forEach(wrapper => animationObserver.observe(wrapper));
 
@@ -163,16 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             // Yükleme ekranını kaldır
         document.body.classList.remove('loading');
-
-            // Arka plan resimlerini ata
-            const banner = document.querySelector('.banner');
-            if (banner) banner.style.backgroundImage = "url('bg.gif')";
-            
-            const otherSections = document.querySelectorAll('.part-header, .content-section');
-            otherSections.forEach(section => {
-                const randomId = Math.floor(Math.random() * 500);
-                section.style.backgroundImage = `url('https://picsum.photos/1920/1080?random=${randomId}')`;
-            });
 
             // Videoları başlat
             initializeYouTubeVideos();

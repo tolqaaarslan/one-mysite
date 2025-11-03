@@ -13,6 +13,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #111;
     color: #fff;
+    overflow-x: hidden; /* Yatay kaydırmayı engelle ve animasyon titremesini düzelt */
 }
 
 /* Açılış Animasyonu Stilleri */
@@ -30,6 +31,12 @@ body.loading .site-header {
 body.loading .banner::before {
     background-color: transparent;
 }
+
+/* Yüklenirken banner'ın arka plan resmini gizle */
+body.loading .banner {
+    background-image: none !important;
+}
+
 
 /* Yüklenirken banner dışındaki ana içerik, footer ve yan navigasyonu gizle */
 body.loading main > *:not(.banner),
@@ -132,6 +139,7 @@ body.loading .side-nav {
 /* 5. Ana İçerik Section'ları */
 .content-section {
     height: 100vh;
+    transition: box-shadow 1.5s ease-in-out; /* Aura efekti için yumuşak geçiş */
 }
 
 /* 5. & 6. İçerik Düzeni */
@@ -144,8 +152,8 @@ body.loading .side-nav {
     gap: 5rem; /* Boşluğu biraz azalttık */
     /* Animasyon için başlangıç durumu */
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(50px); /* Biraz aşağıdan başlasın */
+    transition: opacity 2s ease-out, transform 1.2s ease-out; /* İLK ANİMASYON: Süreyi 1.2s yaptık */
 }
 
 /* JavaScript ile eklenecek 'visible' class'ı animasyonu tetikleyecek */
@@ -385,3 +393,23 @@ body.loading .side-nav {
 .plyr__controls {
     z-index: 4 !important;
 }
+
+/* Bölümlere Özel Arka Plan Resimleri */
+#section1-1 { background-image: url('images/song-bg1.jpg'); }
+#section1-2 { background-image: url('images/song-bg2.png'); }
+#section1-3 { background-image: url('images/song-bg3.jpg'); }
+
+#section2-1 { background-image: url('images/song-bg4.png'); }
+#section2-2 { background-image: url('images/song-bg5.png'); }
+#section2-3 { background-image: url('images/song-bg6.jpg'); }
+
+#section3-1 { background-image: url('images/song-bg7.jpg'); }
+#section3-2 { background-image: url('images/song-bg8.jpg'); }
+#section3-3 { background-image: url('images/song-bg9.png'); }
+
+#section4-1 { background-image: url('images/song-bg10.png'); }
+#section4-2 { background-image: url('images/song-bg11.jpg'); }
+
+/* Banner ve Bölüm Başlıkları için varsayılan arka planlar */
+.banner { background-image: url('images/bg.gif'); }
+.part-header { background-image: url('images/part-header-bg.jpg'); }
