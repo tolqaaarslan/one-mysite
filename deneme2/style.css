@@ -1,0 +1,474 @@
+/* Genel Sıfırlama ve Ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #111;
+    color: #fff;
+    overflow-x: hidden; /* Yatay kaydırmayı engelle ve animasyon titremesini düzelt */
+}
+
+/* Açılış Animasyonu Stilleri */
+body.loading {
+    background-color: #000; /* Arka planı tam siyah yap */
+    overflow: hidden; /* Yüklenirken kaydırmayı engelle */
+}
+
+/* Yüklenirken header'ın arka planını şeffaf yap */
+body.loading .site-header {
+    background-color: transparent;
+}
+
+/* Yüklenirken banner'ın karartma efektini kaldır ve sadece başlığı göster */
+body.loading .banner::before {
+    background-color: transparent;
+}
+
+/* Yüklenirken banner'ın arka plan resmini gizle */
+body.loading .banner {
+    background-image: none !important;
+}
+
+
+/* Yüklenirken banner dışındaki ana içerik, footer ve yan navigasyonu gizle */
+body.loading main > *:not(.banner),
+body.loading .site-footer,
+body.loading .side-nav {
+    opacity: 0;
+}
+
+/* 1. Site Header */
+.site-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.5s ease; /* Geçiş efekti */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Indie Flower', cursive; /* Yeni eklenen font */
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+
+
+/* Genel Bölüm Stilleri */
+.banner, .part-header, .content-section {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax efekti için */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: opacity 0.8s ease; /* Yumuşak geçiş için */
+}
+
+/* Arka plan resimlerine karartma efekti */
+.banner::before, .part-header::before, .content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    transition: background-color 0.8s ease 0.2s; /* Geçiş efekti ve küçük bir gecikme */
+}
+
+/* İçeriklerin overlay'in üzerinde kalması için */
+.banner h1, .part-header h2, .content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+/* Part Header Bg */
+
+
+
+/* 2. Banner */
+.banner {
+    height: 90vh;
+    /* margin-top: 60px; Artık header relative olduğu için bu gereksiz. */
+}
+
+.banner h1 {
+    font-family: "Indie Flower", cursive; /* Yeni eklenen font */
+    font-size: 3.5rem; /* Boyutu küçülttük */
+    /* Daktilo imleci için */
+    display: inline-block;
+    border-right: 4px solid rgba(255, 255, 255, 0.75);
+    animation: blink 0.7s steps(1) infinite;
+}
+
+/* İmlecin yanıp sönme animasyonu */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* 4. Bölüm Başlıkları */
+.part-header {
+    height: 15vh;
+}
+
+.part-header h2 {
+    font-size: 3rem;
+}
+
+/* Tüm bölüm başlıklarına okunurluk için gölge ekleyelim */
+.part-header h2 {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Bölüm Başlıkları için Özel Stiller */
+/* part1-header: Banner (bg.gif) ile section1-1 (song-bg1.jpg) arasında köprü kurar */
+#part1-header {
+    background-image: 
+        linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), /* Üstteki resme (gif) gölge */
+        url('images/song-bg1.jpg'), /* Alttaki bölümün resmi */
+        url('images/bg.gif'); /* Üstteki bölümün resmi */
+    background-position: center bottom, center top; /* Resimleri konumlandır */
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+/* part2-header: section1-3 (song-bg3.jpg) ile section2-1 (song-bg4.png) arasında köprü kurar */
+#part2-header {
+    background-image: 
+        url('images/song-bg4.png'), /* Alttaki bölümün resmi */
+        url('images/song-bg3.jpg'); /* Üstteki bölümün resmi */
+    background-position: center top, center bottom; /* Resimleri konumlandır */
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+/* part3-header: section2-3 (song-bg6.jpg) ile section3-1 (song-bg7.jpg) arasında köprü kurar */
+#part3-header {
+    background-image: 
+        url('images/song-bg7.jpg'), /* Alttaki bölümün resmi */
+        url('images/song-bg6.jpg'); /* Üstteki bölümün resmi */
+    background-position: center top, center bottom;
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+/* part4-header: section3-3 (song-bg9.png) ile section4-1 (song-bg10.png) arasında köprü kurar */
+#part4-header {
+    background-image: 
+        url('images/song-bg10.png'), /* Alttaki bölümün resmi */
+        url('images/song-bg9.png'); /* Üstteki bölümün resmi */
+    background-position: center top, center bottom;
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+/* 5. Ana İçerik Section'ları */
+.content-section {
+    height: 100vh;
+    transition: box-shadow 2.5s ease-in-out; /* Aura efekti için yumuşak geçiş */
+}
+
+/* 5. & 6. İçerik Düzeni */
+.content-wrapper {
+    width: 90%;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem; /* Boşluğu biraz azalttık */
+    /* Animasyon için başlangıç durumu */
+    opacity: 0; /* Başlangıçta görünmez */
+    transition: opacity 2.5s ease-out, transform 0.8s ease-out; /* Animasyon süresi ve yumuşaklığı */
+}
+
+/* YUKARIDAN GELME DURUMU (Aşağı kaydırırken görünür) */
+.content-wrapper.from-top {
+    transform: translateY(-50px);
+}
+
+/* AŞAĞIDAN GELME DURUMU (Yukarı kaydırırken görünür) */
+.content-wrapper.from-bottom {
+    transform: translateY(50px);
+}
+
+/* JavaScript ile eklenecek 'visible' class'ı animasyonu tetikleyecek */
+.content-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Çift sıralı section'larda (2, 4, 6...) düzeni tersine çevir */
+.content-section:nth-child(even) .content-wrapper {
+    flex-direction: row-reverse;
+}
+
+.video-container {
+    width: 80%;
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Çift sıralı section'larda margin'leri de tersine çeviriyoruz */
+.content-section:nth-child(even) .video-container {
+    margin-left: 0;
+    margin-right: 2%;
+}
+
+.content-section:nth-child(odd) .video-container {
+    margin-left: 2%;
+    margin-right: 0;
+}
+
+/* YouTube iframe'i için stil */
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+.text-container {
+    width: 25%; /* Genişliği biraz artırıldı */
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.7);
+    padding: 2rem;
+    border-radius: 8px;
+    overflow-y: auto; /* Yazı taşarsa scroll çıkar */
+    display: flex;
+    align-items: center;
+}
+
+/* Margin'leri düzenliyoruz */
+.content-section:nth-child(odd) .text-container {
+    margin-right: 2%;
+}
+.content-section:nth-child(even) .text-container {
+    margin-right: 0;
+}
+
+.text-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 9. Footer */
+.site-footer {
+    padding: 2rem;
+    background-color: #000;
+    text-align: center;
+}
+
+/* 10. Yan Navigasyon */
+.side-nav {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 2.5s ease; /* Yumuşak geçiş için */
+}
+
+.nav-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-dot.active {
+    background-color: white;
+}
+
+.nav-arrow {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.nav-arrow:hover {
+    opacity: 0.7;
+}
+
+/* 11. Scroll Watcher */
+.scroll-watcher {
+    height: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    z-index: 102;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: scroll-progress linear;
+    animation-timeline: scroll();
+}
+
+@keyframes scroll-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+/* CSS Değişkeni ile rengi kontrol etme */
+:root {
+    --scroll-watcher-color: #00ff00; /* Yeşil */
+}
+
+.scroll-watcher {
+    background-color: var(--scroll-watcher-color);
+}
+
+/* Medya Sorgusu: Küçük ekranlar için (Tablet ve Telefon) */
+@media (max-width: 992px) {
+    .content-wrapper {
+        flex-direction: column-reverse; /* Metin üste, video alta */
+        height: auto; /* Yüksekliği içeriğe göre ayarla */
+        gap: 2rem;
+        width: 90%;
+    }
+
+    /* Çift sıralı section'lardaki ters çevirmeyi iptal et */
+    .content-section:nth-child(even) .content-wrapper {
+        flex-direction: column-reverse;
+    }
+
+    .video-container, .text-container {
+        width: 100%; /* Tam genişlik kapla */
+        height: auto;
+        margin: 0 !important; /* Tüm margin'leri sıfırla */
+    }
+
+    .text-container {
+        height: 25vh; /* Metin alanı için sabit bir yükseklik */
+        padding: 1.5rem;
+    }
+}
+
+.plyr__video-embed iframe {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.plyr--video {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* VİDEO GÖRÜNMEME SORUNU İÇİN KESİN DÜZELTME */
+/* .video-container içindeki tüm Plyr katmanlarının %100 yükseklik almasını sağla.
+   Bu, oynatıcının ve iframe'in doğru şekilde boyutlanmasını garanti eder. */
+.video-container > div,
+.video-container .plyr,
+.video-container .plyr__video-embed {
+    width: 100%;
+    height: 100%;
+}
+
+/* Plyr oynatıcısının içindeki video sarmalayıcısına yuvarlak kenarlık uygula */
+.plyr__video-wrapper--rounded {
+    border-radius: 8px;
+    overflow: hidden; /* Bu, iframe'in köşelerinin dışarı taşmasını engeller */
+}
+
+/* PLYR.IO OYNATICI ÖZELLEŞTİRMELERİ */
+
+/* Ortadaki büyük oynat butonunun arkaplanını siyah yap */
+.plyr--video .plyr__control--overlaid {
+    background: #000;
+    border: 2px solid white; /* Kenarlık ekleyerek daha belirgin yapalım */
+}
+
+/* Butonun içindeki üçgen SVG ikonunu beyaz yap */
+.plyr--video .plyr__control--overlaid svg {
+    color: #fff;
+}
+
+/* YOUTUBE ARAYÜZÜNÜ GİZLEMEK İÇİN CSS HİLESİ */
+
+/* Plyr'ın video sarmalayıcısını referans noktası yap */
+.plyr__video-wrapper {
+    position: relative;
+}
+
+/* Üstteki YouTube başlığını ve butonlarını gizlemek için sahte bir üst şerit oluştur */
+.plyr__video-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px; /* YouTube'un üst barını kapatacak kadar yükseklik */
+    background-color: #000;
+    z-index: 3; /* Plyr kontrollerinin altında, iframe'in üstünde kalmalı */
+}
+
+/* Bu kural, Plyr'ın kendi kontrollerinin (oynatma çubuğu, ses ayarı vb.)
+   bizim eklediğimiz katmanların üzerinde kalmasını sağlar. */
+.plyr__controls {
+    z-index: 4 !important;
+}
+
+/* Bölümlere Özel Arka Plan Resimleri */
+#section1-1 { background-image: url('images/song-bg1.jpg'); }
+#section1-2 { background-image: url('images/song-bg2.png'); }
+#section1-3 { background-image: url('images/song-bg3.jpg'); }
+
+#section2-1 { background-image: url('images/song-bg4.png'); }
+#section2-2 { background-image: url('images/song-bg5.png'); }
+#section2-3 { background-image: url('images/song-bg6.jpg'); }
+
+#section3-1 { background-image: url('images/song-bg7.jpg'); }
+#section3-2 { background-image: url('images/song-bg8.jpg'); }
+#section3-3 { background-image: url('images/song-bg9.png'); }
+
+#section4-1 { background-image: url('images/song-bg10.png'); }
+#section4-2 { background-image: url('images/song-bg11.jpg'); }
+
+/* Banner ve Bölüm Başlıkları için varsayılan arka planlar */
+.banner { background-image: url('images/bg.gif'); }
+.part-header { background-image: url('images/part-header-bg.jpg'); }
