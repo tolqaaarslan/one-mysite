@@ -5,7 +5,6 @@ function initializeYouTubeVideos() {
         const videoId = container.dataset.youtubeId;
         const startSeconds = container.dataset.startSeconds || 0;
         const glowColor = container.dataset.glowColor; // Aura rengini al
-        const parentSection = container.closest('.content-section'); // Videonun içinde bulunduğu bölümü bul
         if (!videoId) return;
 
         // 1. Plyr'ın oynatıcıyı yerleştireceği İÇ elementi oluşturuyoruz.
@@ -34,15 +33,15 @@ function initializeYouTubeVideos() {
         const player = new Plyr(playerElement);
 
         // 6. Oynatıcı olaylarını dinle ve aura efektini uygula
-        if (glowColor && parentSection) {
+        if (glowColor) {
             player.on('play', () => {
-                // Video oynamaya başladığında, bölümün etrafına renkli bir gölge ekle
-                parentSection.style.boxShadow = `inset 0 0 150px 50px ${glowColor}`;
+                // Video oynamaya başladığında, VİDEONUN etrafına renkli bir gölge ekle
+                container.style.boxShadow = `0 0 120px 40px ${glowColor}`;
             });
 
             player.on('pause', () => {
                 // Video duraklatıldığında veya bittiğinde gölgeyi kaldır
-                parentSection.style.boxShadow = 'none';
+                container.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'; // Varsayılan gölgeye dön
             });
 
             // 'ended' olayı da 'pause'u tetikler, bu yüzden ayrıca handle etmeye gerek yok.
