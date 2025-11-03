@@ -1,3 +1,36 @@
+// 5. YouTube Videolarını Hazırla (EN GÜVENİLİR YÖNTEM)
+function initializeYouTubeVideos() {
+    // Tüm video konteynerlerini dolaş
+    document.querySelectorAll('.video-container').forEach((container) => {
+        const videoId = container.dataset.youtubeId;
+        const startSeconds = container.dataset.startSeconds || 0;
+        if (!videoId) return;
+
+        // 1. Plyr'ın oynatıcıyı yerleştireceği İÇ elementi oluşturuyoruz.
+        const playerElement = document.createElement('div');
+        
+        // 2. Plyr'ın okuyacağı HTML data- özelliklerini bu iç elemente atıyoruz.
+        playerElement.setAttribute('data-plyr-provider', 'youtube');
+        playerElement.setAttribute('data-plyr-embed-id', videoId);
+
+        // 3. Başlangıç saniyesi gibi ek ayarları 'data-plyr-config' olarak atıyoruz.
+        const config = {
+            youtube: {
+                start: startSeconds,
+                rel: 0, // Alakalı videoları kapat
+                modestbranding: 1 // YouTube logosunu küçült
+            }
+        };
+        playerElement.setAttribute('data-plyr-config', JSON.stringify(config));
+
+        // 4. Oluşturduğumuz bu playerElement'i asıl .video-container'ın içine ekliyoruz.
+        container.appendChild(playerElement);
+
+        // 5. Plyr'ı bu yeni 'playerElement' üzerinde başlatıyoruz.
+        new Plyr(playerElement);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('[data-nav-label]');
     const navDotsContainer = document.querySelector('.nav-dots');
@@ -98,40 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contentWrappers.forEach(wrapper => animationObserver.observe(wrapper));
 
-    // 5. YouTube Videolarını Hazırla
-    function initializeYouTubeVideos() {
-        // Plyr.io'yu tüm video konteynerleri için başlat
-        document.querySelectorAll('.video-container').forEach((container, index) => {
-            const videoId = container.dataset.youtubeId;
-            const startSeconds = container.dataset.startSeconds || 0;
-            if (!videoId) return;
-
-            // Plyr'ın oynatıcıyı yerleştireceği bir div oluşturuyoruz.
-            // Bu, .video-container'ın stilini bozmamasını sağlar.
-            const playerElement = document.createElement('div');
-            container.appendChild(playerElement);
-
-            // Yeni Plyr oynatıcısını oluştur
-            const player = new Plyr(playerElement, {
-                // Plyr seçenekleri
-                // 'youtube' seçeneği, videoId'yi ve diğer parametreleri içeren bir nesne bekler.
-                source: 'youtube',
-                videoId: videoId,
-                // YouTube oynatıcı parametreleri
-                youtube: {
-                    start: startSeconds,
-                    rel: 0, // Alakalı videoları kapat
-                    modestbranding: 1 // YouTube logosunu küçült
-                }
-            });
-        });
-    }
-
-    // YouTube API'si hazır olduğunda videoları başlat
-    window.onYouTubeIframeAPIReady = function() {
-        initializeYouTubeVideos();
-    };
-
     // 7. Daktilo animasyonu ve sayfa yükleme sıralaması
     function startTypewriter(element, text, speed, callback) {
         let i = 0;
@@ -153,11 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sayfa yüklendiğinde animasyonu başlat
     const typewriterElement = document.getElementById('typewriter-text');
-    const textToType = "for my old two friends..";
+    const textToType = "for my old two friends";
     
     // Daktilo animasyonunu başlat, bittiğinde siteyi yükle
     // Hızı buradan ayarlayabilirsiniz. Düşük değer = hızlı, yüksek değer = yavaş.
-    startTypewriter(typewriterElement, textToType, 70, () => {
+    startTypewriter(typewriterElement, textToType, 100, () => {
         // Animasyon bittikten sonra 500ms bekle ve devam et
         setTimeout(() => {
             // Yükleme ekranını kaldır
@@ -172,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const randomId = Math.floor(Math.random() * 500);
                 section.style.backgroundImage = `url('https://picsum.photos/1920/1080?random=${randomId}')`;
             });
+
+            // Videoları başlat
+            initializeYouTubeVideos();
         }, 500); // Yazı bittikten sonraki kısa bekleme süresi
     });
 });
