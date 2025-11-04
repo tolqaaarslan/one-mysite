@@ -5,6 +5,7 @@ function initializeYouTubeVideos() {
         const videoId = container.dataset.youtubeId;
         const startSeconds = container.dataset.startSeconds || 0;
         const glowColor = container.dataset.glowColor; // Aura rengini al
+        const parentSection = container.closest('.content-section'); // Videonun içinde bulunduğu bölümü bul
         if (!videoId) return;
 
         // 1. Plyr'ın oynatıcıyı yerleştireceği İÇ elementi oluşturuyoruz.
@@ -33,15 +34,15 @@ function initializeYouTubeVideos() {
         const player = new Plyr(playerElement);
 
         // 6. Oynatıcı olaylarını dinle ve aura efektini uygula
-        if (glowColor) {
+        if (glowColor && parentSection) {
             player.on('play', () => {
-                // Video oynamaya başladığında, videonun etrafına daha büyük ve bulanık bir gölge ekle
-                container.style.boxShadow = `0 0 150px 50px ${glowColor}`;
+                // Video oynamaya başladığında, BÖLÜMÜN etrafına İÇE DOĞRU bir gölge ekle
+                parentSection.style.boxShadow = `inset 0 0 200px 70px ${glowColor}`;
             });
 
             player.on('pause', () => {
                 // Video duraklatıldığında veya bittiğinde gölgeyi kaldır
-                container.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'; // Varsayılan gölgeye dön
+                parentSection.style.boxShadow = 'none';
             });
 
             // 'ended' olayı da 'pause'u tetikler, bu yüzden ayrıca handle etmeye gerek yok.
@@ -73,12 +74,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const navUp = document.getElementById('nav-up');
     const navDown = document.getElementById('nav-down');
 
-    // 1. Yan navigasyon noktalarını oluştur
-    sections.forEach(section => {
+    // 1. Yan navigasyon noktalarını ve hedeflerini manuel olarak tanımla
+    const navTargets = [
+        { target: '#banner', label: 'Giriş' },
+        { target: '#section1-1', label: '1.1' },
+        { target: '#section1-2', label: '1.2' },
+        { target: '#section1-3', label: '1.3' },
+        { target: '#section2-1', label: '2.1' },
+        { target: '#section2-2', label: '2.2' },
+        { target: '#section2-3', label: '2.3' },
+        { target: '#section3-1', label: '3.1' },
+        { target: '#section3-2', label: '3.2' },
+        { target: '#section3-3', label: '3.3' },
+        { target: '#section4-1', label: '4.1' },
+        { target: '#section4-2', label: '4.2' },
+        { target: '#section5-1', label: 'Bitiş' }
+    ];
+
+    navTargets.forEach(item => {
+        const section = document.querySelector(item.target);
+        if (!section) return; // Eğer bölüm bulunamazsa atla
+
         const dot = document.createElement('button');
         dot.classList.add('nav-dot');
-        dot.setAttribute('data-target', `#${section.id}`);
-        dot.setAttribute('title', section.dataset.navLabel);
+        dot.setAttribute('data-target', item.target);
+        dot.setAttribute('title', item.label);
         dot.addEventListener('click', () => {
             section.scrollIntoView({ behavior: 'smooth' });
         });
@@ -169,24 +189,81 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     wrapper.classList.add('from-bottom'); // Aşağıdan gelsin
                 }
-                // Kısa bir gecikmeyle 'visible' sınıfını ekleyerek animasyonu başlat
-                setTimeout(() => wrapper.classList.add('visible'), 50);
+
+                // Animasyon bittiğinde satır animasyonunu başlatmak için olay dinleyici
+                wrapper.addEventListener('transitionend', function handleTransitionEnd(event) {
+                    // Sadece transform animasyonu bittiğinde tetikle
+                    if (event.propertyName === 'transform') {
+                        const originalText = wrapper.querySelector('.original-text');
+                        if (originalText) {
+                            animateLines(originalText, 100); // Her satır arası 100ms bekle
+                        }
+                        // Olay dinleyiciyi bir kez çalıştıktan sonra kaldır
+                        wrapper.removeEventListener('transitionend', handleTransitionEnd);
+                    }
+                });
+
+                // 'visible' sınıfını ekleyerek ana animasyonu başlat
+                wrapper.classList.add('visible');
+
             } else {
                 // Element ekrandan çıkıyor: 'visible' sınıfını kaldırarak ters animasyonu başlat
                 wrapper.classList.remove('visible');
+                // Metin animasyonunu sıfırla
+                const p = wrapper.querySelector('.original-text p');
+                if (p && p.dataset.originalHtml) {
+                    p.innerHTML = ''; // Paragrafı temizle
+                    p.style.opacity = 0; // Tekrar gizle
+                }
             }
         });
     }, { threshold: 0.60 }); // Elemanın %25'i görününce animasyonu tetikle
 
     contentWrappers.forEach(wrapper => animationObserver.observe(wrapper));
+    // --- YENİ İSTEK: Satır satır metin animasyonu ---
+    function animateLines(textElement, speed) {
+        const p = textElement.querySelector('p');
+        if (!p) return;
+
+        // Orijinal metni sakla (eğer daha önce saklanmadıysa)
+        if (!p.dataset.originalHtml) {
+            p.dataset.originalHtml = p.innerHTML;
+        }
+
+        const lines = p.dataset.originalHtml.split(/<br\s*\/?>/gi); // <br> ve <br/> etiketlerine göre böl
+        p.innerHTML = ''; // Paragrafı temizle
+        p.style.opacity = 1; // Paragrafı görünür yap
+
+        let lineIndex = 0;
+        function typeLine() {
+            if (lineIndex < lines.length) {
+                const line = lines[lineIndex].trim();
+                if (line || lineIndex < lines.length - 1) { // Boş satırları da ekle (son satır hariç)
+                    const span = document.createElement('span');
+                    span.innerHTML = line;
+                    span.className = 'line-reveal';
+                    p.appendChild(span);
+                    if (lineIndex < lines.length - 1) {
+                        p.appendChild(document.createElement('br'));
+                    }
+                }
+                lineIndex++;
+                setTimeout(typeLine, speed);
+            }
+        }
+        typeLine();
+    }
 
     // --- YENİ İSTEK 2: Videoları otomatik durdurmak için yeni observer ---
     const videoContainers = document.querySelectorAll('.video-container');
     const videoObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
+            const videoContainer = entry.target;
+            const textContainer = videoContainer.nextElementSibling || videoContainer.previousElementSibling;
+
             // Eğer video container ekrandan çıkıyorsa VE içinde bir player varsa
-            if (!entry.isIntersecting && entry.target.plyr) {
-                entry.target.plyr.pause(); // Videoyu durdur
+            if (!entry.isIntersecting && videoContainer.plyr) {
+                videoContainer.plyr.pause(); // Videoyu durdur
             }
         });
     }, { threshold: 0.1 }); // Videonun %90'ı ekrandan çıktığında tetiklenir
@@ -221,11 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
     startTypewriter(typewriterElement, textToType, 80, () => {
         // Animasyon bittikten sonra 500ms bekle ve devam et
         setTimeout(() => {
-            // Yükleme ekranını kaldır
-        document.body.classList.remove('loading');
-
-            // Videoları başlat
+            // ÖNCE videoları arka planda yüklemeye başla
             initializeYouTubeVideos();
+            
+            // Yükleme ekranını kaldır
+            document.body.classList.remove('loading');
         }, 400); // Yazı bittikten sonraki kısa bekleme süresi
     });
 

@@ -13,13 +13,40 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #111;
     color: #fff;
-    overflow-x: hidden; /* Yatay kaydırmayı engelle ve animasyon titremesini düzelt */
+    overflow-x: hidden;
+    /* Yatay kaydırmayı engelle ve animasyon titremesini düzelt */
+    --sb-track-color: #696969;
+    --sb-thumb-color: #424242;
+    --sb-size: 8px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+      scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
 }
 
 /* Açılış Animasyonu Stilleri */
 body.loading {
-    background-color: #000; /* Arka planı tam siyah yap */
-    overflow: hidden; /* Yüklenirken kaydırmayı engelle */
+    background-color: #000;
+    /* Arka planı tam siyah yap */
+    overflow: hidden;
+    /* Yüklenirken kaydırmayı engelle */
 }
 
 /* Yüklenirken header'ın arka planını şeffaf yap */
@@ -39,7 +66,7 @@ body.loading .banner {
 
 
 /* Yüklenirken banner dışındaki ana içerik, footer ve yan navigasyonu gizle */
-body.loading main > *:not(.banner),
+body.loading main>*:not(.banner),
 body.loading .site-footer,
 body.loading .side-nav {
     opacity: 0;
@@ -49,21 +76,24 @@ body.loading .side-nav {
 .site-header {
     position: relative;
     top: 0;
-    left: 0;
+    left: 20px;
     width: 100%;
     padding: 1rem 1.5rem;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.452);
     z-index: 100;
     display: flex;
     align-items: center;
-    transition: background-color 0.5s ease; /* Geçiş efekti */
+    transition: background-color 0.5s ease;
+    /* Geçiş efekti */
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    font-family: 'Indie Flower', cursive; /* Yeni eklenen font */
+    font-family: 'Indie Flower', cursive;
+    /* Yeni eklenen font */
 }
+
 
 .logo a {
     color: white;
@@ -74,20 +104,26 @@ body.loading .side-nav {
 
 
 /* Genel Bölüm Stilleri */
-.banner, .part-header, .content-section {
+.banner,
+.part-header,
+.content-section {
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Parallax efekti için */
+    background-attachment: fixed;
+    /* Parallax efekti için */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     position: relative;
-    transition: opacity 0.8s ease; /* Yumuşak geçiş için */
+    transition: opacity 0.8s ease;
+    /* Yumuşak geçiş için */
 }
 
 /* Arka plan resimlerine karartma efekti */
-.banner::before, .part-header::before, .content-section::before {
+.banner::before,
+.part-header::before,
+.content-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -95,11 +131,14 @@ body.loading .side-nav {
     right: 0;
     bottom: 0;
     z-index: 1;
-    transition: background-color 0.8s ease 0.2s; /* Geçiş efekti ve küçük bir gecikme */
+    transition: background-color 0.8s ease 0.2s;
+    /* Geçiş efekti ve küçük bir gecikme */
 }
 
 /* İçeriklerin overlay'in üzerinde kalması için */
-.banner h1, .part-header h2, .content-wrapper {
+.banner h1,
+.part-header h2,
+.content-wrapper {
     position: relative;
     z-index: 2;
 }
@@ -115,8 +154,10 @@ body.loading .side-nav {
 }
 
 .banner h1 {
-    font-family: "Indie Flower", cursive; /* Yeni eklenen font */
-    font-size: 3.5rem; /* Boyutu küçülttük */
+    font-family: "Indie Flower", cursive;
+    /* Yeni eklenen font */
+    font-size: 3.5rem;
+    /* Boyutu küçülttük */
     /* Daktilo imleci için */
     display: inline-block;
     border-right: 4px solid rgba(255, 255, 255, 0.75);
@@ -147,30 +188,39 @@ body.loading .side-nav {
 /* Bölüm Başlıkları için Özel Stiller */
 /* part1-header: Banner (bg.gif) ile section1-1 (song-bg1.jpg) arasında köprü kurar */
 #part1-header {
-    background-image: 
-        linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), /* Üstteki resme (gif) gölge */
-        url('images/song-bg1.jpg'), /* Alttaki bölümün resmi */
-        url('images/bg.gif'); /* Üstteki bölümün resmi */
-    background-position: center bottom, center top; /* Resimleri konumlandır */
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%),
+        /* Üstteki resme (gif) gölge */
+        url('images/song-bg1.jpg'),
+        /* Alttaki bölümün resmi */
+        url('images/bg.gif');
+    /* Üstteki bölümün resmi */
+    background-position: center bottom, center top;
+    /* Resimleri konumlandır */
     background-size: cover;
     color: #FFFFFF;
 }
 
 /* part2-header: section1-3 (song-bg3.jpg) ile section2-1 (song-bg4.png) arasında köprü kurar */
 #part2-header {
-    background-image: 
-        url('images/song-bg4.png'), /* Alttaki bölümün resmi */
-        url('images/song-bg3.jpg'); /* Üstteki bölümün resmi */
-    background-position: center top, center bottom; /* Resimleri konumlandır */
+    background-image:
+        url('images/song-bg4.png'),
+        /* Alttaki bölümün resmi */
+        url('images/song-bg3.jpg');
+    /* Üstteki bölümün resmi */
+    background-position: center top, center bottom;
+    /* Resimleri konumlandır */
     background-size: cover;
     color: #FFFFFF;
 }
 
 /* part3-header: section2-3 (song-bg6.jpg) ile section3-1 (song-bg7.jpg) arasında köprü kurar */
 #part3-header {
-    background-image: 
-        url('images/song-bg7.jpg'), /* Alttaki bölümün resmi */
-        url('images/song-bg6.jpg'); /* Üstteki bölümün resmi */
+    background-image:
+        url('images/song-bg7.jpg'),
+        /* Alttaki bölümün resmi */
+        url('images/song-bg6.jpg');
+    /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
@@ -178,18 +228,34 @@ body.loading .side-nav {
 
 /* part4-header: section3-3 (song-bg9.png) ile section4-1 (song-bg10.png) arasında köprü kurar */
 #part4-header {
-    background-image: 
-        url('images/song-bg10.png'), /* Alttaki bölümün resmi */
-        url('images/song-bg9.png'); /* Üstteki bölümün resmi */
+    background-image:
+        url('images/song-bg10.png'),
+        /* Alttaki bölümün resmi */
+        url('images/song-bg9.png');
+    /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
 }
 
+/* part5-header: section4-2 (song-bg11.jpg) ile section5-1 (song-bg12.jpg) arasında köprü kurar */
+#part5-header {
+    background-image:
+        url('images/end.png'),
+        /* Alttaki bölümün resmi */
+        url('images/song-bg11.jpg');
+    /* Üstteki bölümün resmi */
+    background-position: center top, center bottom;
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+
 /* 5. Ana İçerik Section'ları */
 .content-section {
     height: 100vh;
-    /* Bu geçişi video-container'a taşıdık */
+    transition: box-shadow 1.5s ease-in-out;
+    /* Aura efekti için yumuşak geçiş */
 }
 
 /* 5. & 6. İçerik Düzeni */
@@ -199,10 +265,13 @@ body.loading .side-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 5rem; /* Boşluğu biraz azalttık */
+    gap: 5rem;
+    /* Boşluğu biraz azalttık */
     /* Animasyon için başlangıç durumu */
-    opacity: 0; /* Başlangıçta görünmez */
-    transition: opacity 2.5s ease-out, transform 0.8s ease-out; /* Animasyon süresi ve yumuşaklığı */
+    opacity: 0;
+    /* Başlangıçta görünmez */
+    transition: opacity 1.5s ease-out, transform 0.8s ease-out;
+    /* Animasyon süresi ve yumuşaklığı */
 }
 
 /* YUKARIDAN GELME DURUMU (Aşağı kaydırırken görünür) */
@@ -233,9 +302,10 @@ body.loading .side-nav {
     background-size: cover;
     background-position: center;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     /* Yeni Ambilight efekti için */
-    transition: box-shadow 2.5s ease-in-out;
+    /* transition: box-shadow 2.5s ease-in-out; */
+    /* Bu satırı kaldırıyoruz */
 }
 
 /* Çift sıralı section'larda margin'leri de tersine çeviriyoruz */
@@ -258,49 +328,64 @@ body.loading .side-nav {
 }
 
 .text-container {
-    width: 25%; /* Genişliği biraz artırıldı */
+    width: 25%;
+    /* Genişliği biraz artırıldı */
     height: 100%;
     background-color: rgba(20, 20, 20, 0.7);
     padding: 2rem;
     border-radius: 8px;
-    position: relative; /* Butonun konumlandırılması için */
-    overflow: hidden; /* İçeriğin taşmasını ve scrollbar'ı tamamen engelle */
-    display: flex; /* Dikey ortalama için flexbox kullan */
-    flex-direction: column; /* Hizalama yönünü dikeye çevir */
-    justify-content: center; /* İçeriği dikey eksende ortala */
+    position: relative;
+    /* Butonun konumlandırılması için */
+    overflow: hidden;
+    /* İçeriğin taşmasını ve scrollbar'ı tamamen engelle */
+    display: flex;
+    /* Dikey ortalama için flexbox kullan */
+    flex-direction: column;
+    /* Hizalama yönünü dikeye çevir */
+    justify-content: center;
+    /* İçeriği dikey eksende ortala */
 
     /* Kaydırma çubuğunu gizle (Chrome, Safari, Edge) */
     &::-webkit-scrollbar {
         display: none;
     }
-    -ms-overflow-style: none;  /* IE ve Edge */
-    scrollbar-width: none;  /* Firefox */
+
+    -ms-overflow-style: none;
+    /* IE ve Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 /* Margin'leri düzenliyoruz */
 .content-section:nth-child(odd) .text-container {
     margin-right: 2%;
 }
+
 .content-section:nth-child(even) .text-container {
     margin-right: 0;
 }
 
 .text-container p {
-    font-size: 1rem; /* Varsayılan font boyutunu biraz küçülttük */
+    font-size: 1rem;
+    /* Varsayılan font boyutunu biraz küçülttük */
     line-height: 1.7;
-    text-align: center; /* Tüm metinleri yatayda ortala */
-    margin: 0; /* Paragraflar arası varsayılan boşluğu kaldır */
+    text-align: center;
+    /* Tüm metinleri yatayda ortala */
+    margin: 0;
+    /* Paragraflar arası varsayılan boşluğu kaldır */
 }
 
 /* Çeviri için eklenen sınıflar */
-.original-text, .translated-text {
+.original-text,
+.translated-text {
     font-family: "Kite One", cursive;
     width: 100%;
     transition: opacity 0.3s ease-in-out;
 }
 
 .translated-text p {
-    font-style: italic; /* Çeviri metnini italik yapabiliriz */
+    font-style: italic;
+    /* Çeviri metnini italik yapabiliriz */
 }
 
 .hidden {
@@ -308,9 +393,12 @@ body.loading .side-nav {
 }
 
 .translate-btn {
-    position: absolute; /* Mutlak konumlandırma */
-    bottom: 1rem; /* Alttan boşluk */
-    right: 1rem; /* Sağdan boşluk */
+    position: absolute;
+    /* Mutlak konumlandırma */
+    bottom: 1rem;
+    /* Alttan boşluk */
+    right: 1rem;
+    /* Sağdan boşluk */
     background-color: transparent;
     border: none;
     color: #fff;
@@ -322,7 +410,8 @@ body.loading .side-nav {
 }
 
 .translate-btn svg {
-    width: 18px; /* İkon boyutu */
+    width: 18px;
+    /* İkon boyutu */
     height: 18px;
 }
 
@@ -335,7 +424,8 @@ body.loading .side-nav {
     font-size: 0.9rem;
     font-family: 'Indie Flower', cursive;
     color: #00b327;
-    margin-top: 2rem; /* Notun üstündeki boşluk */
+    margin-top: 2rem;
+    /* Notun üstündeki boşluk */
 }
 
 /* Her metin kutusu için özel boyutlandırma ve hizalama */
@@ -351,7 +441,8 @@ body.loading .side-nav {
 }
 
 .text3 p {
-    font-size: 0.85rem; /* Bu metin uzun olduğu için fontu küçültüyoruz */
+    font-size: 0.85rem;
+    /* Bu metin uzun olduğu için fontu küçültüyoruz */
     line-height: 1.7;
 }
 
@@ -365,7 +456,9 @@ body.loading .side-nav {
     line-height: 1.8;
 }
 
-.text6 p, .text7 p, .text8 p {
+.text6 p,
+.text7 p,
+.text8 p {
     font-size: 1.1rem;
     line-height: 1.9;
 }
@@ -376,13 +469,49 @@ body.loading .side-nav {
 }
 
 .text10 p {
-    font-size: 0.8rem; /* Bu metin çok uzun, fontu küçültüyoruz */
+    font-size: 0.8rem;
+    /* Bu metin çok uzun, fontu küçültüyoruz */
     line-height: 1.6;
 }
 
 .text11 p {
     font-size: 0.95rem;
     line-height: 1.8;
+}
+
+.text12 p {
+    font-size: 1.3rem;
+    line-height: 1.9;
+}
+
+/* Yeni eklenen kapanış yazısı ve butonu için stiller */
+.final-cta {
+    position: absolute;
+    bottom: 10vh; /* Footer'ın biraz üzerinde */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    text-align: center;
+}
+
+.final-cta p {
+    font-style: italic;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.cta-button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 /* 9. Footer */
@@ -396,14 +525,15 @@ body.loading .side-nav {
 .side-nav {
     position: fixed;
     top: 50%;
-    right: 20px;
+    right: 10px;
     transform: translateY(-50%);
     z-index: 101;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    transition: opacity 3s ease; /* Yumuşak geçiş için */
+    transition: opacity 3s ease;
+    /* Yumuşak geçiş için */
 }
 
 .nav-dots {
@@ -455,13 +585,19 @@ body.loading .side-nav {
 }
 
 @keyframes scroll-progress {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
 }
 
 /* CSS Değişkeni ile rengi kontrol etme */
 :root {
-    --scroll-watcher-color: #00ff00; /* Yeşil */
+    --scroll-watcher-color: #00ff00;
+    /* Yeşil */
 }
 
 .scroll-watcher {
@@ -471,15 +607,18 @@ body.loading .side-nav {
 /* Medya Sorgusu: Orta boyutlu ekranlar için (Tabletler ve küçük laptoplar) */
 @media (min-width: 993px) and (max-width: 1366px) {
     .content-wrapper {
-        gap: 2rem; /* Boşluğu azalt */
+        gap: 2rem;
+        /* Boşluğu azalt */
     }
 
     .video-container {
-        width: 65%; /* Video alanını daralt */
+        width: 65%;
+        /* Video alanını daralt */
     }
 
     .text-container {
-        width: 35%; /* Metin alanını genişlet */
+        width: 35%;
+        /* Metin alanını genişlet */
     }
 }
 
@@ -487,32 +626,43 @@ body.loading .side-nav {
 /* Medya Sorgusu: Küçük ekranlar için (Tablet ve Telefon) */
 @media (max-width: 992px) {
     .side-nav {
-        right: 5px; /* Yan navigasyonu sağ kenara biraz daha yaklaştır */
+        right: 5px;
+        /* Yan navigasyonu sağ kenara biraz daha yaklaştır */
     }
 
     .content-wrapper {
-        flex-direction: column; /* Videoyu üste, metni alta al */
-        height: auto; /* Yüksekliği içeriğe göre ayarla */
+        flex-direction: column;
+        /* Videoyu üste, metni alta al */
+        height: auto;
+        /* Yüksekliği içeriğe göre ayarla */
         gap: 2rem;
-        width: 85%; /* Genişliği biraz daralttık */
+        width: 85%;
+        /* Genişliği biraz daralttık */
     }
 
     /* Çift sıralı section'lardaki ters çevirmeyi iptal et */
     .content-section:nth-child(even) .content-wrapper {
-        flex-direction: column; /* Her zaman video üstte olacak şekilde ayarla */
+        flex-direction: column;
+        /* Her zaman video üstte olacak şekilde ayarla */
     }
 
-    .video-container, .text-container {
-        width: 100%; /* Tam genişlik kapla */
+    .video-container,
+    .text-container {
+        width: 100%;
+        /* Tam genişlik kapla */
         height: auto;
-        margin: 0 !important; /* Tüm margin'leri sıfırla */
+        margin: 0 !important;
+        /* Tüm margin'leri sıfırla */
     }
 
     .text-container {
-        height: auto; /* Yüksekliği içeriğe göre otomatik ayarla */
-        min-height: 25vh; /* Çok kısa metinlerde bile minimum bir yükseklik sağla */
+        height: auto;
+        /* Yüksekliği içeriğe göre otomatik ayarla */
+        min-height: 25vh;
+        /* Çok kısa metinlerde bile minimum bir yükseklik sağla */
         padding: 1.5rem;
-        padding-bottom: 4rem; /* Çevir butonunun metnin üzerine gelmemesi için altta boşluk bırak */
+        padding-bottom: 4rem;
+        /* Çevir butonunun metnin üzerine gelmemesi için altta boşluk bırak */
     }
 }
 
@@ -530,7 +680,7 @@ body.loading .side-nav {
 /* VİDEO GÖRÜNMEME SORUNU İÇİN KESİN DÜZELTME */
 /* .video-container içindeki tüm Plyr katmanlarının %100 yükseklik almasını sağla.
    Bu, oynatıcının ve iframe'in doğru şekilde boyutlanmasını garanti eder. */
-.video-container > div,
+.video-container>div,
 .video-container .plyr,
 .video-container .plyr__video-embed {
     width: 100%;
@@ -540,7 +690,8 @@ body.loading .side-nav {
 /* Plyr oynatıcısının içindeki video sarmalayıcısına yuvarlak kenarlık uygula */
 .plyr__video-wrapper--rounded {
     border-radius: 8px;
-    overflow: hidden; /* Bu, iframe'in köşelerinin dışarı taşmasını engeller */
+    overflow: hidden;
+    /* Bu, iframe'in köşelerinin dışarı taşmasını engeller */
 }
 
 /* PLYR.IO OYNATICI ÖZELLEŞTİRMELERİ */
@@ -548,7 +699,8 @@ body.loading .side-nav {
 /* Ortadaki büyük oynat butonunun arkaplanını siyah yap */
 .plyr--video .plyr__control--overlaid {
     background: #000;
-    border: 2px solid white; /* Kenarlık ekleyerek daha belirgin yapalım */
+    border: 2px solid white;
+    /* Kenarlık ekleyerek daha belirgin yapalım */
 }
 
 /* Butonun içindeki üçgen SVG ikonunu beyaz yap */
@@ -570,9 +722,11 @@ body.loading .side-nav {
     top: 0;
     left: 0;
     right: 0;
-    height: 50px; /* YouTube'un üst barını kapatacak kadar yükseklik */
+    height: 50px;
+    /* YouTube'un üst barını kapatacak kadar yükseklik */
     background-color: #000;
-    z-index: 3; /* Plyr kontrollerinin altında, iframe'in üstünde kalmalı */
+    z-index: 3;
+    /* Plyr kontrollerinin altında, iframe'in üstünde kalmalı */
 }
 
 /* Bu kural, Plyr'ın kendi kontrollerinin (oynatma çubuğu, ses ayarı vb.)
@@ -582,21 +736,87 @@ body.loading .side-nav {
 }
 
 /* Bölümlere Özel Arka Plan Resimleri */
-#section1-1 { background-image: url('images/song-bg1.jpg'); }
-#section1-2 { background-image: url('images/song-bg2.png'); }
-#section1-3 { background-image: url('images/song-bg3.jpg'); }
+#section1-1 {
+    background-image: url('images/song-bg1.jpg');
+}
 
-#section2-1 { background-image: url('images/song-bg4.png'); }
-#section2-2 { background-image: url('images/song-bg5.png'); }
-#section2-3 { background-image: url('images/song-bg6.jpg'); }
+#section1-2 {
+    background-image: url('images/song-bg2.png');
+}
 
-#section3-1 { background-image: url('images/song-bg7.jpg'); }
-#section3-2 { background-image: url('images/song-bg8.jpg'); }
-#section3-3 { background-image: url('images/song-bg9.png'); }
+#section1-3 {
+    background-image: url('images/song-bg3.jpg');
+}
 
-#section4-1 { background-image: url('images/song-bg10.png'); }
-#section4-2 { background-image: url('images/song-bg11.jpg'); }
+#section2-1 {
+    background-image: url('images/song-bg4.png');
+}
+
+#section2-2 {
+    background-image: url('images/song-bg5.png');
+}
+
+#section2-3 {
+    background-image: url('images/song-bg6.jpg');
+}
+
+#section3-1 {
+    background-image: url('images/song-bg7.jpg');
+}
+
+#section3-2 {
+    background-image: url('images/song-bg8.jpg');
+}
+
+#section3-3 {
+    background-image: url('images/song-bg9.png');
+}
+
+#section4-1 {
+    background-image: url('images/song-bg10.png');
+}
+
+#section4-2 {
+    background-image: url('images/song-bg11.jpg');
+}
+
+/* Yeni eklenen son bölüm için arka plan */
+#section5-1 {
+    background-image: url('images/end.png');
+}
+
+/* Sadece metin içeren bölüm için özel yerleşim */
+.text-only-section .content-wrapper {
+    align-self: flex-start; /* Kendisini bölümün dikeyde en üstüne hizala */
+    margin-top: 10vh; /* Bölümün üstünden %10 kadar aşağıda konumlandır */
+}
+
+.text-only-section .text-container {
+    width: 60%; /* Daha geniş bir metin alanı */
+    height: 40vh; /* Yüksekliği biraz azalttık, bu da metni yukarı çeker */
+    max-width: 900px; /* Çok geniş ekranlarda fazla yayılmasını engelle */
+}
+
 
 /* Banner ve Bölüm Başlıkları için varsayılan arka planlar */
-.banner { background-image: url('images/bg.gif'); }
-.part-header { background-image: url('images/part-header-bg.jpg'); }
+.banner {
+    background-image: url('images/bg.gif');
+}
+
+.part-header {
+    background-image: url('images/part-header-bg.jpg');
+}
+
+/* Satır satır metin animasyonu için stiller */
+.original-text p {
+    opacity: 0; /* Başlangıçta tüm paragraf gizli */
+}
+
+@keyframes line-fade-in {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.line-reveal {
+    display: inline-block; /* Transform için block seviyesi gerekli */
+    animation: line-fade-in 0.8s ease forwards;
+}
