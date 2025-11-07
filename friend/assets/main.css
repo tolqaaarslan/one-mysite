@@ -75,11 +75,16 @@ body.loading .side-nav {
 /* 1. Site Header */
 .site-header {
     position: relative;
+    position: sticky; /* Sayfa kaydırıldığında yukarıda sabit kalması için */
     top: 0;
     left: 0;
     width: 100%;
     padding: 1rem 1.5rem;
     background-color: rgba(0, 0, 0, 0.452);
+    /* Buzlu cam efekti için arkaplan */
+    background-color: rgba(20, 20, 20, 0.5); /* Hafif şeffaf koyu renk */
+    backdrop-filter: blur(10px); /* Arkaplanı bulanıklaştırma (Buzlu cam efekti) */
+    -webkit-backdrop-filter: blur(10px); /* Safari uyumluluğu için */
     z-index: 100;
     display: flex;
     align-items: center;
@@ -149,8 +154,9 @@ body.loading .side-nav {
 
 /* 2. Banner */
 .banner {
-    height: 90vh;
+    height: 100vh;
     /* margin-top: 60px; Artık header relative olduğu için bu gereksiz. */
+    overflow: hidden; /* Video taşmasını ve yatay kaydırmayı engellemek için eklendi */
 }
 
 .banner h1 {
@@ -166,15 +172,15 @@ body.loading .side-nav {
 
 /* Banner arka plan videosu için stiller */
 .banner-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed; /* Sayfa kaysa bile sabit kalır */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Ekran yüksekliği kadar */
+    object-fit: cover; /* Videonun en-boy oranını koruyarak alanı kaplamasını sağlar */
+    z-index: -1; /* Tüm diğer içeriklerin arkasında kalması için */
     min-width: 100%;
     min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 0; /* Karartma efektinin (::before) ve yazının (h1) arkasında kalması için */
 }
 
 /* İmlecin yanıp sönme animasyonu */
@@ -204,63 +210,68 @@ body.loading .side-nav {
     background-image:
         linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%),
         /* Üstteki resme (gif) gölge */
-        url('images/song-bg1.webp'),
+        url('../images/bg1.webp'),
         /* Alttaki bölümün resmi */
-        url('images/bg.gif');
+        url('../images/bg.mp4');
     /* Üstteki bölümün resmi */
     background-position: center bottom, center top;
     /* Resimleri konumlandır */
     background-size: cover;
     color: #FFFFFF;
+    background-color: #00000050;
 }
 
 /* part2-header: section1-3 (song-bg3.webp) ile section2-1 (song-bg4.webp) arasında köprü kurar */
 #part2-header {
     background-image:
-        url('images/song-bg4.webp'),
+        url('../images/bg4.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg3.webp');
+        url('../images/bg3.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     /* Resimleri konumlandır */
     background-size: cover;
     color: #FFFFFF;
+    background-color: #00000050;
 }
 
 /* part3-header: section2-3 (song-bg6.webp) ile section3-1 (song-bg7.webp) arasında köprü kurar */
 #part3-header {
     background-image:
-        url('images/song-bg7.webp'),
+        url('../images/bg9.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg6.webp');
+        url('../images/bg8.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
+    background-color: #00000050;
 }
 
 /* part4-header: section3-3 (song-bg9.webp) ile section4-1 (song-bg10.webp) arasında köprü kurar */
 #part4-header {
     background-image:
-        url('images/song-bg10.webp'),
+        url('../images/bg12.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg9.webp');
+        url('../images/bg11.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
+    background-color: #00000050;
 }
 
 /* part5-header: section4-2 (song-bg11.webp) ile section5-1 (song-bg12.webp) arasında köprü kurar */
 #part5-header {
     background-image:
-        url('images/end.webp'),
+        url('../images/end.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg11.webp');
+        url('../images/bg11.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
+    background-color: #00000050;
 }
 
 
@@ -405,6 +416,7 @@ body.loading .side-nav {
     display: none;
 }
 
+
 .translate-btn {
     position: absolute;
     /* Mutlak konumlandırma */
@@ -443,57 +455,74 @@ body.loading .side-nav {
 
 /* Her metin kutusu için özel boyutlandırma ve hizalama */
 
-.text1 p {
+.text1 p, .text1-1 p {
     font-size: 0.95rem;
     line-height: 1.8;
 }
 
-.text2 p {
+.text2 p, .text2-1 p {
     font-size: 1rem;
     line-height: 1.9;
 }
 
-.text3 p {
-    font-size: 0.85rem;
-    /* Bu metin uzun olduğu için fontu küçültüyoruz */
-    line-height: 1.7;
-}
-
-.text4 p {
+.text3 p, .text3-1 p {
     font-size: 0.9rem;
     line-height: 1.7;
 }
 
-.text5 p {
+.text4 p, .text4-1 p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.text5 p, .text5-1 p {
     font-size: 1.1rem;
     line-height: 1.8;
 }
 
 .text6 p,
-.text7 p,
-.text8 p {
+.text6-1 p {
     font-size: 1.1rem;
     line-height: 1.9;
 }
 
-.text9 p {
-    font-size: 0.9rem;
-    line-height: 1.8;
+.text7 p, .text7-1 p {
+    font-size: 1.2rem;
+    line-height: 2;
 }
 
-.text10 p {
-    font-size: 0.8rem;
-    /* Bu metin çok uzun, fontu küçültüyoruz */
-    line-height: 1.6;
-}
-
-.text11 p {
+.text8 p, .text8-1 p {
     font-size: 0.95rem;
     line-height: 1.8;
 }
 
-.text12 p {
-    font-size: 1.3rem;
+.text9 p, .text9-1 p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.text10 p, .text10-1 p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.text11 p, .text11-1 p {
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.text12 p, .text12-1 p {
+    font-size: 0.8rem;
+    line-height: 1.7;
+}
+
+.text13 p, .text13-1 p {
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+.text14 p, .text14-1 p {
+    font-size: 1rem;
     line-height: 1.9;
 }
 
@@ -617,30 +646,10 @@ body.loading .side-nav {
     background-color: var(--scroll-watcher-color);
 }
 
-/* Medya Sorgusu: Orta boyutlu ekranlar için (Tabletler ve küçük laptoplar) */
-@media (min-width: 993px) and (max-width: 1366px) {
-    .content-wrapper {
-        gap: 2rem;
-        /* Boşluğu azalt */
-    }
-
-    .video-container {
-        width: 65%;
-        /* Video alanını daralt */
-    }
-
-    .text-container {
-        width: 35%;
-        /* Metin alanını genişlet */
-    }
-}
-
-
-/* Medya Sorgusu: Küçük ekranlar için (Tablet ve Telefon) */
-@media (max-width: 992px) {
+/* Medya Sorgusu: Orta ve Küçük ekranlar için (Tabletler, Telefonlar ve küçük laptoplar) */
+@media (max-width: 1366px) {
     .side-nav {
-        right: 5px;
-        /* Yan navigasyonu sağ kenara biraz daha yaklaştır */
+        display: none; /* Yan navigasyonu bu ekranlarda gizle */
     }
 
     .content-wrapper {
@@ -648,9 +657,8 @@ body.loading .side-nav {
         /* Videoyu üste, metni alta al */
         height: auto;
         /* Yüksekliği içeriğe göre ayarla */
-        gap: 2rem;
-        width: 85%;
-        /* Genişliği biraz daralttık */
+        gap: 3rem; /* Boşluğu biraz artırdık */
+        width: 90%; /* Genişliği ayarladık */
     }
 
     /* Çift sıralı section'lardaki ters çevirmeyi iptal et */
@@ -663,6 +671,7 @@ body.loading .side-nav {
     .text-container {
         width: 100%;
         /* Tam genişlik kapla */
+        max-width: 100%; /* max-width'i sıfırla */
         height: auto;
         margin: 0 !important;
         /* Tüm margin'leri sıfırla */
@@ -677,6 +686,27 @@ body.loading .side-nav {
         padding-bottom: 4rem;
         /* Çevir butonunun metnin üzerine gelmemesi için altta boşluk bırak */
     }
+
+    /* Sadece metin içeren son bölümün mobil cihazlarda dikey olarak da ortalanmasını sağla */
+    .text-only-section .content-wrapper {
+        align-items: center; /* flex-direction: column olduğu için bu yatayda ortalar */
+        padding-top: 0; /* Üstteki boşluğu kaldır */
+        height: auto; /* Yüksekliğin tamamını kaplamasını sağla */
+        margin-top: -50vh;
+    }
+}
+
+@media (max-width: 768px) {
+    #part5-header {
+    background-image:
+        url('../images/end-m.webp'),
+        /* Alttaki bölümün resmi */
+        url('../images/bg11.webp');
+    /* Üstteki bölümün resmi */
+    background-position: center top, center bottom;
+    background-size: cover;
+    color: #FFFFFF;
+}
 }
 
 .plyr__video-embed iframe {
@@ -750,63 +780,79 @@ body.loading .side-nav {
 
 /* Bölümlere Özel Arka Plan Resimleri */
 #section1-1 {
-    background-image: url('images/song-bg1.webp');
+    background-image: url('../images/bg1.webp');
 }
 
 #section1-2 {
-    background-image: url('images/song-bg2.webp');
+    background-image: url('../images/bg2.webp');
 }
 
 #section1-3 {
-    background-image: url('images/song-bg3.webp');
+    background-image: url('../images/bg3.webp');
 }
 
 #section2-1 {
-    background-image: url('images/song-bg4.webp');
+    background-image: url('../images/bg4.webp');
 }
 
 #section2-2 {
-    background-image: url('images/song-bg5.webp');
+    background-image: url('../images/bg5.webp');
 }
 
 #section2-3 {
-    background-image: url('images/song-bg6.webp');
+    background-image: url('../images/bg6.webp');
+}
+
+#section2-4 {
+    background-image: url('../images/bg7.webp');
+}
+
+#section2-5 {
+    background-image: url('../images/bg8.webp');
 }
 
 #section3-1 {
-    background-image: url('images/song-bg7.webp');
+    background-image: url('../images/bg9.webp');
 }
 
 #section3-2 {
-    background-image: url('images/song-bg8.webp');
+    background-image: url('../images/bg10.webp');
 }
 
 #section3-3 {
-    background-image: url('images/song-bg9.webp');
+    background-image: url('../images/bg11.webp');
 }
 
 #section4-1 {
-    background-image: url('images/song-bg10.webp');
+    background-image: url('../images/bg12.webp');
 }
 
 #section4-2 {
-    background-image: url('images/song-bg11.webp');
+    background-image: url('../images/bg13.webp');
+}
+
+#section4-3 {
+    background-image: url('../images/bg14.webp');
 }
 
 /* Yeni eklenen son bölüm için arka plan */
 #section5-1 {
-    background-image: url('images/end.webp');
+    background-image: url('../images/end.webp');
 }
 
 /* Sadece metin içeren bölüm için özel yerleşim */
 .text-only-section .content-wrapper {
-    align-self: flex-start; /* Kendisini bölümün dikeyde en üstüne hizala */
-    margin-top: 10vh; /* Bölümün üstünden %10 kadar aşağıda konumlandır */
+    justify-content: center; /* İçerisindeki tek elemanı (text-container) yatayda ortala */
+    width: 100%; /* Başlıkla hizalamak için genişliği %100 yap */
+    align-items: center start; /* İçerisindeki elemanı dikeyde en üste hizala */
+     /* Bölümün üstünden boşluğu azalttık */
+    height: 100%; /* content-wrapper'ın tüm bölüm yüksekliğini kullanmasını sağla */
+    margin-top: -50vh;
 }
 
 .text-only-section .text-container {
-    width: 60%; /* Daha geniş bir metin alanı */
-    height: 40vh; /* Yüksekliği biraz azalttık, bu da metni yukarı çeker */
+    width: 90%; /* Metin alanının genişliği */
+    height: auto; /* Yüksekliği içeriğe göre ayarla */
     max-width: 900px; /* Çok geniş ekranlarda fazla yayılmasını engelle */
 }
 
@@ -817,19 +863,11 @@ body.loading .side-nav {
 }
 
 .part-header {
-    background-image: url('images/part-header-bg.webp');
+    background-image: url('../images/part-header-bg.webp');
 }
 
-/* Satır satır metin animasyonu için stiller */
-.original-text p {
-    opacity: 0; /* Başlangıçta tüm paragraf gizli */
-}
-
-@keyframes line-fade-in {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.line-reveal {
-    display: inline-block; /* Transform için block seviyesi gerekli */
-    animation: line-fade-in 0.8s ease forwards;
+@media (max-width: 768px) {
+  #section5-1 {
+    background-image: url('../images/end-m.webp') !important;
+  }
 }

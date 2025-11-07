@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dinamik Web Sitesi</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/main.css">
     <!-- Plyr.io CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" />
     <!-- Google Fonts: Special Elite -->
@@ -26,6 +26,11 @@
         <div class="logo"><a href="www.tolqaarslan.com">tolga arslan</a></div>
     </header>
 
+    <!-- Arka Plan Videosu -->
+    <video autoplay muted loop playsinline class="banner-video">
+        <source src="images/bg.mp4" type="video/mp4">
+    </video>
+
     <!-- 10. Yan Navigasyon -->
     <nav class="side-nav">
         <button class="nav-arrow up" id="nav-up" style="display: none;">&#9650;</button>
@@ -38,27 +43,27 @@
     <main>
         <!-- 2. Banner -->
         <section id="banner" class="full-screen-section banner" data-nav-label="Banner">
-            <video autoplay muted loop playsinline class="banner-video">
-                <source src="images/bg.mp4" type="video/mp4">
-            </video>
             <h1 id="typewriter-text"></h1>
         </section>
 
-        <!-- BÖLÜM 1 -->
+        <!-- Group 1 -->
         <div class="part-header" id="part1-header" class="part1-header" data-nav-label="Bölüm 1">
-            <h2>echoes of the past</h2>
+            <h2>somewhere i belonged</h2>
         </div>
 
-        <!-- Group 1 Section 1 -->
+        <!-- Group 1 Section 1-->
+
         <section id="section1-1" class="content-section" data-nav-label="1.1">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="RgKAFK5djSk" data-glow-color="#101010">
+                <div class="video-container" 
+                data-youtube-id="RgKAFK5djSk" 
+                data-glow-color="#101010">
 
                     <!-- See You Again -->
 
                 </div>
-                <div class="text-container text1">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text1">
                         <p>
                             It's been a long day without you my friend ...<br>
                             First you both go out your way<br>
@@ -74,9 +79,9 @@
                             So remember me when I'm gone
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text1-1 hidden">
                         <p>
-                            Sensiz uzun bir gün geçti dostum ...<br><br>
+                            Sensiz uzun bir gün geçti dostum ...<br>
                             Ve ilk başta ikiniz de kendi yolunuza gittiniz<br>
                             Ve aranızdaki his güçlüydü<br>
                             Küçük bir şey dostluğa dönüştü<br>
@@ -103,18 +108,20 @@
             </div>
         </section>
 
-        <!-- Group 1 Section 2 -->
+        <!-- Group 1 Section 2-->
 
         <section id="section1-2" class="content-section" data-nav-label="1.2">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="j7GO7AoehFs" data-start-seconds="24"
-                    data-glow-color="#7a7977">
+                <div class="video-container" 
+                data-youtube-id="j7GO7AoehFs" 
+                data-start-seconds="24" 
+                data-glow-color="#7a7977">
 
-                    <!-- Somewhere Only We Know -->
+                <!-- Somewhere Only We Know -->
 
                 </div>
-                <div class="text-container text2">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text2">
                         <p>
                             Oh, simple thing, where have you gone?<br>
                             I'm getting old and I need something to rely on<br>
@@ -126,7 +133,7 @@
                             So why don't we go somewhere only we know?
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text2-1 hidden">
                         <p>
                             Ah, sade şey, nereye gittin?<br>
                             Yaşlanıyorum ve dayanacak bir şeye ihtiyacım var<br>
@@ -151,18 +158,20 @@
             </div>
         </section>
 
-        <!-- Group 1 Section 3 -->
+        <!-- Group 1 Section 3-->
 
         <section id="section1-3" class="content-section" data-nav-label="1.3">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="Pfx7d4qhC5E" data-start-seconds="38"
-                    data-glow-color="#c79859">
+                <div class="video-container" 
+                data-youtube-id="Pfx7d4qhC5E" 
+                data-start-seconds="38" 
+                data-glow-color="#c79859">
 
                     <!-- Bedshaped -->
 
                 </div>
-                <div class="text-container text3">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text3">
                         <p>
                             Many's the time I ran with you down <br>
                             The rainy roads of our old town<br>
@@ -180,10 +189,10 @@
                             I don't think so <br>
                             But what do I know? <br>
                             What do I know? <br>
-                            I know ...
+                            I know...
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text3-1 hidden">
                         <p>
                             Seninle birlikte koştuğum çok zaman oldu<br>
                             Eski kasabamızın yağmurlu yollarında<br>
@@ -226,13 +235,15 @@
 
         <section id="section2-1" class="content-section" data-nav-label="2.1">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="7NK_JOkuSVY" data-glow-color="#000102">
+                <div class="video-container" 
+                data-youtube-id="7NK_JOkuSVY" 
+                data-glow-color="#000102">
 
-                    <!-- Lost-->
+                    <!-- Lost -->
 
                 </div>
-                <div class="text-container text4">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text4">
                         <p>
                             Just a scar somewhere down inside of me<br>
                             Something I can not repair<br>
@@ -248,7 +259,7 @@
                             But I will never be alright
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text4-1 hidden">
                         <p>
                             İçimde bir yerlerde bir yara izi var<br>
                             Onaramadığım bir şey<br>
@@ -281,13 +292,15 @@
 
         <section id="section2-2" class="content-section" data-nav-label="2.2">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="oM-XJD4J36U" data-glow-color="#070707">
+                <div class="video-container" 
+                data-youtube-id="oM-XJD4J36U" 
+                data-glow-color="#070707">
 
-                    <!-- Until It's Gone-->
+                    <!-- Until It's Gone -->
 
                 </div>
-                <div class="text-container text5">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text5">
                         <p>
                             <br><br><br>
                             That you don't know what you've got <br>
@@ -299,7 +312,7 @@
                             Funny how life has its own sense of irony. "
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text5-1 hidden">
                         <p>
                             Sahip olduklarının değerini bilmezsin <br>
                             Ah, sahip olduklarının değerini bilmezsin <br>
@@ -329,13 +342,15 @@
 
         <section id="section2-3" class="content-section" data-nav-label="2.3">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="yZIummTz9mM" data-glow-color="#070d14">
+                <div class="video-container" 
+                data-youtube-id="yZIummTz9mM" 
+                data-glow-color="#070d14">
 
-                    <!-- Leave Out All The Rest-->
+                    <!-- Leave Out All The Rest -->
 
                 </div>
-                <div class="text-container text6">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text6">
                         <p>
                             When my time comes<br>
                             Forget the wrong that I've done<br>
@@ -347,7 +362,7 @@
                             Leave out all the rest
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text6-1 hidden">
                         <p>
                             Zamanım geldiğinde<br>
                             Yaptığım yanlışları unut<br>
@@ -372,31 +387,33 @@
             </div>
         </section>
 
-        <!-- Group 2 Section 4 -->
+                <!-- Group 2 Section 4 -->
 
         <section id="section2-4" class="content-section" data-nav-label="2.4">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="yZIummTz9mM" data-glow-color="#070d14">
+                <div class="video-container" 
+                data-youtube-id="rLm_aSP369M" 
+                data-glow-color="#a17134">
 
                     <!-- The Scientist -->
 
                 </div>
-                <div class="text-container text6">
-                    <div class="original-text">
-                        <p>
-                            Nobody said it was easy<br>
-                            It's such a shame for us to part<br>
-                            Nobody said it was easy<br>
-                            No one ever said it would be this hard<br>
-                        </p>
+                <div class="text-container">
+                    <div class="original-text text7">
+                            <p>
+                                Nobody said it was easy<br>
+                                It's such a shame for us to part<br>
+                                Nobody said it was easy<br>
+                                No one ever said it would be this hard<br>
+                            </p>
                     </div>
-                    <div class="translated-text hidden">
-                        <p>
-                            Kimse bunun kolay olacağını söylemedi<br>
-                            Ayrılmak bizim için çok üzücü<br>
-                            Kimse kolay olacağını söylemedi<br>
-                            Kimse bu kadar zor olacağını söylemedi<br><br><br>
-                        </p>
+                    <div class="translated-text text7-1 hidden">
+                            <p>
+                                Kimse bunun kolay olacağını söylemedi<br>
+                                Ayrılmak bizim için çok üzücü<br>
+                                Kimse kolay olacağını söylemedi<br>
+                                Kimse bu kadar zor olacağını söylemedi<br><br><br>
+                            </p>
                     </div>
                     <button class="translate-btn" title="Çevir">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -411,17 +428,19 @@
             </div>
         </section>
 
-        <!-- Group 2 Section 4 -->
+                        <!-- Group 2 Section 5 -->
 
         <section id="section2-5" class="content-section" data-nav-label="2.5">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="yZIummTz9mM" data-glow-color="#070d14">
+                <div class="video-container" 
+                data-youtube-id="Tm8LGxTLtQk" 
+                data-glow-color="#070d12">
 
                     <!-- One More Light -->
 
                 </div>
-                <div class="text-container text6">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text8">
                             <p>
                                 We saw brilliance when the world was asleep<br>
                                 There are things that we can have, but can't keep if they say<br><br>
@@ -433,7 +452,7 @@
                                 Well, I do.
                             </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text8-1 hidden">
                             <p>
                                 Mükemmelliği gördük, tüm dünya uykudayken <br>
                                 Sahip olabileceğimiz ama tutamayacağımız şeyler var. Derlerse ki:<br><br>
@@ -460,20 +479,22 @@
 
         <!-- Group 3 Header -->
         <div class="part-header" id="part3-header" class="part3-header" data-nav-label="Bölüm 3">
-            <h2>silence and light</h2>
+            <h2>the quiet acceptance</h2>
         </div>
 
         <!-- Group 3 Section 1 -->
 
         <section id="section3-1" class="content-section" data-nav-label="3.1">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="n1PCW0C1aiM" data-glow-color="#070d12">
+                <div class="video-container" 
+                data-youtube-id="P8jOQUsTU9o" 
+                data-glow-color="#1e201d">
 
                     <!-- Everglow -->
 
                 </div>
-                <div class="text-container text7">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text9">
                             <p>
                                 Oh they say people come, say people go<br>
                                 This particular diamond was extra special<br>
@@ -486,7 +507,7 @@
                                 When I should but I can’t let you go?
                             </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text9-1 hidden">
                             <p>
                                 Derler ki insanlar gelir, insanlar gider<br>
                                 Ama bu elmas, bu kişi, çok özeldi<br>
@@ -517,12 +538,15 @@
 
         <section id="section3-2" class="content-section" data-nav-label="3.2">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="rLm_aSP369M" data-glow-color="#a17134">
-                    
+                <div class="video-container" 
+                data-youtube-id="LzZW2jfUwEs" 
+                data-glow-color="#1d1e18">
+
                     <!-- Why Does It Always Rain on Me -->
+
                 </div>
-                <div class="text-container text8">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text10">
                             <p>
                                 Why does it always rain on me? <br>
                                 Is it because I lied when I was seventeen? <br><br>
@@ -533,15 +557,15 @@
 
                             </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text10-1 hidden">
                             <p>
                                 Neden hep benim üstüme yağmur yağıyor?
                                 17 yaşında yalan söylediğim için mi? <br><br>
 
                                 Kendime bile katlanamıyorum, görünmez eller tarafından tutuluyorum. <br><br>
 
-                                Güneşli günler, nereye gittiniz?
-                        </div>
+                                Güneşli günler, nereye gittiniz? 
+                            </p>
                     </div>
                     <button class="translate-btn" title="Çevir">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -554,20 +578,21 @@
                     </button>
                 </div>
             </div>
-        </section>
+        </section> 
 
         <!-- Group 3 Section 3 -->
 
         <section id="section3-3" class="content-section" data-nav-label="3.3">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="if_PNmVE5uQ" data-start-seconds="11"
-                    data-glow-color="#1e201d">
+                <div class="video-container" 
+                data-youtube-id="Xm9np-rL1bI" 
+                data-glow-color="#0f171f">
 
                     <!-- Tell Me How -->
-                
+
                 </div>
-                <div class="text-container text9">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text11">
                             <p>
                                 I can’t call you a stranger, but I can’t call you <br>
                                 I know you think that I erased you <br>
@@ -585,11 +610,10 @@
                                 Take me down with your quiet <br>
                                 Of all the weapons you fight with <br>
                                 Your silence is/was the most violent
-
                             </p>
                     </div>
-                    <div class="translated-text hidden">
-                            <p>
+                    <div class="translated-text text11-1 hidden">
+                        <p>
                                 Sana “yabancı” diyemem ama seni arayamam da.<br>
                                 Biliyorum, beni seni sildim sanıyorsun.<br>
                                 Benden nefret ediyor olabilirsin ama ben senden edemem.<br>
@@ -606,7 +630,7 @@
                                 Sakinliğinle beni parçalara ayır.<br>
                                 Savaştığın tüm bu silahlar arasından<br>
                                 Sessizliğin en şiddetlisi/ydi.<br><br><br>
-                            </p>
+                        </p>
                     </div>
                     <button class="translate-btn" title="Çevir">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -621,22 +645,24 @@
             </div>
         </section>
 
-        <!-- Group 4 Header  -->
+        <!-- Group 4 Header -->
         <div class="part-header" id="part4-header" class="part4-header" data-nav-label="Bölüm 4">
-            <h2>breathe again</h2>
+            <h2>the morning after the longest night</h2>
         </div>
 
         <!-- Group 4 Section 1 -->
 
         <section id="section4-1" class="content-section" data-nav-label="4.1">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="Y2NkuFIlLEo" data-glow-color="#1d1e18">
+                <div class="video-container" 
+                data-youtube-id="Y2NkuFIlLEo" 
+                data-glow-color="#1d1e18">
 
-                    <!-- Wrecked -->
+                    <!-- Wreck -->
 
                 </div>
-                <div class="text-container text10">
-                    <div class="original-text">
+                <div class="text-container">
+                    <div class="original-text text12">
                         <p>
                             Days pass by and my eyes stay dry and I think that I'm okay<br>
                             'Til I find myself in conversation fading away<br><br>
@@ -655,7 +681,7 @@
                             But everything, it reminds me of you and it comes in waves
                         </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text12-1 hidden">
                         <p>
                             Günler geçiyor, gözlerim kuru kalıyor ve iyi olduğumu sanıyorum<br>
                             Ta ki kendimi kaybolan bir konuşmanın içinde bulana kadar<br><br>
@@ -691,12 +717,15 @@
 
         <section id="section4-2" class="content-section" data-nav-label="4.2">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="ghb6eDopW8I" data-glow-color="#0f171f">
+                <div class="video-container" 
+                data-youtube-id="XoYu7K6Ywkg" 
+                data-glow-color="#0f171f">
 
-                    <!-- Last Hope -->
-                </div>
-                <div class="text-container text11">
-                    <div class="original-text">
+                <!-- Last Hope -->
+
+            </div>
+                <div class="text-container">
+                    <div class="original-text text13">
                             <p>
                                 It’s just a spark, but it’s enough to keep me going. <br><br>
                                 And the salt in my wounds <br>
@@ -708,7 +737,7 @@
 
                             </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text13-1 hidden">
                             <p>
                                 Sadece bir kıvılcım, ama devam etmem için yeterli. <br><br>
                                 Ve yaralarımdaki tuz<br>
@@ -734,16 +763,18 @@
 
         <!-- Group 4 Section 3 -->
 
-                <section id="section4-3" class="content-section" data-nav-label="4.3">
+                <section id="section4-3" class="content-section" data-nav-label="4.2">
             <div class="content-wrapper">
-                <div class="video-container" data-youtube-id="ghb6eDopW8I" data-glow-color="#0f171f">
+                <div class="video-container" 
+                data-youtube-id="ghb6eDopW8I" 
+                data-glow-color="#0f171f">
 
-                    <!-- Last Hope -->
+                <!-- Little Talks -->
 
-                </div>
-                <div class="text-container text11">
-                    <div class="original-text">
-                           <p>
+            </div>
+                <div class="text-container">
+                    <div class="original-text text14">
+                            <p>
                                 There's an old voice in my head <br>
                                 That's holding me back <br>
                                 Well, tell her that <br>
@@ -756,7 +787,7 @@
                                 Just let me go <br>
                             </p>
                     </div>
-                    <div class="translated-text hidden">
+                    <div class="translated-text text14-1 hidden">
                             <p>
                                 Kafamın içinde eski bir ses var<br>
                                 Beni geriye çeken<br>
@@ -783,6 +814,8 @@
             </div>
         </section>
 
+
+
         <!-- BÖLÜM 5 (YENİ) -->
         <div class="part-header" id="part5-header" data-nav-label="Bölüm 5">
             <h2>one last goodbye</h2>
@@ -792,28 +825,31 @@
                 <div class="text-container text12">
                     <div class="original-text">
                         <p>
-                            In the end, it's not the years in your life that count. <br>
-                            It's the life in your years. <br><br>
-                            The story isn't about the end. <br>
-                            It's about the moments that led us here. <br>
-                            The echoes of laughter, the shared silence, the unspoken bond. <br>
-                            They don't fade away. They become a part of who we are. <br>
-                            A somewhere we belong.
+                            In the end, we don’t really lose people, <br>
+                            We just carry them differently.<br>
+                            In memories, in songs, in quiet moments no one else sees.<br> <br>
+                            Sometimes I still think, I wish it hadn’t turned out this way. <br>
+                            But maybe it had to. <br>
+                            Maybe we were meant to walk together only for a while, <br>
+                            long enough to leave traces that time couldn’t erase. <br><br>
+                            We may have drifted apart, <br>
+                            but some part of you both still walks with me — quietly, peacefully. <br>
                         </p>
                     </div>
                     <div class="translated-text hidden">
-                        <p>Sonunda, hayatınızdaki yıllar değil, yıllarınızdaki hayat önemlidir.<br><br>Bu hikaye sonla
-                            ilgili değil. Bizi buraya getiren anlarla ilgili. Kahkahaların yankıları, paylaşılan
-                            sessizlik, söylenmemiş bağ. Onlar kaybolmazlar. Kim olduğumuzun bir parçası olurlar. Ait
-                            olduğumuz bir yer.</p>
+                        <p>
+                            Sonunda, insanları gerçekten kaybetmeyiz,<br>
+                            Onları sadece farklı şekillerde taşırız.<br>
+                            Anılarda, şarkılarda, başkalarının görmediği sessiz anlarda.<br><br>
+                            Bazen hâlâ düşünüyorum, keşke işler böyle olmasaydı diye.<br>
+                            Ama belki de olması gerekiyordu.<br>
+                            Belki de bir süreliğine birlikte yürümemiz gerekiyordu,<br>
+                            zamanın silemeyeceği izler bırakacak kadar uzun bir süre.<br><br>
+                            Belki de birbirimizden uzaklaştık,<br>
+                            ama senin bir parçan hâlâ benimle yürüyor — sessizce, huzur içinde.
+                        </p>
                     </div>
-                    <button class="translate-btn" title="Çevir"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
-                            <path
-                                d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
-                            <path
-                                d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
-                        </svg></button>
+                    <button class="translate-btn" title="Çevir"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16"><path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/><path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/></svg></button>
                 </div>
             </div>
             <!-- YENİ EKLENEN BUTON VE YAZI ALANI -->
@@ -836,7 +872,7 @@
     <!-- Plyr.io JS -->
     <script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
     <!-- Kendi script'imiz Plyr'dan SONRA gelmeli -->
-    <script src="script.js"></script>
+    <script src="assets/main.js"></script>
 
 </body>
 
