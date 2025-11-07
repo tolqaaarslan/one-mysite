@@ -321,3 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+const sections = document.querySelectorAll('[data-bg]');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.backgroundImage = `url(${e.target.dataset.bg})`;
+      obs.unobserve(e.target);
+    }
+  });
+});
+sections.forEach(s => obs.observe(s));
