@@ -199,14 +199,14 @@ body.loading .side-nav {
 }
 
 /* Bölüm Başlıkları için Özel Stiller */
-/* part1-header: Banner (bg.gif) ile section1-1 (song-bg1.webp) arasında köprü kurar */
+/* part1-header: Banner (bg.gif) ile section1-1 (bg1.webp) arasında köprü kurar */
 #part1-header {
     background-image:
         linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%),
         /* Üstteki resme (gif) gölge */
-        url('images/song-bg1.webp'),
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg1.webp'),
         /* Alttaki bölümün resmi */
-        url('images/bg.gif');
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg.mp4');
     /* Üstteki bölümün resmi */
     background-position: center bottom, center top;
     /* Resimleri konumlandır */
@@ -214,12 +214,12 @@ body.loading .side-nav {
     color: #FFFFFF;
 }
 
-/* part2-header: section1-3 (song-bg3.webp) ile section2-1 (song-bg4.webp) arasında köprü kurar */
+/* part2-header: section1-3 (bg3.webp) ile section2-1 (bg4.webp) arasında köprü kurar */
 #part2-header {
     background-image:
-        url('images/song-bg4.webp'),
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg4.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg3.webp');
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg3.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     /* Resimleri konumlandır */
@@ -227,36 +227,36 @@ body.loading .side-nav {
     color: #FFFFFF;
 }
 
-/* part3-header: section2-3 (song-bg6.webp) ile section3-1 (song-bg7.webp) arasında köprü kurar */
+/* part3-header: section2-3 (bg6.webp) ile section3-1 (bg7.webp) arasında köprü kurar */
 #part3-header {
     background-image:
-        url('images/song-bg7.webp'),
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg7.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg6.webp');
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg6.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
 }
 
-/* part4-header: section3-3 (song-bg9.webp) ile section4-1 (song-bg10.webp) arasında köprü kurar */
+/* part4-header: section3-3 (bg9.webp) ile section4-1 (bg10.webp) arasında köprü kurar */
 #part4-header {
     background-image:
-        url('images/song-bg10.webp'),
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg10.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg9.webp');
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg9.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
     color: #FFFFFF;
 }
 
-/* part5-header: section4-2 (song-bg11.webp) ile section5-1 (song-bg12.webp) arasında köprü kurar */
+/* part5-header: section4-2 (bg11.webp) ile section5-1 (bg12.webp) arasında köprü kurar */
 #part5-header {
     background-image:
-        url('images/end.webp'),
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/end.webp'),
         /* Alttaki bölümün resmi */
-        url('images/song-bg11.webp');
+        url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg11.webp');
     /* Üstteki bölümün resmi */
     background-position: center top, center bottom;
     background-size: cover;
@@ -750,52 +750,52 @@ body.loading .side-nav {
 
 /* Bölümlere Özel Arka Plan Resimleri */
 #section1-1 {
-    background-image: url('images/song-bg1.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg1.webp');
 }
 
 #section1-2 {
-    background-image: url('images/song-bg2.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg2.webp');
 }
 
 #section1-3 {
-    background-image: url('images/song-bg3.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg3.webp');
 }
 
 #section2-1 {
-    background-image: url('images/song-bg4.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg4.webp');
 }
 
 #section2-2 {
-    background-image: url('images/song-bg5.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg5.webp');
 }
 
 #section2-3 {
-    background-image: url('images/song-bg6.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg6.webp');
 }
 
 #section3-1 {
-    background-image: url('images/song-bg7.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg7.webp');
 }
 
 #section3-2 {
-    background-image: url('images/song-bg8.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg8.webp');
 }
 
 #section3-3 {
-    background-image: url('images/song-bg9.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg9.webp');
 }
 
 #section4-1 {
-    background-image: url('images/song-bg10.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg10.webp');
 }
 
 #section4-2 {
-    background-image: url('images/song-bg11.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/bg11.webp');
 }
 
 /* Yeni eklenen son bölüm için arka plan */
 #section5-1 {
-    background-image: url('images/end.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/end.webp');
 }
 
 /* Sadece metin içeren bölüm için özel yerleşim */
@@ -817,7 +817,7 @@ body.loading .side-nav {
 }
 
 .part-header {
-    background-image: url('images/part-header-bg.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/part-header-bg.webp');
 }
 
 /* Satır satır metin animasyonu için stiller */
