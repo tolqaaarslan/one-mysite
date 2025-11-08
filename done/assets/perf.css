@@ -1,0 +1,18 @@
+/* Performance overrides: safe, easily removable */
+@media (max-width:1024px){.banner,.part-header,.content-section{background-attachment:scroll!important}}
+
+/* GPU hints for animated wrappers */
+.content-wrapper{will-change:transform,opacity;transform:translate3d(0,0,0)}
+
+/* Reduce main-thread work for offscreen sections */
+.content-section{content-visibility:auto;contain-intrinsic-size:1000px}
+
+/* While scrolling, reduce heavy backdrop filter cost */
+body.is-scrolling .site-header{backdrop-filter:none;-webkit-backdrop-filter:none;background-color:rgba(20,20,20,.9)}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion:reduce){
+  .content-wrapper{transition:none}
+  .banner,.part-header,.content-section{background-attachment:scroll!important}
+}
+
