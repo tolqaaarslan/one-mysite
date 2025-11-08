@@ -162,7 +162,7 @@ body.loading .side-nav {
 
 .part-header h2 {
     font-size: 2rem;
-    font-family: "Amatic SC", cursive;
+    font-family: "Courgette", cursive;
 }
 
 .part-header h2 {
@@ -343,12 +343,6 @@ body.loading .side-nav {
     transform: scale(1.1)
 }
 
-.note {
-    font-size: .9rem;
-    font-family: 'Indie Flower', cursive;
-    color: #00b327;
-    margin-top: 2rem
-}
 
 .text1 p,
 .text1-1 p {
@@ -378,6 +372,13 @@ body.loading .side-nav {
 .text5-1 p {
     font-size: 1.1rem;
     line-height: 1.8
+}
+
+.note {
+    font-family: 'Indie Flower', cursive;
+    color: #00b327;
+    margin-top: 2rem;
+    font-size: 1rem;
 }
 
 .text6 p,
