@@ -1,26 +1,4 @@
-@font-face {
-    font-display: swap;
-    font-family: 'Indie Flower';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2) format('woff2')
-}
-
-@font-face {
-    font-display: swap;
-    font-family: 'Kalam';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/kalam-v18-latin-regular.woff2) format('woff2')
-}
-
-@font-face {
-    font-display: swap;
-    font-family: 'Amatic SC';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/amatic-sc-v28-latin-regular.woff2) format('woff2')
-}
+/* Font faces loaded via Google Fonts in index.html (latin-ext). */
 
 * {
     margin: 0;
