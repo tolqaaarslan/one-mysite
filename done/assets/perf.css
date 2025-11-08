@@ -17,21 +17,17 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
 /* Prevent layout shift during text translation */
 .text-container {
   contain: layout style;
-  position: relative; /* Çocuk öğelerin mutlak konumlandırılması için gereklidir */
+  position: relative;
 }
 .original-text, .translated-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% - 4rem); /* Kenarlardan boşluk bırakmak için */
+  font-family: "Patrick Hand", cursive;
+  width: 100%;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
-  text-align: center; /* Metinlerin her zaman ortalanmasını sağlar */
+  text-align: center;
 }
 .original-text.hidden, .translated-text.hidden {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 
 /* Reset for mobile to avoid positioning conflicts */
@@ -42,17 +38,11 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
     position: relative;
   }
   .original-text, .translated-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% - 2.5rem);
+    position: relative;
+    width: 100%;
     height: auto;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: block;
     text-align: center;
   }
 }
@@ -152,7 +142,7 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
 /* Phones */
 @media (max-width:768px){
   .content-section{height:100vh;min-height:100vh;padding:0}
-  .content-wrapper{gap:1rem;width:96%;height:100%;justify-content:center}
+  .content-wrapper{gap:1rem;width:80%;height:100%;justify-content:center}
   .banner h1{font-size:2.2rem}
   .part-header{height:8vh}
   .part-header h2{font-size:2rem}
@@ -166,13 +156,14 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height:40vh;
+    min-height:50vh;
   }
   .translate-btn{bottom:.5rem;right:.5rem}
   
-  /* Video container mobilde daha büyük */
+  /* Video container mobilde daha küçük */
   .video-container,.vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14{
-    min-height:50vh;
+    min-height:35vh;
+    max-height:40vh;
     margin-bottom:0.5rem;
   }
   
@@ -208,12 +199,13 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height:35vh;
+    min-height:55vh;
   }
   
-  /* Video container çok küçük ekranlarda */
+  /* Video container çok küçük ekranlarda daha da küçük */
   .video-container,.vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14{
-    min-height:55vh;
+    min-height:30vh;
+    max-height:35vh;
     margin-bottom:0.3rem;
   }
   

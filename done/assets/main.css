@@ -1,4 +1,18 @@
-/* Font faces loaded via Google Fonts in index.html (latin-ext). */
+@font-face {
+    font-display: swap;
+    font-family: 'Indie Flower';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Patrick Hand';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2) format('woff2')
+}
 
 * {
     margin: 0;
@@ -7,16 +21,20 @@
 }
 
 html {
-    scroll-behavior: smooth
+    scroll-behavior: smooth;
+    transform: translateZ(0)
 }
 
 body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #111;
     color: #fff;
     overflow-x: hidden;
     --sb-track-color: #696969;
     --sb-thumb-color: #424242;
-    --sb-size: 8px
+    --sb-size: 8px;
+    transform: translateZ(0);
+    will-change: scroll-position
 }
 
 body::-webkit-scrollbar {
@@ -96,13 +114,15 @@ body.loading .side-nav {
 .content-section {
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     position: relative;
-    transition: opacity 0.8s ease
+    transition: opacity 0.8s ease;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden
 }
 
 .banner::before,
@@ -147,7 +167,10 @@ body.loading .side-nav {
     object-fit: cover;
     z-index: -1;
     min-width: 100%;
-    min-height: 100%
+    min-height: 100%;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden
 }
 
 @keyframes blink {
@@ -161,7 +184,7 @@ body.loading .side-nav {
 }
 
 .part-header h2 {
-    font-size: 2rem;
+    font-size: 3rem;
     font-family: "Courgette", cursive;
 }
 
@@ -211,7 +234,9 @@ body.loading .side-nav {
 
 .content-section {
     height: 100vh;
-    transition: box-shadow 1.5s ease-in-out
+    transition: box-shadow 1.5s ease-in-out;
+    contain: layout style paint;
+    will-change: transform
 }
 
 .content-wrapper {
@@ -222,20 +247,23 @@ body.loading .side-nav {
     align-items: center;
     gap: 5rem;
     opacity: 0;
-    transition: opacity 1.5s ease-out, transform 0.8s ease-out
+    transition: opacity 1.5s ease-out, transform 0.8s ease-out;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden
 }
 
 .content-wrapper.from-top {
-    transform: translateY(-50px)
+    transform: translate3d(0, -50px, 0)
 }
 
 .content-wrapper.from-bottom {
-    transform: translateY(50px)
+    transform: translate3d(0, 50px, 0)
 }
 
 .content-wrapper.visible {
     opacity: 1;
-    transform: translateY(0)
+    transform: translate3d(0, 0, 0)
 }
 
 .content-section:nth-child(even) .content-wrapper {
@@ -249,7 +277,10 @@ body.loading .side-nav {
     background-size: cover;
     background-position: center;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgb(0 0 0 / .5)
+    box-shadow: 0 10px 30px rgb(0 0 0 / .5);
+    will-change: transform;
+    transform: translateZ(0);
+    contain: layout style paint
 }
 
 .content-section:nth-child(even) .video-container {
@@ -280,7 +311,6 @@ body.loading .side-nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 
     &::-webkit-scrollbar {
         display: none
@@ -301,26 +331,14 @@ body.loading .side-nav {
 .text-container p {
     font-size: 1rem;
     line-height: 1.7;
-    margin: 0;
     text-align: center;
-    width: 100%;
+    margin: 0
 }
 
 .original-text,
 .translated-text {
-    font-family: "Kalam", cursive;
+    font-family: "Patrick Hand", cursive;
     width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-    box-sizing: border-box;
     transition: opacity 0.3s ease-in-out
 }
 
@@ -329,8 +347,7 @@ body.loading .side-nav {
 }
 
 .hidden {
-    opacity: 0 !important;
-    pointer-events: none;
+    display: none
 }
 
 .translate-btn {
@@ -358,95 +375,95 @@ body.loading .side-nav {
 }
 
 
+.note {
+    font-size: .9rem;
+    font-family: 'Indie Flower', cursive;
+    color: #00b327;
+    margin-top: 2rem
+}
+
 .text1 p,
 .text1-1 p {
-    font-size: .85rem;
-    line-height: 1.6
+    font-size: .95rem;
+    line-height: 1.8
 }
 
 .text2 p,
 .text2-1 p {
-    font-size: .9rem;
-    line-height: 1.7
+    font-size: 1rem;
+    line-height: 1.9
 }
 
 .text3 p,
 .text3-1 p {
-    font-size: .8rem;
-    line-height: 1.5
+    font-size: .9rem;
+    line-height: 1.7
 }
 
 .text4 p,
 .text4-1 p {
-    font-size: .8rem;
-    line-height: 1.55
+    font-size: .9rem;
+    line-height: 1.7
 }
 
 .text5 p,
 .text5-1 p {
-    font-size: .95rem;
-    line-height: 1.7
-}
-
-.note {
-    font-family: 'Indie Flower', cursive;
-    color: #00b327;
-    margin-top: 1.5rem;
-    font-size: .9rem;
+    font-size: 1.1rem;
+    line-height: 1.8
 }
 
 .text6 p,
 .text6-1 p {
-    font-size: .95rem;
-    line-height: 1.7
+    font-size: 1.1rem;
+    line-height: 1.9
 }
 
 .text7 p,
 .text7-1 p {
-    font-size: 1rem;
-    line-height: 1.8
+    font-size: 1.2rem;
+    line-height: 2
 }
 
 .text8 p,
 .text8-1 p {
-    font-size: .85rem;
-    line-height: 1.7
+    font-size: .95rem;
+    line-height: 1.8
 }
 
 .text9 p,
 .text9-1 p {
-    font-size: .75rem;
-    line-height: 1.6
+    font-size: .9rem;
+    line-height: 1.8
 }
 
 .text10 p,
 .text10-1 p {
-    font-size: .9rem;
-    line-height: 1.5
+    font-size: 1.1rem;
+    line-height: 1.6
 }
 
 .text11 p,
 .text11-1 p {
-    font-size: .75rem;
-    line-height: 1.6
+    font-size: .85rem;
+    line-height: 1.8
 }
 
 .text12 p,
 .text12-1 p {
-    font-size: .7rem;
-    line-height: 1.55
+    font-size: .8rem;
+    line-height: 1.7
 }
 
 .text13 p,
 .text13-1 p {
-    font-size: .9rem;
-    line-height: 1.8
+    font-size: 1rem;
+    line-height: 1.9
 }
 
 .text14 p,
 .text14-1 p {
-    font-size: .9rem;
-    line-height: 1.8
+    font-size: 1rem;
+    line-height: 1.9
 }
 
 .final-cta {
@@ -571,7 +588,7 @@ body.loading .side-nav {
         flex-direction: column;
         height: auto;
         gap: 3rem;
-        width: 90%
+        width: 80%
     }
 
     .content-section:nth-child(even) .content-wrapper {
@@ -590,28 +607,7 @@ body.loading .side-nav {
         height: auto;
         min-height: 25vh;
         padding: 1.5rem;
-        padding-bottom: 4rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-
-    .original-text,
-    .translated-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: auto;
-        width: calc(100% - 3rem);
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        padding-bottom: 4rem
     }
 
     .text-only-section .content-wrapper {
