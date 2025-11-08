@@ -12,6 +12,11 @@
 // Keep containers and background stable while toggling translation
 (function(){
   function freezeAround(btn){
+    // Sadece geniş ekranlarda (mobil olmayan) çalıştır.
+    // 1366px, main.css dosyasındaki mobil görünüme geçiş breakpoint'idir.
+    if (window.innerWidth <= 1366) {
+      return;
+    }
     try{
       const y = window.scrollY;
       const wrapper = btn.closest('.content-wrapper');

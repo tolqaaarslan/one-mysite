@@ -280,6 +280,7 @@ body.loading .side-nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     &::-webkit-scrollbar {
         display: none
@@ -300,14 +301,26 @@ body.loading .side-nav {
 .text-container p {
     font-size: 1rem;
     line-height: 1.7;
+    margin: 0;
     text-align: center;
-    margin: 0
+    width: 100%;
 }
 
 .original-text,
 .translated-text {
     font-family: "Kalam", cursive;
     width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
     transition: opacity 0.3s ease-in-out
 }
 
@@ -316,7 +329,8 @@ body.loading .side-nav {
 }
 
 .hidden {
-    display: none
+    opacity: 0 !important;
+    pointer-events: none;
 }
 
 .translate-btn {
@@ -346,93 +360,93 @@ body.loading .side-nav {
 
 .text1 p,
 .text1-1 p {
-    font-size: .95rem;
-    line-height: 1.8
+    font-size: .85rem;
+    line-height: 1.6
 }
 
 .text2 p,
 .text2-1 p {
-    font-size: 1rem;
-    line-height: 1.9
+    font-size: .9rem;
+    line-height: 1.7
 }
 
 .text3 p,
 .text3-1 p {
-    font-size: .9rem;
-    line-height: 1.7
+    font-size: .8rem;
+    line-height: 1.5
 }
 
 .text4 p,
 .text4-1 p {
-    font-size: .9rem;
-    line-height: 1.7
+    font-size: .8rem;
+    line-height: 1.55
 }
 
 .text5 p,
 .text5-1 p {
-    font-size: 1.1rem;
-    line-height: 1.8
+    font-size: .95rem;
+    line-height: 1.7
 }
 
 .note {
     font-family: 'Indie Flower', cursive;
     color: #00b327;
-    margin-top: 2rem;
-    font-size: 1rem;
+    margin-top: 1.5rem;
+    font-size: .9rem;
 }
 
 .text6 p,
 .text6-1 p {
-    font-size: 1.1rem;
-    line-height: 1.9
+    font-size: .95rem;
+    line-height: 1.7
 }
 
 .text7 p,
 .text7-1 p {
-    font-size: 1.2rem;
-    line-height: 2
+    font-size: 1rem;
+    line-height: 1.8
 }
 
 .text8 p,
 .text8-1 p {
-    font-size: .95rem;
-    line-height: 1.8
+    font-size: .85rem;
+    line-height: 1.7
 }
 
 .text9 p,
 .text9-1 p {
-    font-size: .9rem;
-    line-height: 1.8
+    font-size: .75rem;
+    line-height: 1.6
 }
 
 .text10 p,
 .text10-1 p {
-    font-size: 1.1rem;
-    line-height: 1.6
+    font-size: .9rem;
+    line-height: 1.5
 }
 
 .text11 p,
 .text11-1 p {
-    font-size: .85rem;
-    line-height: 1.8
+    font-size: .75rem;
+    line-height: 1.6
 }
 
 .text12 p,
 .text12-1 p {
-    font-size: .8rem;
-    line-height: 1.7
+    font-size: .7rem;
+    line-height: 1.55
 }
 
 .text13 p,
 .text13-1 p {
-    font-size: 1rem;
-    line-height: 1.9
+    font-size: .9rem;
+    line-height: 1.8
 }
 
 .text14 p,
 .text14-1 p {
-    font-size: 1rem;
-    line-height: 1.9
+    font-size: .9rem;
+    line-height: 1.8
 }
 
 .final-cta {
@@ -576,7 +590,28 @@ body.loading .side-nav {
         height: auto;
         min-height: 25vh;
         padding: 1.5rem;
-        padding-bottom: 4rem
+        padding-bottom: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .original-text,
+    .translated-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        width: calc(100% - 3rem);
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
     .text-only-section .content-wrapper {
