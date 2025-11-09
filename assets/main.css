@@ -9,6 +9,29 @@ html {
     scroll-behavior: smooth
 }
 
+/* Self-hosted font faces */
+@font-face {
+    font-family: 'Courgette';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/courgette-v19-latin-regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Indie Flower';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Kalam';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/kalam-v18-latin-regular.woff2') format('woff2');
+}
+
 body {
     background-color: #111;
     color: #fff;

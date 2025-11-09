@@ -13,12 +13,13 @@
     <link rel="preload" href="assets/perf.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="assets/perf.css"></noscript>
     
-    <!-- Preload Critical Fonts -->
+    <!-- Preload Critical Fonts (self-hosted) -->
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/courgette-v19-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/kalam-v18-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Preload Critical Background Images -->
-    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" as="image">
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" as="image" fetchpriority="high">
     
     <!-- Defer non-critical CSS -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -29,11 +30,14 @@
 
 
     <!-- Optimized Google Fonts loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Load only if system fonts fail, reduce to essential weights -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Courgette&family=Indie+Flower&family=Kalam:wght@300;400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courgette&family=Indie+Flower&family=Kalam:wght@300;400;700&display=swap"></noscript>
+    <!-- Preconnect to static/JS CDNs and asset host -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev" crossorigin>
+    <!-- DNS Prefetch fallbacks -->
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//i.ytimg.com">
+    <link rel="dns-prefetch" href="//www.youtube.com">
+    <!-- Self-hosted fonts in CSS; removed Google Fonts preload -->
 
 
 </head>

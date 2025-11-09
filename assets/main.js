@@ -78,6 +78,7 @@ function initializePlayer(container) {
                 player.on('play', () => {
                     parentSection.style.boxShadow = `inset 0 0 200px 70px ${glowColor}`;
                     parentSection.style.willChange = 'box-shadow';
+                    try { container.style.backgroundImage = 'none'; } catch(e){}
                 });
                 player.on('pause', () => {
                     parentSection.style.boxShadow = 'none';
