@@ -1,18 +1,49 @@
-/* Performance overrides: safe, easily removable */
-@media (max-width:1024px){.banner,.part-header,.content-section{background-attachment:scroll!important}}
+/* Enhanced Performance overrides: safe, easily removable */
 
-/* GPU hints for animated wrappers */
-.content-wrapper{will-change:transform,opacity;transform:translate3d(0,0,0)}
+/* Critical rendering optimization */
+.content-section {
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
+}
 
-/* Reduce main-thread work for offscreen sections */
-.content-section{content-visibility:auto;contain-intrinsic-size:1000px}
+/* GPU acceleration for smooth animations */
+.content-wrapper{
+  will-change: transform, opacity;
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
+}
 
-/* While scrolling, reduce heavy backdrop filter cost */
-body.is-scrolling .site-header{backdrop-filter:none;-webkit-backdrop-filter:none;background-color:rgba(20,20,20,.9)}
+/* Optimize video containers for GPU */
+.video-container, .vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14 {
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
+}
+
+/* Mobile background attachment performance fix */
+@media (max-width:1024px){
+  .banner,.part-header,.content-section{
+    background-attachment:scroll!important;
+  }
+}
+
+/* Scroll performance optimization */
+body.is-scrolling .site-header{
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  background-color:rgba(20,20,20,.9);
+}
+
 /* Freeze UI during translate toggle */
-body.is-freeze *{transition:none !important}
-body.is-freeze .banner,body.is-freeze .part-header,body.is-freeze .content-section{background-attachment:fixed!important}
-body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
+body.is-freeze *{
+  transition:none !important;
+}
+body.is-freeze .banner,body.is-freeze .part-header,body.is-freeze .content-section{
+  background-attachment:fixed!important;
+}
+body.is-freeze .video-container,body.is-freeze .text-container{
+  will-change:auto;
+}
 
 /* Prevent layout shift during text translation */
 .text-container {
@@ -101,8 +132,8 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
   .content-wrapper{width:min(88%, 1700px)}
 }
 
-/* Mobile/tablet overrides to match original responsive behavior */
-@media (max-width:1366px){
+/* Mobile/tablet overrides - sadece mobil için (768px altı) */
+@media (max-width:768px){
   .vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14,
   .tc-1,.tc-2,.tc-3,.tc-4,.tc-5,.tc-6,.tc-7,.tc-8,.tc-9,.tc-10,.tc-11,.tc-12,.tc-13,.tc-14{
     width:100%;
@@ -119,6 +150,79 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  
+  /* Mobil flex direction override */
+  .content-wrapper {
+    flex-direction: column !important;
+  }
+  
+  .content-section:nth-child(even) .content-wrapper {
+    flex-direction: column !important;
+  }
+}
+
+/* Transition zone: 1366px altı - Dikey düzen (video üstte, text altta) */
+@media (max-width: 1366px) and (min-width: 769px) {
+  /* Side navigation'ı gizle */
+  .side-nav {
+    display: none;
+  }
+  
+  .content-wrapper {
+    flex-direction: column !important; /* Dikey düzen - video üstte, text altta */
+    gap: clamp(1.5rem, 3vw, 3rem);
+    width: 90%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Çift numaralı section'larda da dikey düzen */
+  .content-section:nth-child(even) .content-wrapper {
+    flex-direction: column !important;
+  }
+  
+  /* Video container - üstte, aynı genişlik, kademeli yükseklik azalması */
+  .video-container,
+  .vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14{
+    width: 90% !important; /* Text ile aynı genişlik */
+    height: auto !important;
+    max-width: 800px !important; /* Text ile aynı max-width */
+    /* Ekran küçüldükçe yükseklik azalsın: 1366px'de 55vh, 769px'de 40vh'ye (telefona yaklaşır) */
+    min-height: clamp(40vh, 8vw + 30vh, 55vh) !important;
+    max-height: clamp(42vh, 8vw + 32vh, 57vh) !important;
+    margin: 0 !important;
+    aspect-ratio: 16/9;
+  }
+  
+  /* Text container - altta, video ile aynı genişlik */
+  .text-container,
+  .tc-1,.tc-2,.tc-3,.tc-4,.tc-5,.tc-6,.tc-7,.tc-8,.tc-9,.tc-10,.tc-11,.tc-12,.tc-13,.tc-14{
+    width: 90% !important; /* Video ile aynı genişlik */
+    height: auto !important;
+    max-width: 800px !important; /* Video ile aynı max-width */
+    min-height: 20vh !important;
+    padding: clamp(1.5rem, 2.5vw, 2.5rem);
+    padding-bottom: clamp(3rem, 4vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+  }
+  
+  /* Content section yükseklik ayarı */
+  .content-section {
+    height: 100vh;
+    min-height: 100vh;
+    padding: 1rem 0;
+  }
+  
+  /* Font boyutlarını responsive tut */
+  .text-container p, .tc-1 p,.tc-2 p,.tc-3 p,.tc-4 p,.tc-5 p,.tc-6 p,.tc-7 p,.tc-8 p,.tc-9 p,.tc-10 p,.tc-11 p,.tc-12 p,.tc-13 p,.tc-14 p {
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    line-height: clamp(1.6, 1.8vw, 1.9);
   }
 }
 
@@ -187,7 +291,7 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
 /* Very small phones */
 @media (max-width:480px){
   .content-section{height:100vh;min-height:100vh;padding:0}
-  .content-wrapper{gap:0.5rem;width:98%;height:100%}
+  .content-wrapper{gap:0.5rem;width:90%;height:100%}
   .banner h1{font-size:1.8rem}
   .part-header{height:6vh}
   .part-header h2{font-size:1.6rem}
@@ -204,8 +308,8 @@ body.is-freeze .video-container,body.is-freeze .text-container{will-change:auto}
   
   /* Video container çok küçük ekranlarda daha da küçük */
   .video-container,.vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14{
-    min-height:30vh;
-    max-height:35vh;
+    min-height:25vh;
+    max-height:30vh;
     margin-bottom:0.3rem;
   }
   

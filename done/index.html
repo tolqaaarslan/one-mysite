@@ -5,19 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tolga Arslan</title>
-    <link rel="stylesheet" href="assets/main.css">
-    <link rel="stylesheet" href="assets/perf.css">
-    <!-- Plyr.io CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" />
-    <!-- Fontları Ön Yükle (Preload) -->
+    <!-- Critical CSS - Immediately Needed -->
+    <link rel="preload" href="assets/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/main.css"></noscript>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Performance CSS - Load after main -->
+    <link rel="preload" href="assets/perf.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/perf.css"></noscript>
+    
+    <!-- Preload Critical Fonts -->
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Preload Critical Background Images -->
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" as="image">
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg.mp4" as="video" type="video/mp4">
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css"></noscript>
+    
+    <!-- Remove Animate.css - not critical and unused -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> -->
 
 
-    <!-- Google Fonts: latin-ext subsets for Turkish -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Indie+Flower&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Optimized Google Fonts loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load only if system fonts fail, reduce to essential weights -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courgette&display=swap"></noscript>
 
 
 </head>
@@ -871,11 +888,16 @@
     <!-- 11. Scroll Watcher -->
     <div class="scroll-watcher"></div>
 
-    <!-- Plyr.io JS -->
-    <script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
-    <!-- Kendi script'imiz Plyr'dan SONRA gelmeli -->
-    <script src="assets/main.js"></script>
-    <script src="assets/perf.js"></script>
+    <!-- Optimized Script Loading -->
+    <!-- Preload critical scripts -->
+    <link rel="preload" href="assets/main.js" as="script">
+    <link rel="preload" href="assets/perf.js" as="script">
+    
+    <!-- Load Plyr.io with defer for better performance -->
+    <script defer src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
+    <!-- Load our scripts after DOM parsing is complete -->
+    <script defer src="assets/main.js"></script>
+    <script defer src="assets/perf.js"></script>
 
 </body>
 

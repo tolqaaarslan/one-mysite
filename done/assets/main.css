@@ -1,9 +1,21 @@
+/* Enhanced font loading with performance optimizations */
 @font-face {
     font-display: swap;
     font-family: 'Indie Flower';
     font-style: normal;
     font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2) format('woff2')
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2) format('woff2');
+    /* Performance hint */
+    font-display: swap;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/kite-one-v23-latin-regular.woff2) format('woff2');
+    font-display: swap;
 }
 
 @font-face {
@@ -11,7 +23,8 @@
     font-family: 'Patrick Hand';
     font-style: normal;
     font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2) format('woff2')
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2) format('woff2');
+    font-display: swap;
 }
 
 * {
@@ -21,8 +34,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
-    transform: translateZ(0)
+    scroll-behavior: smooth
 }
 
 body {
@@ -32,9 +44,7 @@ body {
     overflow-x: hidden;
     --sb-track-color: #696969;
     --sb-thumb-color: #424242;
-    --sb-size: 8px;
-    transform: translateZ(0);
-    will-change: scroll-position
+    --sb-size: 8px
 }
 
 body::-webkit-scrollbar {
@@ -114,15 +124,13 @@ body.loading .side-nav {
 .content-section {
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     position: relative;
-    transition: opacity 0.8s ease;
-    will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden
+    transition: opacity 0.8s ease
 }
 
 .banner::before,
@@ -167,10 +175,7 @@ body.loading .side-nav {
     object-fit: cover;
     z-index: -1;
     min-width: 100%;
-    min-height: 100%;
-    will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden
+    min-height: 100%
 }
 
 @keyframes blink {
@@ -184,8 +189,7 @@ body.loading .side-nav {
 }
 
 .part-header h2 {
-    font-size: 3rem;
-    font-family: "Courgette", cursive;
+    font-size: 3rem
 }
 
 .part-header h2 {
@@ -235,8 +239,10 @@ body.loading .side-nav {
 .content-section {
     height: 100vh;
     transition: box-shadow 1.5s ease-in-out;
-    contain: layout style paint;
-    will-change: transform
+    /* Performance optimizations */
+    contain: layout style;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 .content-wrapper {
@@ -247,23 +253,20 @@ body.loading .side-nav {
     align-items: center;
     gap: 5rem;
     opacity: 0;
-    transition: opacity 1.5s ease-out, transform 0.8s ease-out;
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden
+    transition: opacity 1.5s ease-out, transform 0.8s ease-out
 }
 
 .content-wrapper.from-top {
-    transform: translate3d(0, -50px, 0)
+    transform: translateY(-50px)
 }
 
 .content-wrapper.from-bottom {
-    transform: translate3d(0, 50px, 0)
+    transform: translateY(50px)
 }
 
 .content-wrapper.visible {
     opacity: 1;
-    transform: translate3d(0, 0, 0)
+    transform: translateY(0)
 }
 
 .content-section:nth-child(even) .content-wrapper {
@@ -277,10 +280,7 @@ body.loading .side-nav {
     background-size: cover;
     background-position: center;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgb(0 0 0 / .5);
-    will-change: transform;
-    transform: translateZ(0);
-    contain: layout style paint
+    box-shadow: 0 10px 30px rgb(0 0 0 / .5)
 }
 
 .content-section:nth-child(even) .video-container {
@@ -373,7 +373,6 @@ body.loading .side-nav {
     opacity: 1;
     transform: scale(1.1)
 }
-
 
 .note {
     font-size: .9rem;
@@ -579,7 +578,7 @@ body.loading .side-nav {
     background-color: var(--scroll-watcher-color)
 }
 
-@media (max-width:1366px) {
+@media (max-width:768px) {
     .side-nav {
         display: none
     }
@@ -588,7 +587,7 @@ body.loading .side-nav {
         flex-direction: column;
         height: auto;
         gap: 3rem;
-        width: 80%
+        width: 90%
     }
 
     .content-section:nth-child(even) .content-wrapper {

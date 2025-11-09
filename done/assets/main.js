@@ -1,48 +1,92 @@
+// Enhanced performance-optimized video player initialization
 function initializePlayer(container) {
     const videoId = container.dataset.youtubeId;
     const startSeconds = container.dataset.startSeconds || 0;
     const glowColor = container.dataset.glowColor;
     const parentSection = container.closest('.content-section');
+
     if (!videoId || container.dataset.initialized) return;
     container.dataset.initialized = 'true';
-    const playerElement = document.createElement('div');
-    playerElement.setAttribute('data-plyr-provider', 'youtube');
-    playerElement.setAttribute('data-plyr-embed-id', videoId);
-    const config = {
-        youtube: {
-            start: startSeconds,
-            rel: 0,
-            showinfo: 0,
-            modestbranding: 1,
-            iv_load_policy: 3
+
+    // Performance optimization: Use RAF for smooth DOM manipulation
+    requestAnimationFrame(() => {
+        const playerElement = document.createElement('div');
+        playerElement.setAttribute('data-plyr-provider', 'youtube');
+        playerElement.setAttribute('data-plyr-embed-id', videoId);
+
+        const config = {
+            youtube: {
+                start: startSeconds,
+                rel: 0,
+                showinfo: 0,
+                modestbranding: 1,
+                iv_load_policy: 3,
+                // Performance optimizations
+                autoplay: 0,
+                controls: 1,
+                mute: 0,
+                playsinline: 1
+            },
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+            quality: {
+                default: 'auto',
+                options: ['auto', '1080p', '720p', '480p', '360p']
+            }
+        };
+
+        playerElement.setAttribute('data-plyr-config', JSON.stringify(config));
+        container.appendChild(playerElement);
+
+        // Initialize player with error handling
+        try {
+            const player = new Plyr(playerElement);
+            container.plyr = player;
+
+            if (glowColor && parentSection) {
+                // Use efficient event handlers
+                player.on('play', () => {
+                    parentSection.style.boxShadow = `inset 0 0 200px 70px ${glowColor}`;
+                    parentSection.style.willChange = 'box-shadow';
+                });
+                player.on('pause', () => {
+                    parentSection.style.boxShadow = 'none';
+                    parentSection.style.willChange = 'auto';
+                });
+            }
+        } catch (e) {
+            console.warn('Player initialization failed for:', videoId, e);
         }
-    };
-    playerElement.setAttribute('data-plyr-config', JSON.stringify(config));
-    container.appendChild(playerElement);
-    const player = new Plyr(playerElement);
-    container.plyr = player;
-    if (glowColor && parentSection) {
-        player.on('play', () => {
-            parentSection.style.boxShadow = `inset 0 0 200px 70px ${glowColor}`
-        });
-        player.on('pause', () => {
-            parentSection.style.boxShadow = 'none'
-        })
-    }
+    });
 }
+// Enhanced DOMContentLoaded with performance optimizations
 document.addEventListener('DOMContentLoaded', () => {
+    // Performance: Force scroll reset before any animations
     window.onbeforeunload = function () {
         window.scrollTo(0, 0)
     };
+
+    // Optimized scroll tracking with debouncing
     let lastScrollY = window.scrollY;
     let scrollDirection = 'down';
-    window.addEventListener('scroll', () => {
+    let ticking = false;
+
+    function updateScrollDirection() {
         if (window.scrollY > lastScrollY) {
-            scrollDirection = 'down'
+            scrollDirection = 'down';
         } else {
-            scrollDirection = 'up'
+            scrollDirection = 'up';
         }
-        lastScrollY = window.scrollY
+        lastScrollY = window.scrollY;
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateScrollDirection);
+            ticking = true;
+        }
+    }, {
+        passive: true
     });
     const sections = document.querySelectorAll('[data-nav-label]');
     const navDotsContainer = document.querySelector('.nav-dots');
