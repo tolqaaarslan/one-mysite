@@ -96,7 +96,7 @@ body.loading .side-nav {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1rem 1.5rem;
+    padding: .8rem 1rem;
     background-color: rgb(0 0 0 / .452);
     background-color: rgb(20 20 20 / .5);
     backdrop-filter: blur(10px);
@@ -506,17 +506,18 @@ body.loading .side-nav {
     right: 10px;
     transform: translateY(-50%);
     z-index: 101;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    transition: opacity 3s ease
+    /* Container ve ok konumlandırması için */
+    width: 30px;
+    height: auto;
 }
 
 .nav-dots {
     display: flex;
     flex-direction: column;
-    gap: 15px
+    gap: 15px;
+    /* Noktalar merkezde kalır */
+    position: relative;
+    z-index: 2;
 }
 
 .nav-dot {
@@ -526,11 +527,11 @@ body.loading .side-nav {
     border: 2px solid #fff;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s ease
+    transition: background-color 0.3s ease;
 }
 
 .nav-dot.active {
-    background-color: #fff
+    background-color: #fff;
 }
 
 .nav-arrow {
@@ -539,11 +540,30 @@ body.loading .side-nav {
     color: #fff;
     font-size: 15px;
     cursor: pointer;
-    padding: 5px
+    padding: 5px;
+    /* Okları side-nav'a göre konumlandır */
+    position: absolute;
+    z-index: 3;
+    transition: opacity 0.3s ease;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.nav-arrow.up {
+    /* Üst ok - ilk noktanın 25px üstünde */
+    top: -30px;
+    left: -20px;
+}
+
+.nav-arrow.down {
+    /* Alt ok - son noktanın 25px altında */  
+    bottom: -30px;
+    left: -20px;
 }
 
 .nav-arrow:hover {
-    opacity: .7
+    opacity: .7;
 }
 
 .scroll-watcher {
@@ -578,10 +598,69 @@ body.loading .side-nav {
     background-color: var(--scroll-watcher-color)
 }
 
-@media (max-width:768px) {
+/* 1366px ve altında side-nav'ı gizle */
+@media (max-width:1366px) {
     .side-nav {
-        display: none
+        display: none;
     }
+}
+
+/* Mobile/Tablet arrow indicator - 1366px ve altında */
+@media (max-width:1366px) {
+    .arrow {
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+        pointer-events: none;
+    }
+    
+    .arrow.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .arrow span {
+        display: block;
+        width: 1.5vw;
+        height: 1.5vw;
+        border-bottom: 5px solid white;
+        border-right: 5px solid white;
+        transform: rotate(45deg);
+        margin: -10px;
+        animation: arrowAnimate 2s infinite;
+    }
+
+    .arrow span:nth-child(2) {
+        animation-delay: -0.2s;
+    }
+
+    .arrow span:nth-child(3) {
+        animation-delay: -0.4s;
+    }
+
+    @keyframes arrowAnimate {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+    }
+}
+
+@media (max-width:768px) {
 
     .content-wrapper {
         flex-direction: column;

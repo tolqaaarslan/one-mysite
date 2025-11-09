@@ -276,5 +276,95 @@ document.addEventListener('DOMContentLoaded', () => {
             originalText.classList.toggle('hidden');
             translatedText.classList.toggle('hidden')
         })
-    })
+    });
+
+    // Arrow scroll indicator functionality for mobile/tablet screens
+    function initScrollArrow() {
+        const scrollArrow = document.querySelector('.arrow');
+        const sections = document.querySelectorAll('.content-section');
+        
+        if (!scrollArrow || sections.length === 0) return;
+
+        // Only show arrow indicator on screens smaller than 1366px
+        function checkScreenSize() {
+            if (window.innerWidth >= 1366) {
+                scrollArrow.style.display = 'none';
+                return false;
+            } else {
+                scrollArrow.style.display = 'block';
+                return true;
+            }
+        }
+
+        // Initial check
+        if (!checkScreenSize()) return;
+
+        // Handle resize
+        window.addEventListener('resize', checkScreenSize);
+
+        // Find next section to scroll to
+        function getNextSection() {
+            const scrollTop = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            const currentPosition = scrollTop + windowHeight / 2;
+
+            for (let i = 0; i < sections.length; i++) {
+                const section = sections[i];
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                // If we're in this section, return the next one
+                if (currentPosition >= sectionTop && currentPosition < sectionBottom) {
+                    return sections[i + 1] || null;
+                }
+            }
+            
+            // If we're before the first section, return the first section
+            return sections[0];
+        }
+
+        // Intersection Observer for section visibility
+        const sectionObserver = new IntersectionObserver((entries) => {
+            let shouldShowArrow = false;
+
+            entries.forEach(entry => {
+                // Check if 70% of the section is visible and there's a next section
+                if (entry.intersectionRatio >= 0.7) {
+                    const nextSection = getNextSection();
+                    if (nextSection) {
+                        shouldShowArrow = true;
+                    }
+                }
+            });
+
+            // Show/hide arrow indicator with smooth transition
+            if (shouldShowArrow) {
+                scrollArrow.classList.add('show');
+            } else {
+                scrollArrow.classList.remove('show');
+            }
+        }, {
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+            rootMargin: '0px'
+        });
+
+        // Observe all sections
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Add click handler for arrow - scroll to next section
+        scrollArrow.addEventListener('click', () => {
+            const nextSection = getNextSection();
+            if (nextSection) {
+                nextSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    }
+
+    // Initialize scroll arrow
+    initScrollArrow();
 })
