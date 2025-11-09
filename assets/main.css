@@ -1,31 +1,3 @@
-/* Enhanced font loading with performance optimizations */
-@font-face {
-    font-display: swap;
-    font-family: 'Indie Flower';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2) format('woff2');
-    /* Performance hint */
-    font-display: swap;
-}
-
-@font-face {
-    font-display: swap;
-    font-family: 'Kite One';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/kite-one-v23-latin-regular.woff2) format('woff2');
-    font-display: swap;
-}
-
-@font-face {
-    font-display: swap;
-    font-family: 'Patrick Hand';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2) format('woff2');
-    font-display: swap;
-}
 
 * {
     margin: 0;
@@ -38,7 +10,6 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #111;
     color: #fff;
     overflow-x: hidden;
@@ -189,7 +160,8 @@ body.loading .side-nav {
 }
 
 .part-header h2 {
-    font-size: 3rem
+    font-size: 3rem;
+    font-family: 'Courgette', cursive;
 }
 
 .part-header h2 {
@@ -337,7 +309,7 @@ body.loading .side-nav {
 
 .original-text,
 .translated-text {
-    font-family: "Patrick Hand", cursive;
+    font-family: "Kalam", cursive
     width: 100%;
     transition: opacity 0.3s ease-in-out
 }
