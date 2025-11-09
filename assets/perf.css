@@ -45,6 +45,12 @@ body.is-freeze .video-container,body.is-freeze .text-container{
   will-change:auto;
 }
 
+/* Ensure desktop parallax via background-attachment: fixed and remove breaking transforms */
+@media (min-width:1025px){
+  .banner,.part-header,.content-section{background-attachment:fixed!important}
+  .content-section{transform:none!important;backface-visibility:visible!important;contain:initial!important}
+}
+
 /* Prevent layout shift during text translation */
 .text-container {
   contain: layout style;
@@ -220,7 +226,7 @@ body.is-freeze .video-container,body.is-freeze .text-container{
   }
   
   /* Font boyutlarını responsive tut */
-  .text-container p, .tc-1 p,.tc-2 p,.tc-3 p,.tc-4 p,.tc-5 p,.tc-6 p,.tc-7 p,.tc-8 p,.tc-9 p,.tc-10 p,.tc-11 p,.tc-12 p,.tc-13 p,.tc-14 p {
+  .text-container p, .tc-1 p,.tc-2 p,.tc-3 p,.tc-4 p,.tc-5 p,.tc-6 p,.tc-7 p,.tc-8 p,.tc-9 p,.tc-10 p, .tc-12 p,.tc-13 p,.tc-14 p {
     font-size: clamp(1rem, 1.3vw, 1.2rem);
     line-height: clamp(1.6, 1.8vw, 1.9);
   }
@@ -264,6 +270,7 @@ body.is-freeze .video-container,body.is-freeze .text-container{
     min-height:50vh;
   }
   .translate-btn{bottom:.5rem;right:.5rem}
+  
   
   /* Video container mobilde daha küçük */
   .video-container,.vc-1,.vc-2,.vc-3,.vc-4,.vc-5,.vc-6,.vc-7,.vc-8,.vc-9,.vc-10,.vc-11,.vc-12,.vc-13,.vc-14{

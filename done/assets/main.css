@@ -1,4 +1,28 @@
 
+@font-face {
+    font-display: swap;
+    font-family: 'Indie Flower';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/indie-flower-v24-latin-regular.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Kite One';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/kite-one-v23-latin-regular.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Patrick Hand';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/fonts/patrick-hand-v25-latin-regular.woff2) format('woff2')
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +34,7 @@ html {
 }
 
 body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #111;
     color: #fff;
     overflow-x: hidden;
@@ -283,13 +308,12 @@ body.loading .side-nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
-    &::-webkit-scrollbar {
-        display: none
-    }
-
-    -ms-overflow-style:none;
-    scrollbar-width:none
+.text-container::-webkit-scrollbar {
+    display: none;
 }
 
 .content-section:nth-child(odd) .text-container {
@@ -309,13 +333,13 @@ body.loading .side-nav {
 
 .original-text,
 .translated-text {
-    font-family: "Kalam", cursive
+    font-family: "Patrick Hand", cursive;
     width: 100%;
-    transition: opacity 0.3s ease-in-out
+    transition: opacity 0.3s ease-in-out;
 }
 
 .translated-text p {
-    font-style: italic
+    font-style: italic;
 }
 
 .hidden {
@@ -808,6 +832,145 @@ body.loading .side-nav {
 
 @media (max-width:768px) {
     #section5-1 {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end-m.webp) !important
+        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end-m.webp) !important;
+    }
+}
+
+/* Section Background Images */
+#section1-1 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section1-2 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg2.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section1-3 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg3.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section2-1 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg4.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section2-2 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg5.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section2-3 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg6.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section2-4 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg7.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section2-5 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg8.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section3-1 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg9.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section3-2 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg10.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section3-3 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg11.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section4-1 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg12.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section4-2 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg13.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section4-3 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg14.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#section5-1 {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.text-only-section .content-wrapper {
+    justify-content: center;
+    width: 100%;
+    align-items: center start;
+    height: 100%;
+    margin-top: -50vh;
+}
+
+.text-only-section .text-container {
+    width: 90%;
+    height: auto;
+    max-width: 900px;
+}
+
+.part-header {
+    background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/part-header-bg.webp);
+}
+
+/* Mobile Parallax Optimization */
+@media (max-width: 768px) {
+    /* Disable parallax on mobile for better performance */
+    .content-section,
+    #section1-1, #section1-2, #section1-3,
+    #section2-1, #section2-2, #section2-3, #section2-4, #section2-5,
+    #section3-1, #section3-2, #section3-3,
+    #section4-1, #section4-2, #section4-3,
+    #section5-1,
+    .banner,
+    .part-header {
+        background-attachment: scroll;
     }
 }
