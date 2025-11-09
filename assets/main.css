@@ -306,13 +306,12 @@ body.loading .side-nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
-    &::-webkit-scrollbar {
-        display: none
-    }
-
-    -ms-overflow-style:none;
-    scrollbar-width:none
+.text-container::-webkit-scrollbar {
+    display: none;
 }
 
 .content-section:nth-child(odd) .text-container {
@@ -332,13 +331,13 @@ body.loading .side-nav {
 
 .original-text,
 .translated-text {
-    font-family: "Kalam", cursive
+    font-family: "Kalam", cursive;
     width: 100%;
-    transition: opacity 0.3s ease-in-out
+    transition: opacity 0.3s ease-in-out;
 }
 
 .translated-text p {
-    font-style: italic
+    font-style: italic;
 }
 
 .hidden {
@@ -831,6 +830,66 @@ body.loading .side-nav {
 
 @media (max-width:768px) {
     #section5-1 {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end-m.webp) !important
+        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end-m.webp) !important;
     }
+}
+
+/* Performance Optimizations */
+/* GPU Acceleration for key elements */
+.content-wrapper,
+.video-container,
+.text-container,
+.nav-dot,
+.arrow {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+/* Optimize animations to use transform instead of layout properties */
+.content-wrapper {
+    contain: layout style paint;
+}
+
+/* Optimize scroll performance */
+.content-section {
+    contain: layout style;
+}
+
+/* Reduce paint complexity */
+.site-header {
+    will-change: transform;
+    contain: layout style;
+}
+
+/* Critical CSS containment for better rendering */
+.banner-video {
+    contain: layout style;
+    will-change: transform;
+}
+
+/* Optimize font rendering for better performance */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Intersection Observer optimization for background loading */
+.content-section.bg-loaded {
+    opacity: 1;
+}
+
+/* Reduce repaints during scroll */
+.scroll-watcher {
+    contain: layout style;
+    will-change: transform;
+}
+
+/* Optimize navigation elements */
+.side-nav {
+    contain: layout style;
+    will-change: transform;
 }

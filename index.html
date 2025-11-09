@@ -20,6 +20,8 @@
     
     <!-- Preload Critical Background Images -->
     <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg2.webp" as="image">
+    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg.mp4" as="video" type="video/mp4">
     
     <!-- Defer non-critical CSS -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -50,7 +52,7 @@
     </header>
 
     <!-- Arka Plan Videosu -->
-    <video autoplay muted loop playsinline preload="metadata" poster="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" class="banner-video">
+    <video autoplay muted loop playsinline preload="none" poster="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" class="banner-video" loading="lazy">
         <source src="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg.mp4" type="video/mp4">
     </video>
 

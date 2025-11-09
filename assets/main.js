@@ -97,10 +97,58 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0)
     };
 
-    // Optimized scroll tracking with debouncing
+    // Optimized banner video loading
+    const bannerVideo = document.querySelector('.banner-video');
+    if (bannerVideo) {
+        // Load video after initial page render for better LCP
+        setTimeout(() => {
+            bannerVideo.preload = 'auto';
+            bannerVideo.load();
+        }, 100);
+        
+        // Pause video when not in viewport to save resources
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play().catch(e => console.log('Video play failed:', e));
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        videoObserver.observe(bannerVideo);
+    }
+
+    // Critical performance optimization: Preload next section backgrounds
+    function preloadNextBackground() {
+        const currentScroll = window.pageYOffset;
+        const sections = document.querySelectorAll('.content-section');
+        
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            const isNearViewport = rect.top < window.innerHeight * 2 && rect.bottom > -window.innerHeight;
+            
+            if (isNearViewport && !section.classList.contains('bg-loaded')) {
+                section.classList.add('bg-loaded');
+                // Preload next section background
+                if (sections[index + 1]) {
+                    const nextSection = sections[index + 1];
+                    const bgImage = getComputedStyle(nextSection).backgroundImage;
+                    if (bgImage && bgImage !== 'none') {
+                        const img = new Image();
+                        img.src = bgImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+                    }
+                }
+            }
+        });
+    }
+
+    // Optimized scroll tracking with debouncing and RAF
     let lastScrollY = window.scrollY;
     let scrollDirection = 'down';
     let ticking = false;
+    let scrollTimeout;
 
     function updateScrollDirection() {
         if (window.scrollY > lastScrollY) {
@@ -109,6 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollDirection = 'up';
         }
         lastScrollY = window.scrollY;
+        
+        // Preload backgrounds for performance
+        preloadNextBackground();
+        
         ticking = false;
     }
 
@@ -117,6 +169,20 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(updateScrollDirection);
             ticking = true;
         }
+        
+        // Debounced scroll end detection
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            // Cleanup unused backgrounds to save memory
+            document.querySelectorAll('.content-section').forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const isFarFromViewport = rect.top > window.innerHeight * 3 || rect.bottom < -window.innerHeight * 3;
+                if (isFarFromViewport && section.classList.contains('bg-loaded')) {
+                    // Keep background but mark as cleanable
+                    section.style.willChange = 'auto';
+                }
+            });
+        }, 150);
     }, {
         passive: true
     });
@@ -289,15 +355,19 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { document.body.classList.remove('loading') }, 400)
         });
     }
+    // Performance-optimized video observer with larger root margin
     const videoObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                initializePlayer(entry.target);
-                observer.unobserve(entry.target)
+                // Delay video initialization slightly to prioritize page render
+                setTimeout(() => {
+                    initializePlayer(entry.target);
+                    observer.unobserve(entry.target);
+                }, 100);
             }
         })
     }, {
-        rootMargin: "200px"
+        rootMargin: "300px"  // Increased for earlier loading
     });
     document.querySelectorAll('.video-container[data-youtube-id]').forEach(container => {
         videoObserver.observe(container)
