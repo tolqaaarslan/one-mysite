@@ -1,3 +1,30 @@
+// Lightweight loader for Plyr – loads on demand only
+function loadPlyr(callback){
+    if (window.Plyr){ if (callback) callback(); return; }
+    if (window.__plyrLoading){
+        window.__plyrQueue = window.__plyrQueue || [];
+        window.__plyrQueue.push(callback);
+        return;
+    }
+    window.__plyrLoading = true;
+    window.__plyrQueue = [callback];
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js';
+    s.async = true;
+    s.onload = function(){
+        const q = window.__plyrQueue || [];
+        for (const fn of q){ try{ fn && fn(); } catch(e){ console.warn(e); } }
+        window.__plyrQueue = [];
+        window.__plyrLoading = false;
+    };
+    s.onerror = function(){
+        console.warn('Plyr failed to load');
+        window.__plyrLoading = false;
+        window.__plyrQueue = [];
+    };
+    document.head.appendChild(s);
+}
+
 // Enhanced performance-optimized video player initialization
 function initializePlayer(container) {
     const videoId = container.dataset.youtubeId;
@@ -6,6 +33,10 @@ function initializePlayer(container) {
     const parentSection = container.closest('.content-section');
 
     if (!videoId || container.dataset.initialized) return;
+    if (!window.Plyr){
+        // Load Plyr only when needed, then retry init
+        return loadPlyr(() => initializePlayer(container));
+    }
     container.dataset.initialized = 'true';
 
     // Performance optimization: Use RAF for smooth DOM manipulation
@@ -248,12 +279,15 @@ document.addEventListener('DOMContentLoaded', () => {
         type()
     }
     const typewriterElement = document.getElementById('typewriter-text');
-    const textToType = "for my old two friends";
-    startTypewriter(typewriterElement, textToType, 80, () => {
-        setTimeout(() => {
-            document.body.classList.remove('loading')
-        }, 400)
-    });
+    if (typewriterElement && typewriterElement.textContent && typewriterElement.textContent.trim().length){
+        // Text already present for fast LCP; skip typing animation
+        setTimeout(() => { document.body.classList.remove('loading') }, 400);
+    } else {
+        const textToType = "for my old two friends";
+        startTypewriter(typewriterElement, textToType, 80, () => {
+            setTimeout(() => { document.body.classList.remove('loading') }, 400)
+        });
+    }
     const videoObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

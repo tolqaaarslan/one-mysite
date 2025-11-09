@@ -19,7 +19,6 @@
     
     <!-- Preload Critical Background Images -->
     <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" as="image">
-    <link rel="preload" href="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg.mp4" as="video" type="video/mp4">
     
     <!-- Defer non-critical CSS -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -43,11 +42,11 @@
 
     <!-- 1. Site Header -->
     <header class="site-header">
-        <div class="logo"><a href="www.tolqaarslan.com">tolga arslan</a></div>
+        <div class="logo"><a href="https://www.tolqaarslan.com">tolga arslan</a></div>
     </header>
 
     <!-- Arka Plan Videosu -->
-    <video autoplay muted loop playsinline class="banner-video">
+    <video autoplay muted loop playsinline preload="metadata" poster="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg1.webp" class="banner-video">
         <source src="https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bg.mp4" type="video/mp4">
     </video>
 
@@ -70,7 +69,7 @@
     <main>
         <!-- 2. Banner -->
         <section id="banner" class="full-screen-section banner" data-nav-label="Banner">
-            <h1 id="typewriter-text"></h1>
+            <h1 id="typewriter-text">for my old two friends</h1>
         </section>
 
         <!-- Group 1 -->
@@ -895,8 +894,6 @@
     <link rel="preload" href="assets/main.js" as="script">
     <link rel="preload" href="assets/perf.js" as="script">
     
-    <!-- Load Plyr.io with defer for better performance -->
-    <script defer src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
     <!-- Load our scripts after DOM parsing is complete -->
     <script defer src="assets/main.js"></script>
     <script defer src="assets/perf.js"></script>
