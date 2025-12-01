@@ -168,11 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Animate initial visible texts when they come into view
-        const contentWrappers = document.querySelectorAll('.content-wrapper');
+        const contentWrappers = document.querySelectorAll('.content-wrapper, #end');
         const textObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const textContainer = entry.target.querySelector('.text-container');
+                    const textContainer = entry.target.querySelector('.text-container, .tc-15');
                     if (textContainer) {
                         const visibleText = textContainer.querySelector('.original-text:not(.hidden), .translated-text:not(.hidden)');
                         if (visibleText) {
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const translateButtons = document.querySelectorAll('.translate-btn');
     translateButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const textContainer = button.closest('.text-container');
+            const textContainer = button.closest('.text-container, .tc-15');
             const originalText = textContainer.querySelector('.original-text');
             const translatedText = textContainer.querySelector('.translated-text');
             const hiddenText = textContainer.querySelector('.hidden-text');
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const button2Elements = document.querySelectorAll('.button2');
     button2Elements.forEach(button => {
         button.addEventListener('click', () => {
-            const textContainer = button.closest('.text-container');
+            const textContainer = button.closest('.text-container, .tc-15');
             const hiddenText = textContainer.querySelector('.hidden-text');
             const originalText = textContainer.querySelector('.original-text');
             const translatedText = textContainer.querySelector('.translated-text');
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scroll-based animasyonlar için Intersection Observer
     function initScrollAnimations() {
-        const contentWrappers = document.querySelectorAll('.content-wrapper');
+        const contentWrappers = document.querySelectorAll('.content-wrapper, #end');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
