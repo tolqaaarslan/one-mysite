@@ -145,12 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Show and animate new element
-        setTimeout(() => {
-            if (showElement) {
-                showElement.classList.remove('hidden');
-                animateTextLines(showElement, 100);
-            }
-        }, animationDelay);
+        if (showElement) {
+            showElement.classList.remove('hidden');
+            animateTextLines(showElement, 100);
+        }
     }
     
     function showHiddenTextWithAnimation(hiddenElement) {
@@ -162,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize text wrapping on page load
     function initializeTextAnimations() {
-        const allTextContainers = document.querySelectorAll('.original-text, .translated-text, .hidden-text');
+        const allTextContainers = document.querySelectorAll('.lyrics, .translated, .p-note, .p-message');
         allTextContainers.forEach(container => {
             wrapTextLines(container);
         });
@@ -172,9 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const textObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const textContainer = entry.target.querySelector('.text-container, .tc-15');
+                    const textContainer = entry.target.querySelector('.text-container, .tc-15, .end-container');
                     if (textContainer) {
-                        const visibleText = textContainer.querySelector('.original-text:not(.hidden), .translated-text:not(.hidden)');
+                        const visibleText = textContainer.querySelector('.lyrics:not(.hidden), .translated:not(.hidden), .p-message:not(.hidden)');
                         if (visibleText) {
                             animateTextLines(visibleText, 500);
                         }
@@ -191,100 +189,262 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Çeviri butonları için işlevsellik
-    const translateButtons = document.querySelectorAll('.translate-btn');
-    translateButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const textContainer = button.closest('.text-container, .tc-15');
-            const originalText = textContainer.querySelector('.original-text');
-            const translatedText = textContainer.querySelector('.translated-text');
-            const hiddenText = textContainer.querySelector('.hidden-text');
-            const button2 = textContainer.querySelector('.button2');
-            
-            // Eğer hidden-text gösteriliyorsa, önce onu gizle ve button2'yi pasif yap
-            if (hiddenText && hiddenText.classList.contains('show')) {
-                resetTextAnimation(hiddenText);
-                hiddenText.classList.remove('show');
-                if (button2) {
-                    button2.style.opacity = '0.6';
-                }
-                // Hidden-text kapatıldığında, çeviri metnini animasyonla göster
-                showTextWithAnimation(hiddenText, translatedText, 200);
-                if (originalText) originalText.classList.add('hidden');
-                return; // Bu tıklama sadece hidden-text'i kapatmak için
-            }
-            
-            // Normal çeviri geçişi
-            const isOriginalHidden = originalText.classList.contains('hidden');
-            
-            if (isOriginalHidden) {
-                // Şu an çeviri gösteriliyor -> orijinale geç
-                showTextWithAnimation(translatedText, originalText, 200);
-                // Button2'yi gizle
-                if (button2) {
-                    button2.classList.remove('show');
-                }
-            } else {
-                // Şu an orijinal gösteriliyor -> çeviriye geç
-                showTextWithAnimation(originalText, translatedText, 200);
-                // Eğer hidden-text varsa button2'yi göster
-                if (hiddenText && button2) {
-                    setTimeout(() => {
-                        button2.classList.add('show');
-                    }, 300);
-                }
-            }
-            
-            const tc15 = button.closest('.tc-15');
-            if (tc15) { setTimeout(() => fitTextToContainer(tc15), 30); }
-        });
-    });
-
-    // Button2 işlevselliği
-    const button2Elements = document.querySelectorAll('.button2');
-    button2Elements.forEach(button => {
-        button.addEventListener('click', () => {
-            const textContainer = button.closest('.text-container, .tc-15');
-            const hiddenText = textContainer.querySelector('.hidden-text');
-            const originalText = textContainer.querySelector('.original-text');
-            const translatedText = textContainer.querySelector('.translated-text');
-            
-            if (hiddenText) {
-                const isShowing = hiddenText.classList.contains('show');
-                
-                if (!isShowing) {
-                    // Hidden text'i animasyonla göster, diğerlerini gizle
-                    if (originalText) {
-                        resetTextAnimation(originalText);
-                        originalText.classList.add('hidden');
-                    }
-                    if (translatedText) {
-                        resetTextAnimation(translatedText);
-                        translatedText.classList.add('hidden');
-                    }
-                    showHiddenTextWithAnimation(hiddenText);
-                } else {
-                    // Hidden text'i gizle, çeviri metnini animasyonla geri göster
-                    resetTextAnimation(hiddenText);
-                    hiddenText.classList.remove('show');
-                    showTextWithAnimation(hiddenText, translatedText, 200);
-                    if (originalText) originalText.classList.add('hidden');
-                }
-                
-                // Button2'nin görünümünü güncelle
-                button.style.opacity = !isShowing ? '1' : '0.6';
-            }
-        });
-    });
-    
     // Initialize text animations after DOM is loaded
     initializeTextAnimations();
-
     
+    // Setup new text navigation (replaces old buttons)
+    setupTextNavigation();
+
+    function setupTextNavigation() {
+        const textContainers = document.querySelectorAll('.text-container, .tc-15, .tc-16, .end-container');
+        textContainers.forEach(container => {
+            // 1. Remove old buttons
+            const oldButtons = container.querySelectorAll('.translate-btn, .button2');
+            oldButtons.forEach(btn => btn.remove());
+
+            // 2. Identify text sections
+            // For .end-container, use .p-message only
+            let sections = [];
+            if (container.classList.contains('end-container')) {
+                sections = Array.from(container.querySelectorAll('.p-message'));
+            } else {
+                const original = container.querySelector('.lyrics');
+                const translated = container.querySelector('.translated');
+                const hiddenTexts = container.querySelectorAll('.p-note');
+                if (original) sections.push(original);
+                if (translated) sections.push(translated);
+                hiddenTexts.forEach(h => sections.push(h));
+            }
+            if (sections.length === 0) return;
+
+            // 3. Create Navigation UI
+            const nav = document.createElement('div');
+            nav.className = 'text-navigation';
+
+            // Left Arrow
+            const leftArrow = document.createElement('button');
+            leftArrow.className = 'nav-arrow prev';
+            leftArrow.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+
+            // Dots Container
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'nav-dots';
+
+            // Create dots
+            sections.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot';
+                if (index === 0) dot.classList.add('active');
+                dotsContainer.appendChild(dot);
+            });
+
+            // Right Arrow
+            const rightArrow = document.createElement('button');
+            rightArrow.className = 'nav-arrow next';
+            rightArrow.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+
+            nav.appendChild(leftArrow);
+            nav.appendChild(dotsContainer);
+            nav.appendChild(rightArrow);
+
+            container.appendChild(nav);
+
+            // 4. Logic
+            let currentIndex = 0;
+
+            // Initialize visibility: Ensure only first is visible
+            sections.forEach((sec, idx) => {
+                if (idx === 0) {
+                    sec.classList.remove('hidden');
+                    if (sec.classList.contains('p-note') || sec.classList.contains('p-message')) sec.classList.add('show');
+                    animateTextLines(sec, 100);
+                } else {
+                    sec.classList.add('hidden');
+                    sec.classList.remove('show');
+                    resetTextAnimation(sec);
+                }
+            });
+
+            const updateState = (newIndex) => {
+                if (newIndex < 0) newIndex = sections.length - 1;
+                if (newIndex >= sections.length) newIndex = 0;
+
+                const currentSection = sections[currentIndex];
+                const nextSection = sections[newIndex];
+
+                // Hide current
+                resetTextAnimation(currentSection);
+                currentSection.classList.add('hidden');
+                currentSection.classList.remove('show');
+
+                // Show next
+                nextSection.classList.remove('hidden');
+                if (nextSection.classList.contains('p-note') || nextSection.classList.contains('p-message')) {
+                    nextSection.classList.add('show');
+                }
+                animateTextLines(nextSection, 100);
+
+                // Update dots
+                const dots = dotsContainer.querySelectorAll('.nav-dot');
+                dots.forEach((d, i) => {
+                    if (i === newIndex) d.classList.add('active');
+                    else d.classList.remove('active');
+                });
+
+                currentIndex = newIndex;
+
+                // Fit text if needed (for tc-15, tc-16)
+                if (container.classList.contains('tc-15') || container.classList.contains('tc-16')) {
+                    setTimeout(() => fitTextToContainer(container), 30);
+                }
+            };
+
+            // Expose reset function for end-container
+            if (container.classList.contains('end-container')) {
+                container.resetNavigation = () => {
+                    // Hide all sections first to prevent stacking
+                    sections.forEach(sec => {
+                        sec.classList.add('hidden');
+                        sec.classList.remove('show');
+                        resetTextAnimation(sec);
+                    });
+                    
+                    // Show first section
+                    currentIndex = 0;
+                    const first = sections[0];
+                    first.classList.remove('hidden');
+                    first.classList.add('show');
+                    animateTextLines(first, 100);
+                    
+                    // Reset dots
+                    const dots = dotsContainer.querySelectorAll('.nav-dot');
+                    dots.forEach((d, i) => {
+                        if (i === 0) d.classList.add('active');
+                        else d.classList.remove('active');
+                    });
+                };
+            }
+
+            leftArrow.addEventListener('click', () => {
+                if (container.classList.contains('end-container')) {
+                    cancelCreditsAnimation();
+                }
+                updateState(currentIndex - 1);
+            });
+            rightArrow.addEventListener('click', () => {
+                if (container.classList.contains('end-container')) {
+                    cancelCreditsAnimation();
+                }
+                updateState(currentIndex + 1);
+            });
+        });
+
+        // Initialize credits observer
+        initCreditsObserver();
+    }
+
+    // Credits Animation Logic
+    let creditsTimer = null;
+    let creditsStarted = false;
+    let creditsCancelled = false;
+
+    function cancelCreditsAnimation() {
+        if (creditsTimer) clearTimeout(creditsTimer);
+        creditsCancelled = true;
+        
+        // If currently in credits mode, reset to manual mode immediately
+        const container = document.querySelector('.end-container');
+        if (container && container.classList.contains('credits-mode')) {
+             resetCreditsAnimation();
+        }
+    }
+
+    function resetCreditsAnimation() {
+        const container = document.querySelector('.end-container');
+        if (!container) return;
+
+        // Remove wrapper and restore messages
+        const wrapper = container.querySelector('.credits-wrapper');
+        if (wrapper) {
+            const messages = Array.from(wrapper.querySelectorAll('.p-message'));
+            const nav = container.querySelector('.text-navigation');
+            messages.forEach(m => {
+                if (nav) {
+                    container.insertBefore(m, nav);
+                } else {
+                    container.appendChild(m);
+                }
+            });
+            wrapper.remove();
+        }
+
+        container.classList.remove('credits-mode');
+        creditsStarted = false;
+        
+        // Reset navigation to start
+        if (container.resetNavigation) {
+            container.resetNavigation();
+        }
+    }
+
+    function initCreditsObserver() {
+        const endSection = document.getElementById('end');
+        if (!endSection) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!creditsStarted && !creditsCancelled) {
+                        creditsTimer = setTimeout(startCreditsAnimation, 5000);
+                    }
+                } else {
+                    // Leaving section
+                    if (creditsTimer) clearTimeout(creditsTimer);
+                    
+                    // Reset everything
+                    resetCreditsAnimation();
+                    creditsCancelled = false; // Allow restart on next entry
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(endSection);
+    }
+
+    function startCreditsAnimation() {
+        if (creditsStarted || creditsCancelled) return;
+        creditsStarted = true;
+        
+        const container = document.querySelector('.end-container');
+        if (!container) return;
+        
+        container.classList.add('credits-mode');
+        
+        // Create wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'credits-wrapper';
+        
+        // Move messages
+        const messages = Array.from(container.querySelectorAll('.p-message'));
+        messages.forEach(m => {
+            m.classList.remove('hidden');
+            m.classList.add('show');
+            wrapper.appendChild(m);
+        });
+        
+        // Loop logic
+        wrapper.addEventListener('animationend', () => {
+            resetCreditsAnimation();
+            // Restart loop
+            creditsTimer = setTimeout(startCreditsAnimation, 5000);
+        });
+        
+        container.appendChild(wrapper);
+    }
 
     function fitTextToContainer(container) {
         if (!container) return;
-        const activeText = container.querySelector('.original-text:not(.hidden), .translated-text:not(.hidden)');
+        const activeText = container.querySelector('.lyrics:not(.hidden), .translated:not(.hidden), .p-message:not(.hidden)');
         const p = activeText ? activeText.querySelector('p') : container.querySelector('p');
         if (!p) return;
         p.style.whiteSpace = 'normal';
