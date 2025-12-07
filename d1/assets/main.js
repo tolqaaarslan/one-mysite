@@ -252,6 +252,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Logic
             let currentIndex = 0;
 
+            // Helper to update button visibility
+            const updateButtons = (index) => {
+                leftArrow.style.visibility = index === 0 ? 'hidden' : 'visible';
+                rightArrow.style.visibility = index === sections.length - 1 ? 'hidden' : 'visible';
+            };
+
             // Initialize visibility: Ensure only first is visible
             sections.forEach((sec, idx) => {
                 if (idx === 0) {
@@ -264,10 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     resetTextAnimation(sec);
                 }
             });
+            
+            // Initialize buttons
+            updateButtons(currentIndex);
 
             const updateState = (newIndex) => {
-                if (newIndex < 0) newIndex = sections.length - 1;
-                if (newIndex >= sections.length) newIndex = 0;
+                // Prevent out of bounds
+                if (newIndex < 0 || newIndex >= sections.length) return;
 
                 const currentSection = sections[currentIndex];
                 const nextSection = sections[newIndex];
@@ -292,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 currentIndex = newIndex;
+                updateButtons(currentIndex);
 
                 // Fit text if needed (for tc-15, tc-16)
                 if (container.classList.contains('tc-15') || container.classList.contains('tc-16')) {
@@ -322,6 +332,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (i === 0) d.classList.add('active');
                         else d.classList.remove('active');
                     });
+                    
+                    // Reset buttons
+                    updateButtons(0);
                 };
             }
 
@@ -492,5 +505,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const runFit = () => fitTextToContainer(tc15);
         window.addEventListener('resize', runFit);
         runFit();
+    }
+
+    // End Section Background Interaction
+    const endSection = document.getElementById('end');
+    
+    if (endSection) {
+        const leftActives = endSection.querySelectorAll('.left-active');
+        const rightActives = endSection.querySelectorAll('.right-active');
+        const endContainer = endSection.querySelector('.end-container');
+
+        const resetBg = () => {
+            endSection.classList.remove('bg-left');
+            endSection.classList.remove('bg-right');
+        };
+
+        // Stop credits on interaction
+        const stopCredits = () => {
+            if (typeof cancelCreditsAnimation === 'function') {
+                cancelCreditsAnimation();
+            }
+        };
+
+        if (endContainer) {
+            endContainer.addEventListener('mouseenter', stopCredits);
+        }
+
+        leftActives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                stopCredits();
+                endSection.classList.add('bg-left');
+                endSection.classList.remove('bg-right');
+            });
+            el.addEventListener('mouseleave', resetBg);
+        });
+
+        rightActives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                stopCredits();
+                endSection.classList.add('bg-right');
+                endSection.classList.remove('bg-left');
+            });
+            el.addEventListener('mouseleave', resetBg);
+        });
     }
 });
