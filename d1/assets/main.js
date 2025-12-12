@@ -111,8 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
         paragraphs.forEach(p => {
             const html = p.innerHTML;
             // Split by <br> tags and wrap each line in a span
-            const lines = html.split('<br>').filter(line => line.trim() !== '');
-            const wrappedLines = lines.map(line => `<span class="text-line">${line.trim()}</span>`).join('');
+            // Allow multiple breaks by preserving empty lines as <br>
+            const lines = html.split(/<br\s*\/?>/i);
+            const wrappedLines = lines.map(line => {
+                if (line.trim() === '') {
+                    return '<br>';
+                }
+                return `<span class="text-line">${line.trim()}</span>`;
+            }).join('');
             p.innerHTML = wrappedLines;
         });
     }
@@ -120,19 +126,37 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateTextLines(element, delay = 0) {
         if (!element) return;
         
-        setTimeout(() => {
-            const lines = element.querySelectorAll('.text-line');
-            lines.forEach(line => {
+        // Clear any existing timeout
+        if (element.dataset.animationTimeout) {
+            clearTimeout(parseInt(element.dataset.animationTimeout));
+        }
+
+        const timeoutId = setTimeout(() => {
+            const lines = element.querySelectorAll('.text-line, .song-divider');
+            lines.forEach((line, index) => {
+                // Calculate delay based on index to ensure continuous flow across paragraphs/dividers
+                // Base delay is 0.1s per line
+                line.style.transitionDelay = `${(index + 1) * 0.1}s`;
                 line.classList.add('animate-in');
             });
+            element.removeAttribute('data-animation-timeout');
         }, delay);
+        
+        element.dataset.animationTimeout = timeoutId;
     }
     
     function resetTextAnimation(element) {
         if (!element) return;
         
-        const lines = element.querySelectorAll('.text-line');
+        // Clear pending animation
+        if (element.dataset.animationTimeout) {
+            clearTimeout(parseInt(element.dataset.animationTimeout));
+            element.removeAttribute('data-animation-timeout');
+        }
+        
+        const lines = element.querySelectorAll('.text-line, .song-divider');
         lines.forEach(line => {
+            line.style.transitionDelay = ''; // Clear inline delay
             line.classList.remove('animate-in');
         });
     }
@@ -174,8 +198,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (textContainer) {
                         const visibleText = textContainer.querySelector('.lyrics:not(.hidden), .translated:not(.hidden), .p-message:not(.hidden)');
                         if (visibleText) {
-                            animateTextLines(visibleText, 500);
+                            // Wait for container animation to finish (approx 1000ms)
+                            animateTextLines(visibleText, 300);
                         }
+                    }
+                } else {
+                    // Reset animations when leaving view
+                    const textContainer = entry.target.querySelector('.text-container, .tc-15, .end-container');
+                    if (textContainer) {
+                        const allTexts = textContainer.querySelectorAll('.lyrics, .translated, .p-note, .p-message');
+                        allTexts.forEach(text => resetTextAnimation(text));
                     }
                 }
             });

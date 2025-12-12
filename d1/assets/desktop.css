@@ -1,67 +1,23 @@
-@media (min-width: 3840px) {}
+@media (min-width:1367px) {}
 
-@media (min-width: 2560px) {
+@media (min-width: 1367px) {
+    .content-wrapper {
+        width: 95%;
+        gap: 8rem;
+    }
+}
 
-    .content-wrapper {width: 90% !important; gap: 20rem !important;
+/* --- 1.5 Medium Desktop (1367px to 1920px) --- */
+@media (min-width: 1600px) and (max-width: 1920px) {}
+
+/* --- 2. Large Desktop (1367px+) --- */
+
+@media (min-width: 1400px) {
+    .content-wrapper {
+        width: 90% !important;
+        gap: 8rem !important;
     }
 
-    .part-header { font-size: 1.8rem;}
-
-    .see-you-again {font-size: 1.5rem; line-height: 2;}
-    .see-you-again-translate {font-size: 1.5rem; line-height: 2;}
-
-    .somewhere-only-we-know {font-size: 1.5rem; line-height: 2;}
-    .somewhere-only-we-know-translate {font-size: 1.5rem; line-height: 2;}
-
-    .my-immortal {font-size: 1.5rem; line-height: 2;}
-    .my-immortal-translate {font-size: 1.5rem; line-height: 2;}
-
-    .bedshaped {font-size: 1.2rem;line-height: 2;}
-    .bedshaped-translate {font-size: 1.2rem; line-height: 2;}
-
-    .lost {font-size: 1.5rem; line-height: 2;}
-    .lost-translate {font-size: 1.5rem; line-height: 2;}
-    .lost-note {font-size: 1.3rem; line-height: 2;}
-
-    .until-its-gone {font-size: 1.5rem; line-height: 2;}
-    .until-its-gone-translate {font-size: 1.5rem; line-height: 2;}
-    .until-its-gone-note {font-size: 1.5rem; line-height: 2;}
-
-    .leave-out-all-the-rest {font-size: 1.5rem; line-height: 2;}
-    .leave-out-all-the-rest-translate {font-size: 1.5rem; line-height: 2;}
-
-    .the-scientist {font-size: 1.5rem; line-height: 2;}
-    .the-scientist-translate {font-size: 1.4rem; line-height: 2;}
-
-    .one-more-light {font-size: 1.5rem; line-height: 2;}
-    .one-more-light-translate {font-size: 1.5rem; line-height: 2;}
-    .one-more-light-note {font-size: 1.2rem; line-height: 1.8;}
-
-    .everglow {font-size: 1.5rem; line-height: 2;}
-    .everglow-translate {font-size: 1.5rem; line-height: 2;}
-
-    .tell-me-how {font-size: 1.3rem; line-height: 1.8;}
-    .tell-me-how-translate {font-size: 1.3rem; line-height: 1.7;}
-
-    .wrecked {font-size: 1.3rem; line-height: 1.8;}
-    .wrecked-translate {font-size: 1.3rem; line-height: 1.8;}
-    .wrecked-note {font-size: 1.1rem; line-height: 1.8;}
-
-    .last-hope {font-size: 1.5rem; line-height: 2;}
-    .last-hope-translate {font-size: 1.5rem; line-height: 2;}
-
-    .little-talks {font-size: 1.5rem; line-height: 2;}
-    .little-talks-translate {font-size: 1.5rem; line-height: 2;}
-
-    .eski-dostum {font-size: 1.5rem; line-height: 1.8;}
-    .eski-dostum-translate {font-size: 1.5rem; line-height: 1.8;}
-
-    .pm-1 {font-size: 1.3rem; line-height: 1.8;}
-    .pm-2 {font-size: 1.3rem; line-height: 1.8;}
-    .pm-3 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-4 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-5 {font-size: 1.3rem; line-height: 1.8;}
-    .pm-6 {font-size: 1.1rem; line-height: 1.6;}
 }
 
 /* --- 1. Extra Large Screens (1920px+) --- */
@@ -76,155 +32,169 @@
     }
 
     .text-container {
-        width: clamp(460px, 42%, 62%);
-    }
-
-    .see-you-again {font-size: 1.3rem; line-height: 2;}
-    .see-you-again-translate {font-size: 1.3rem; line-height: 2;}
-
-    .somewhere-only-we-know {font-size: 1.3rem; line-height: 2;}
-    .somewhere-only-we-know-translate {font-size: 1.3rem; line-height: 2;}
-
-    .my-immortal {font-size: 1.3rem; line-height: 2;}
-    .my-immortal-translate {font-size: 1.3rem; line-height: 2;}
-
-    .bedshaped {font-size: 1.2rem;line-height: 1.9;}
-    .bedshaped-translate {font-size: 1.15rem; line-height: 1.9;}
-
-    .lost {font-size: 1.3rem; line-height: 2;}
-    .lost-translate {font-size: 1.3rem; line-height: 2;}
-    .lost-note {font-size: 1.1rem; line-height: 2;}
-
-    .until-its-gone {font-size: 1.2rem; line-height: 2;}
-    .until-its-gone-translate {font-size: 1.2rem; line-height: 2;}
-    .until-its-gone-note {font-size: 1.2rem; line-height: 2;}
-
-    .leave-out-all-the-rest {font-size: 1.3rem; line-height: 2;}
-    .leave-out-all-the-rest-translate {font-size: 1.3rem; line-height: 2;}
-
-    .the-scientist {font-size: 1.3rem; line-height: 2;}
-    .the-scientist-translate {font-size: 1.2rem; line-height: 2;}
-
-    .one-more-light {font-size: 1.3rem; line-height: 2;}
-    .one-more-light-translate {font-size: 1.3rem; line-height: 2;}
-    .one-more-light-note {font-size: 1.1rem; line-height: 1.8;}
-
-    .everglow {font-size: 1.3rem; line-height: 2;}
-    .everglow-translate {font-size: 1.3rem; line-height: 2;}
-
-    .tell-me-how {font-size: 1.2rem; line-height: 1.8;}
-    .tell-me-how-translate {font-size: 1.08rem; line-height: 1.7;}
-
-    .wrecked {font-size: 1.1rem; line-height: 1.8;}
-    .wrecked-translate {font-size: 1rem; line-height: 1.8;}
-    .wrecked-note {font-size: .95rem; line-height: 1.8;}
-
-    .last-hope {font-size: 1.3rem; line-height: 2;}
-    .last-hope-translate {font-size: 1.3rem; line-height: 2;}
-
-    .little-talks {font-size: 1.3rem; line-height: 2;}
-    .little-talks-translate {font-size: 1.3rem; line-height: 2;}
-
-    .eski-dostum {font-size: 1.3rem; line-height: 1.8;}
-    .eski-dostum-translate {font-size: 1.3rem; line-height: 1.8;}
-
-    .pm-1 {font-size: 1.3rem; line-height: 1.8;}
-    .pm-2 {font-size: 1.3rem; line-height: 1.8;}
-    .pm-3 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-4 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-5 {font-size: 1.3rem; line-height: 1.8;}
-    .pm-6 {font-size: 1.1rem; line-height: 1.6;}
-
-}
-
-@media (min-width: 1400px) {
-    .content-wrapper {
-        width: 90% !important;
-        gap: 8rem !important;
-    }
-    .video-container {
-        width: clamp(1200px, 75%, 95%);
-    }
-
-    .text-container {
-        width: clamp(460px, 42%, 62%);
-    }
-
-    .see-you-again {font-size: 1.1rem; line-height: 2;}
-    .see-you-again-translate {font-size: 1.1rem; line-height: 2;}
-
-    .somewhere-only-we-know {font-size: 1.1rem; line-height: 2;}
-    .somewhere-only-we-know-translate {font-size: 1.1rem; line-height: 2;}
-
-    .my-immortal {font-size: 1.1rem; line-height: 2;}
-    .my-immortal-translate {font-size: 1.1rem; line-height: 2;}
-
-    .bedshaped {font-size: 1.1rem;line-height: 1.9;}
-    .bedshaped-translate {font-size: 1.05rem; line-height: 1.9;}
-
-    .lost {font-size: 1.1rem; line-height: 2;}
-    .lost-translate {font-size: 1.1rem; line-height: 2;}
-    .lost-note {font-size: 1rem; line-height: 2;}
-
-    .until-its-gone {font-size: 1.2rem; line-height: 2;}
-    .until-its-gone-translate {font-size: 1.2rem; line-height: 2;}
-    .until-its-gone-note {font-size: 1.1rem; line-height: 2;}
-
-    .leave-out-all-the-rest {font-size: 1.2rem; line-height: 2;}
-    .leave-out-all-the-rest-translate {font-size: 1.2rem; line-height: 2;}
-
-    .the-scientist {font-size: 1.2rem; line-height: 2;}
-    .the-scientist-translate {font-size: 1.1rem; line-height: 2;}
-
-    .one-more-light {font-size: 1.2rem; line-height: 2;}
-    .one-more-light-translate {font-size: 1.2em; line-height: 2;}
-    .one-more-light-note {font-size: 1rem; line-height: 1.8;}
-
-    .everglow {font-size: 1.1rem; line-height: 2;}
-    .everglow-translate {font-size: 1.1rem; line-height: 2;}
-
-    .tell-me-how {font-size: 1.1rem; line-height: 1.8;}
-    .tell-me-how-translate {font-size: 1rem; line-height: 1.7;}
-
-    .wrecked {font-size: 1rem; line-height: 1.8;}
-    .wrecked-translate {font-size: .95rem; line-height: 1.8;}
-    .wrecked-note {font-size: .85rem; line-height: 1.8;}
-
-    .last-hope {font-size: 1.1rem; line-height: 2;}
-    .last-hope-translate {font-size: 1.1rem; line-height: 2;}
-
-    .little-talks {font-size: 1.1rem; line-height: 2;}
-    .little-talks-translate {font-size: 1.1rem; line-height: 2;}
-
-    .eski-dostum {font-size: 1.1rem; line-height: 1.8;}
-    .eski-dostum-translate {font-size: 1.1rem; line-height: 1.8;}
-
-    .pm-1 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-2 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-3 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-4 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-5 {font-size: 1.1rem; line-height: 1.8;}
-    .pm-6 {font-size: .9rem; line-height: 1.6;}
-}
-
-/* --- 1.5 Medium Desktop (1367px to 1920px) --- */
-@media (min-width: 1600px) and (max-width: 1920px) {}
-
-/* --- 2. Large Desktop (1367px+) --- */
-@media (min-width: 1367px) {
-    .content-wrapper {
-        width: 95%;
-        gap: 8rem;
-    }
-
-    .video-container {
-        width: 75%;
-    }
-
-    .text-container {
         width: 25%;
-        padding: 2.5rem;
     }
+    
+
+    .see-you-again {font-size: 1.2rem !important; line-height: 1.8;}
+    .see-you-again-translate {font-size: 1.2rem !important; line-height: 1.8;}
+
+    .somewhere-only-we-know {font-size: 1.1rem !important; line-height: 1.8;}
+    .somewhere-only-we-know-translate {font-size: 1.1rem !important; line-height: 1.8;}
+
+    .the-scientist {font-size: 1.1rem !important; line-height: 1.8;}
+    .the-scientist-translate {font-size: 1.05rem !important; line-height: 1.8;}
+
+    .all-i-want {font-size: 1.2rem !important; line-height: 1.8;}
+    .all-i-want-translate {font-size: 1.2rem !important; line-height: 1.8;}
+    .all-i-want-note {font-size: 1rem !important; line-height: 1.8;}
+
+    .until-its-gone {font-size: 1.2rem !important; line-height: 1.8;}
+    .until-its-gone-translate {font-size: 1.2rem !important; line-height: 1.8;}
+    .until-its-gone-note {font-size: 1.1rem !important; line-height: 1.8;}
+
+    .wrecked {font-size: 1rem !important; line-height: 1.8;}
+    .wrecked-translate {font-size: 1rem !important; line-height: 1.8;}
+    .wrecked-note {font-size: .92rem !important; line-height: 1.8;}
+
+    .my-immortal {font-size: 1.2rem !important; line-height: 1.8;}
+    .my-immortal-translate {font-size: 1.2rem !important; line-height: 1.8;}
+
+    .little-talks {font-size: 1.2rem !important; line-height: 1.8;}
+    .little-talks-translate {font-size: 1.2rem !important; line-height: 1.8;}
+
+    .tell-me-how {font-size: 1rem !important; line-height: 1.8;}
+    .tell-me-how-translate {font-size: 1rem !important; line-height: 1.8;}
+
+    .wish-you-were-here {font-size: 1.2rem !important; line-height: 1.8;}
+    .wish-you-were-here-translate {font-size: 1.2rem !important; line-height: 1.8;}
+
+    .lost {font-size: 1.1rem !important; line-height: 1.8;}
+    .lost-translate {font-size: 1.1rem !important; line-height: 1.8;}
+    .lost-note {font-size: 1rem !important; line-height: 1.8;}
+
+    .bedshaped {font-size: 1rem !important; line-height: 1.8;}
+    .bedshaped-translate {font-size: 1rem !important; line-height: 1.8;}
+
+    .last-hope {font-size: 1rem !important; line-height: 1.8;}
+    .last-hope-translate {font-size: 1rem !important; line-height: 1.8;}
+
+    .one-more-light {font-size: 1.1rem !important; line-height: 1.8;}
+    .one-more-light-translate {font-size: 1.1rem !important; line-height: 1.8;}
+    .one-more-light-note {font-size: 1rem !important; line-height: 1.8;}
+    
+    .leave-out-all-the-rest {font-size: 1rem !important; line-height: 1.8;}
+    .leave-out-all-the-rest-translate {font-size: 1rem !important; line-height: 1.8;}
+
+    .twenty-six {font-size: 1rem !important; line-height: 1.8;}
+    .twenty-six-translate {font-size: 1rem !important; line-height: 1.8;}
+
+    .already-gone {font-size: 1.5rem !important; line-height: 1.8;}
+    .already-gone-translate {font-size: 1.5rem !important; line-height: 1.8;}
+
+    .everglow {font-size: 1.5rem !important; line-height: 2;}
+    .everglow-translate {font-size: 1.5rem !important; line-height: 2;}
+
+    .yitirmeden {font-size: 1.4rem !important; line-height: 1.8;}
+    .yitirmeden-note {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .eski-dostum {font-size: 1.4rem !important; line-height: 1.8;}
+    .eski-dostum-note {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .pm-1 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-2 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-3 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-4 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-5 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-6 {font-size: 1.1rem !important; line-height: 1.8;}
+
 }
 
-@media (min-width:1367px) {}
+@media (min-width: 2560px) {
+
+    .content-wrapper {width: 90% !important; gap: 20rem !important;
+    }
+
+    .part-header { font-size: 1.8rem;}
+
+    .see-you-again {font-size: 1.4rem !important; line-height: 1.8;}
+    .see-you-again-translate {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .somewhere-only-we-know {font-size: 1.4rem !important; line-height: 1.8;}
+    .somewhere-only-we-know-translate {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .the-scientist {font-size: 1.4rem !important; line-height: 1.8;}
+    .the-scientist-translate {font-size: 1.3rem !important; line-height: 1.8;}
+
+    .all-i-want {font-size: 1.4rem !important; line-height: 1.8;}
+    .all-i-want-translate {font-size: 1.4rem !important; line-height: 1.8;}
+    .all-i-want-note {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .until-its-gone {font-size: 1.5rem !important; line-height: 2;}
+    .until-its-gone-translate {font-size: 1.5rem !important; line-height: 2;}
+    .until-its-gone-note {font-size: 1.5rem !important; line-height: 2;}
+
+    .wrecked {font-size: 1.35rem !important; line-height: 1.8;}
+    .wrecked-translate {font-size: 1.3rem !important; line-height: 1.8;}
+    .wrecked-note {font-size: 1.2rem !important; line-height: 1.8;}
+
+    .my-immortal {font-size: 1.5rem !important; line-height: 2;}
+    .my-immortal-translate {font-size: 1.5rem !important; line-height: 2;}
+
+    .little-talks {font-size: 1.4rem !important; line-height: 2;}
+    .little-talks-translate {font-size: 1.4rem !important; line-height: 2;}
+
+    .tell-me-how {font-size: 1.3rem !important; line-height: 1.8;}
+    .tell-me-how-translate {font-size: 1.3rem !important; line-height: 1.8;}
+
+    .wish-you-were-here {font-size: 1.4rem !important; line-height: 2;}
+    .wish-you-were-here-translate {font-size: 1.4rem !important; line-height: 2;}
+
+    .lost {font-size: 1.4rem !important; line-height: 2;}
+    .lost-translate {font-size: 1.4rem !important; line-height: 2;}
+    .lost-note {font-size: 1.3rem !important; line-height: 2;}
+
+    .bedshaped {font-size: 1.3rem !important; line-height: 1.8;}
+    .bedshaped-translate {font-size: 1.3rem !important; line-height: 1.8;}
+
+    .last-hope {font-size: 1.2rem !important; line-height: 1.8;}
+    .last-hope-translate {font-size: 1.2rem !important; line-height: 1.8;}
+
+    .one-more-light {font-size: 1.4rem !important; line-height: 2;}
+    .one-more-light-translate {font-size: 1.4rem !important; line-height: 2;}
+    .one-more-light-note {font-size: 1.2rem !important; line-height: 1.8;}
+    
+    .leave-out-all-the-rest {font-size: 1.3rem !important; line-height: 1.8;}
+    .leave-out-all-the-rest-translate {font-size: 1.3rem !important; line-height: 1.8;}
+
+    .twenty-six {font-size: 1.3rem !important; line-height: 1.8;}
+    .twenty-six-translate {font-size: 1.25rem !important; line-height: 1.8;}
+
+    .already-gone {font-size: 1.5rem !important; line-height: 1.8;}
+    .already-gone-translate {font-size: 1.5rem !important; line-height: 1.8;}
+
+    .everglow {font-size: 1.5rem !important; line-height: 2;}
+    .everglow-translate {font-size: 1.5rem !important; line-height: 2;}
+
+    .yitirmeden {font-size: 1.4rem !important; line-height: 1.8;}
+    .yitirmeden-note {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .eski-dostum {font-size: 1.4rem !important; line-height: 1.8;}
+    .eski-dostum-note {font-size: 1.4rem !important; line-height: 1.8;}
+
+    .pm-1 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-2 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-3 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-4 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-5 {font-size: 1.1rem !important; line-height: 1.8;}
+    .pm-6 {font-size: 1.1rem !important; line-height: 1.8;}
+}
+
+@media (min-width: 3840px) {}
+
+
+
+
+
+
+

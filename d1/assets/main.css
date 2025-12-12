@@ -32,10 +32,14 @@ body {
     --sb-size: 6px;
 
     /* 1. Metin seçimini (mavi arka planı) engeller */
-    -webkit-user-select: none; /* Safari ve Chrome için */
-    -moz-user-select: none;    /* Firefox için */
-    -ms-user-select: none;     /* Internet Explorer/Edge için */
-    user-select: none;         /* Standart sözdizimi */
+    -webkit-user-select: none;
+    /* Safari ve Chrome için */
+    -moz-user-select: none;
+    /* Firefox için */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge için */
+    user-select: none;
+    /* Standart sözdizimi */
 
     /* 2. İmlecin "I" şeklindeki metin seçme ikonuna dönüşmesini engeller */
     cursor: default;
@@ -87,14 +91,29 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 99.6%;
-    /* Full width */
-    /* Scrollbar genişliği için tam hesaplama */
+    width: calc(100% - var(--sb-size));
+    padding: 15px 20px;
+    /* Biraz daha iç boşluk */
     z-index: 1000;
-    padding: 10px 25px 5px 25px;
 
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Arka planı tamamen kaldırmak yerine, üstten aşağıya hafif bir karartma */
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0) 100%);
 
+    /* Kenarlık veya gölge yok, sadece yumuşak bir geçiş */
+    box-shadow: none;
+    border: none;
+
+    transition: transform 0.5s ease, opacity 0.5s ease, background 0.5s ease;
+}
+
+/* Sayfa aşağı kaydırıldığında header biraz daha belirginleşebilir (Glassmorphism) */
+.site-header.scrolled {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .site-header.show {
@@ -103,19 +122,31 @@ body {
 }
 
 .logo a {
-    color: #fff;
+    /* Mevcut font ayarların kalsın */
+    font-family: 'Indie Flower', cursive;
+    /* El yazısı hissi için */
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
     text-decoration: none;
-    font-size: 1.8rem;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: 3px;
-    transition: color 0.3s ease;
-    text-shadow: 5px 5px 18px #000000;
+    letter-spacing: 2px;
 
+    /* Sert gölge yerine, etrafa yayılan bir ışık huzmesi */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    /* Hafif şeffaf, hover olunca parlar */
 }
 
 .logo a:hover {
-    color: #ffa500;
+    color: #fff;
+    opacity: 1;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 165, 0, 0.6);
+    /* Turuncu hafif bir hare */
+    transform: scale(1.02);
+    /* Çok hafif büyür */
 }
 
 /* --- Scroll Snap Konteyneri --- */
@@ -142,6 +173,34 @@ section {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow: hidden;
+    /* transition ekle ki sayfa geçişlerinde sert durmasın */
+    transition: background-image 0.5s ease-in-out;
+}
+
+@keyframes slowZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+
+    /* %10 büyür */
+}
+
+section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+    pointer-events: none;
+    /* Tıklamaları engellememesi için */
+    z-index: 0;
 }
 
 /* --- Giriş (Hero) Bölümü --- */
@@ -222,11 +281,85 @@ section {
     }
 }
 
+/* Scroll Indicator */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.arrow {
+    position: absolute;
+    width: 28px;
+    height: 8px;
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+    animation: move 3s ease-out infinite;
+}
+
+.arrow:first-child {
+    animation: move 3s ease-out 1s infinite;
+}
+
+.arrow:nth-child(2) {
+    animation: move 3s ease-out 2s infinite;
+}
+
+.arrow:before,
+.arrow:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    background: #fff;
+    height: 100%;
+    width: 51%;
+}
+
+.arrow:before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+}
+
+.arrow:after {
+    right: 0;
+    width: 50%;
+    transform: skew(0deg, -30deg);
+}
+
+@keyframes pulse {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes move {
+    25% {
+        opacity: 1;
+    }
+
+    33% {
+        opacity: 1;
+        transform: translateY(30px);
+    }
+
+    67% {
+        opacity: 1;
+        transform: translateY(40px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+    }
+}
+
 /* --- İçerik Bölümleri --- */
 .content-wrapper {
     width: 90%;
     height: 75%;
-    top: 20rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -234,6 +367,14 @@ section {
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    position: relative;
+}
+
+/* Başlık içeren section'ın içindeki content-wrapper'ı yakala */
+section:has(.part-header) .content-wrapper {
+    height: 70%;
+    top: 2rem;
 }
 
 .content-wrapper.animate-in {
@@ -251,7 +392,8 @@ section {
     height: 100%;
     position: relative;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgb(0 0 0 / .5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transform: translateX(-30px);
     opacity: 0;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
@@ -298,7 +440,16 @@ section {
 .text-container {
     width: 25%;
     height: 100%;
-    background-color: rgb(20 20 20 / .7);
+    background-color: rgba(20, 20, 20, 0.288);
+    /* Daha şeffaf */
+    backdrop-filter: blur(10px);
+    /* Arka planı bulanıklaştırır */
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari için */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* İnce, zarif bir çerçeve */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    /* Derinlik katar */
     padding: 2rem;
     border-radius: 8px;
     position: relative;
@@ -306,11 +457,15 @@ section {
     /* Allow scrolling for long text */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     transform: translateX(30px);
     opacity: 0;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
     overflow-y: hidden;
+    container-type: inline-size;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 5rem;
 }
 
 .content-wrapper.animate-in .text-container {
@@ -324,6 +479,66 @@ section {
 
 .content-wrapper.reverse.animate-in .text-container {
     transform: translateX(0);
+}
+
+/* --- Content Title --- */
+.content-title {
+    position: relative; /* Çizgiyi buna göre konumlandıracağız */
+    text-align: center;
+    font-family: 'Indie Flower', cursive; /* Başlık fontu */
+    font-size: 1.3rem;
+    color: #FFC857; /* Temanla uyumlu sarı/turuncu ton */
+    margin-top: 0;
+    flex-shrink: 0;
+    margin-bottom: 1rem; /* Yazıdan uzaklaşsın */
+    padding-bottom: 0.8rem; /* Çizgi ile yazı arası boşluk */
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* İşte o %90 genişliğindeki Border-Bottom Hilesi */
+.content-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* En alta yapıştır */
+    left: 50%; /* Ortala */
+    transform: translateX(-50%); /* Tam merkezle */
+    
+    width: 90%; /* Genişlik */
+    height: 1px; /* Kalınlık */
+    
+    /* Çizgi rengi (Kenarları silik stil) */
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15) 20%, 
+        rgba(255, 255, 255, 0.350) 80%, 
+        transparent
+    );
+}
+
+.lyrics {
+    color: #E6E6E6; 
+}
+
+.translated {
+    color: #B0B0B0; 
+}
+.lyrics, 
+.translated, 
+.p-note, 
+.p-message {
+    /* Bu özellik sihirli değnek gibidir: */
+    flex-grow: 1; /* Kalan tüm boşluğu kapla */
+    
+    /* Şimdi kapladığı bu boşluğun içinde metni ortala */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Dikey ortalama */
+    align-items: center;     /* Yatay ortalama (zaten text-align center ise gerekmez ama garantidir) */
+    
+    /* Eğer metin çok uzunsa ve taşarsa scroll çıksın diye önlem (opsiyonel) */
+    min-height: 0; 
 }
 
 /* Original text transition enhancement */
@@ -352,6 +567,43 @@ section {
     font-family: 'Kalam', cursive;
 }
 
+.song-divider {
+    border: 0;
+    /* Standart kenarlığı kaldır */
+    height: 1px;
+    /* Çizgi kalınlığı */
+
+    /* Soldan ve sağdan şeffaflaşan beyaz bir gradyan */
+    background-image: linear-gradient(to right,
+            rgba(255, 255, 255, 0),
+            /* Sol uç şeffaf */
+            rgba(255, 255, 255, 0.75),
+            /* Orta kısım parlak */
+            rgba(255, 255, 255, 0)
+            /* Sağ uç şeffaf */
+        );
+
+    margin: 1rem 0;
+    /* Üstten ve alttan boşluk bırak */
+    width: 60%;
+    /* Çizginin genişliği (Kutunun %60'ı kadar) */
+    margin-left: auto;
+    /* Ortalamak için */
+    margin-right: auto;
+    /* Ortalamak için */
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.song-divider.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Text Animations --- */
 /* Line by line animation styles */
 .text-line {
     display: block;
@@ -446,9 +698,31 @@ section {
     transition-delay: 2.0s;
 }
 
+/* --- Letter Glow Animation --- */
+@keyframes letter-glow {
+  0%   { opacity: 0; text-shadow: 0px 0px 1px rgba(255,255,255,0.1); }
+  66%  { opacity: 1; text-shadow: 0px 0px 20px rgba(255,255,255,0.9); }
+  77%  { opacity: 1; }
+  100% { opacity: 0.7; text-shadow: 0px 0px 20px rgba(255,255,255,0.0); }
+}
+
+.text-container p span.letter-glow {
+    display: inline-block;
+    opacity: 0;
+    white-space: pre; /* Preserve spaces */
+}
+
+/* Trigger animation when content-wrapper has animate-in class */
+.content-wrapper.animate-in .text-container p span.letter-glow {
+    animation: letter-glow 0.7s ease both;
+    /* animation-delay is set inline via JS */
+}
+
 /* Reset animation state when hiding */
 .text-container .hidden .text-line,
-.p-note:not(.show) .text-line {
+.text-container .hidden .song-divider,
+.p-note:not(.show) .text-line,
+.p-note:not(.show) .song-divider {
     opacity: 0;
     transform: translateY(20px);
     transition: none;
@@ -458,9 +732,6 @@ section {
     display: none;
 }
 
-.text-container .hidden2 {
-    display: none;
-}
 
 .p-note {
     display: none;
@@ -476,31 +747,6 @@ section {
     margin: 1rem 0;
 }
 
-.button2 {
-    display: none;
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    background-color: #fff0;
-    border: none;
-    color: #fff;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-}
-
-.button2.show {
-    display: block;
-    opacity: 0.6;
-}
-
-.button2:hover {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
-}
 
 .text-container h2 {
     font-size: 2.5rem;
@@ -508,187 +754,137 @@ section {
     color: #ffc107;
 }
 
-.text-container p {
 
-    text-align: center;
-    font-family: ;
-}
-
-
-
-/* Individual text container font sizes - Updated for easier customization */
-.see-you-again {font-size: 1rem; line-height: 2;}
-.see-you-again-translate {font-size: 1rem; line-height: 2;}
-
-.somewhere-only-we-know {font-size: 1rem; line-height: 1.8;}
-.somewhere-only-we-know-translate {font-size: 1rem; line-height: 1.8;}
-
-.the-scientist {font-size: 1.1rem; line-height: 2;}
-.the-scientist-translate {font-size: 1.1rem; line-height: 2;}
-
-.until-its-gone {font-size: 1.1rem; line-height: 2;}
-.until-its-gone-translate {font-size: 1.1rem; line-height: 2;}
-.until-its-gone-note {font-size: 1rem; line-height: 2;}
-
-.wrecked {font-size: .9rem; line-height: 1.6;}
-.wrecked-translate {font-size: .9rem; line-height: 1.6;}
-.wrecked-note {font-size: .9rem; line-height: 1.6;}
-
-.my-immortal {font-size: 1rem; line-height: 2;}
-.my-immortal-translate {font-size: 1rem; line-height: 2;}
-
-.little-talks {font-size: 1rem; line-height: 2;}
-.little-talks-translate {font-size: 1rem; line-height: 2;}
-
-.tell-me-how {font-size: .95rem; line-height: 1.8;}    
-.tell-me-how-translate {font-size: .90rem; line-height: 1.6;}
-
-.lost {font-size: 1rem;line-height: 2;}
-.lost-translate {font-size: 1rem; line-height: 2;}
-.lost-note {font-size: 1rem; line-height: 2;}
-
-.bedshaped {font-size: 1rem; line-height: 1.8;}
-.bedshaped-translate {font-size: .95rem; line-height: 1.8;}
-
-.last-hope {font-size: 1rem; line-height: 2;}
-.last-hope-translate {font-size: 1rem; line-height: 2;}
-
-.one-more-light {font-size: 1rem; line-height: 2;}
-.one-more-light-translate {font-size: 1rem; line-height: 2;}
-
-.leave-out-all-the-rest {font-size: 1.1rem; line-height: 1.8;}
-.leave-out-all-the-rest-translate {font-size: 1.1rem; line-height: 1.8;}
-
-.twenty-six {font-size: 1rem; line-height: 1.8;} 
-.twenty-six-translate {font-size: 1rem; line-height: 1.8;}
-
-.already-gone {font-size: 1rem; line-height: 2;}
-.already-gone-translate {font-size: 1rem; line-height: 2;}
-
-.everglow {font-size: 1rem; line-height: 2;}
-.everglow-translate {font-size: 1rem; line-height: 2;}
-
-.eski-dostum {font-size: 1rem; line-height: 1.8;}
-.eski-dostum-translate {font-size: .9rem; line-height: 1.8;}
-
-.pm-1 {font-size: 1rem; line-height: 1.8;}
-.pm-2 {font-size: 1rem; line-height: 1.8;}
-.pm-3 {font-size: 1rem; line-height: 1.8;}
-.pm-4 {font-size: 1rem; line-height: 1.8;}
-.pm-5 {font-size: 1rem; line-height: 1.8;}
-
-
-.translate-btn {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    background-color: #fff0;
-    border: none;
-    color: #fff;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    opacity: .6
-}
 
 /* --- Part Header --- */
 .part-header {
     position: absolute;
-    top: 4rem;
+    top: 10%;
+    /* Biraz daha aşağı, videoya daha yakın */
     left: 50%;
     transform: translateX(-50%);
-    background: #00000062;
-    color: #ffffff;
-    padding: 0.5rem 3rem;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    z-index: 10;
+
+    /* Kutu görünümünü kaldırıyoruz */
+    background: transparent;
+    padding: 0;
+
+    /* Yazı Stili */
+    color: rgb(255, 255, 255);
+    font-family: 'Indie Flower', cursive;
+    font-size: 2.5rem;
+    /* Daha büyük ve okunur */
+    font-weight: normal;
+    letter-spacing: 0.2em;
+    /* Harflerin arasını açarak sinematik hava veriyoruz */
+    text-shadow: 0 2px 15px rgb(0, 0, 0);
+    /* Arka plan karışık olsa bile okunmasını sağlar */
+
+    /* Altına ince bir çizgi ekleyerek vurgu yapıyoruz */
+    border-bottom: 2px solid rgba(255, 254, 254, 0.836);
+    padding-bottom: 5px;
+
+    /* Mobilde satıra sığmazsa diye */
+    width: 80%;
+    text-align: center;
+    white-space: no
 }
 
 /* --- Arka Plan Resimleri --- */
 #see-you-again {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/see-you-again.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/see-you-again.webp');
 }
 
 #somewhere-only-we-know {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/somewhere-only-we-know.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/somewhere-only-we-know.webp');
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 #the-scientist {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/the-scientist.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/the-scientist.webp');
+}
+
+#all-i-want {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/all-i-want.webp');
 }
 
 #until-its-gone {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/until-its-gone.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/until-its-gone.webp');
 }
 
 #wrecked {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/wrecked.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/wrecked.webp');
 }
 
 #my-immortal {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/my-immortal.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/my-immortal.webp');
 }
 
 #little-talks {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/little-talks.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/little-talks.webp');
 }
 
 #tell-me-how {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/tell-me-how.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/tell-me-how.webp');
+}
+
+#wish-you-were-here {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/wish-you-were-here.webp');
 }
 
 #lost {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/lost.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/lost.webp');
 }
 
 #bedshaped {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/bedshaped.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/bedshaped.webp');
 }
 
 #last-hope {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/last-hope.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/last-hope.webp');
 }
 
 #one-more-light {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/one-more-light.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/one-more-light.webp');
 }
 
 #leave-out-all-the-rest {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/leave-out-all-the-rest.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/leave-out-all-the-rest.webp');
 }
 
-[id="26"] {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/26.webp');
+#twenty-six {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/26.webp');
 }
 
 #already-gone {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/already-gone.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/already-gone.webp');
 }
 
 #everglow {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/everglow.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/everglow.webp');
+}
+
+#yitirmeden {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/yitirmeden.webp');
 }
 
 #eski-dostum {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/eski-dostum.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/eski-dostum.webp');
 }
 
 #end {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end1.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end1.webp');
     transition: background-image 0.3s ease-in-out;
     background-size: cover;
     background-position: center;
 }
 
 #end.bg-left {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end2.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end2.webp');
 }
 
 #end.bg-right {
-    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end3.webp');
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end3.webp');
 }
 
 /* --- Click Overlays (SVG) --- */
@@ -699,11 +895,13 @@ section {
     width: 100%;
     height: 100%;
     z-index: 5;
-    pointer-events: none; /* Allow clicks to pass through the SVG canvas */
+    pointer-events: none;
+    /* Allow clicks to pass through the SVG canvas */
 }
 
 .click-overlay a {
-    pointer-events: auto; /* Enable clicks on the links/rects */
+    pointer-events: auto;
+    /* Enable clicks on the links/rects */
     cursor: pointer;
 }
 
@@ -721,7 +919,8 @@ section {
 }
 
 /* Ensure content is above zones */
-.end-container, footer {
+.end-container,
+footer {
     z-index: 10;
     position: relative;
 }
@@ -732,11 +931,11 @@ section {
     #end {
         background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end1-m.webp');
     }
-    
+
     #end.bg-left {
         background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end2-m.webp');
     }
-    
+
     #end.bg-right {
         background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end3-m.webp');
     }
@@ -887,46 +1086,88 @@ footer {
 }
 
 /* --- Text Navigation Styles --- */
+/* 1. Ana Kutudaki Border'ı Kaldırıyoruz */
 .text-navigation {
     position: absolute;
-    bottom: 1rem;
+    bottom: 0;
     left: 0;
     width: 100%;
+    height: 60px;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.5rem;
-    z-index: 10;
+    padding: 0 2rem;
+    
+    /* ESKİSİ: border-top: 1px solid rgba(255, 255, 255, 0.4);  <-- Bunu SİLİYORUZ */
+    border-top: none; 
+    
+    background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+    z-index: 20;
+}
+
+/* 2. Çizgiyi Sanal Bir Element Olarak Ekliyoruz */
+.text-navigation::before {
+    content: ''; /* Görünmesi için şart */
+    position: absolute;
+    top: 0; /* En tepeye yapıştır */
+    
+    /* Ortalamak için sihirli formül: */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 80%; /* İstediğin genişlik */
+    height: 1px; /* Çizgi kalınlığı */
+    
+    /* Çizginin rengi (veya istersen gradient yapabilirsin) */
+        background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15) 20%, 
+        rgba(255, 255, 255, 0.350) 80%, 
+        transparent
+    );
+    
+    /* İstersen kenarlarını yumuşatmak için gradyan da kullanabilirsin: */
+    /* background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.5) 80%, transparent); */
 }
 
 .nav-arrow {
-    background: none;
+    background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5); /* Pasifken soluk */
+    font-size: 1rem; /* Çok büyük olmasın, zarif dursun */
     cursor: pointer;
-    transition: color 0.3s, transform 0.2s;
-    padding: 5px;
+    
+    /* Tıklamayı kolaylaştırmak için geniş alan ama ince görünüm */
+    width: 40px; 
+    height: 100%; /* Konteyner boyu kadar olsun */
+    
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    transition: all 0.3s ease;
 }
 
 .nav-arrow:hover {
-    color: #fff;
-    transform: scale(1.1);
+    color: #ffa500; /* Senin tema rengin (Turuncu) */
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.6); /* Hafif parlama */
 }
 
 /* Subtle animation for next button to encourage interaction */
 @keyframes pulse-right {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0);
         opacity: 0.6;
     }
+
     50% {
         transform: translateX(5px);
         opacity: 1;
-        color: #fff;
+        color: #FF8C42;
     }
 }
 
@@ -940,24 +1181,33 @@ footer {
     opacity: 1;
 }
 
+/* --- Stil 2: Starlight / Parlayan Küreler --- */
+/* --- Stil 3: Orbit / Yörünge --- */
+/* --- Stil 1: Timeline / Çubuklar --- */
 .nav-dots {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 .nav-dot {
-    width: 10px;
-    height: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 6px;
-    background: transparent;
+    width: 20px;     /* Yuvarlak yerine çubuk */
+    height: 3px;     /* İnce çizgi */
+    border: none;    /* Kenarlığı kaldır */
+    background: rgba(255, 255, 255, 0.3); /* Pasifken soluk */
+    border-radius: 2px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .nav-dot.active {
-    background: #fff;
-    border-color: #fff;
+    width: 40px;     /* Aktifken uzasın */
+    background: #ffa500; /* Turuncu vurgu (Senin temanın rengi) */
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); /* Hafif parlama */
 }
 
 /* Ensure text containers have space for navigation */
@@ -965,11 +1215,6 @@ footer {
     padding-bottom: 4rem !important;
 }
 
-/* Hide old buttons globally */
-.translate-btn,
-.button2 {
-    display: none !important;
-}
 
 /* Credits Animation Styles */
 .end-container.credits-mode {
@@ -1009,7 +1254,8 @@ footer {
 }
 
 /* Force text lines to be visible in credits mode */
-.end-container.credits-mode .text-line {
+.end-container.credits-mode .text-line,
+.end-container.credits-mode .song-divider {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

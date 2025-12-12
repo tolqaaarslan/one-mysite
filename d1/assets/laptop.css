@@ -115,7 +115,7 @@
 /* 1200px - 1001px Arası (Orantılı Küçülme) */
 @media (max-width: 1366px) and (min-width: 1001px) {
     .content-wrapper {
-        width: 100%;
+        width: 90%;
         gap: 2rem;
         align-items: stretch;
     }
@@ -160,101 +160,7 @@
         font-size: 1.4rem;
     }
 
-    /* Font boyutlarını koru */
-    .see-you-again p,
-    .see-you-again-translate p {
-        font-size: 0.85rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .somewhere-only-we-know p,
-    .somewhere-only-we-know-translate p {
-        font-size: 0.90rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .my-immortal p,
-    .my-immortal-translate p {
-        font-size: 0.85rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .bedshaped p,
-    .bedshaped-translate p {
-        font-size: 0.85rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .lost p,
-    .lost-translate p,
-    .lost-note p {
-        font-size: 0.9rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .until-its-gone p,
-    .until-its-gone-translate p,
-    .until-its-gone-note p {
-        font-size: 0.95rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .leave-out-all-the-rest p,
-    .leave-out-all-the-rest-translate p {
-        font-size: 0.9rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .the-scientist p,
-    .the-scientist-translate p {
-        font-size: 0.9rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .one-more-light p,
-    .one-more-light-translate p,
-    .one-more-light-note p {
-        font-size: 0.90rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .everglow p,
-    .everglow-translate p {
-        font-size: 0.85rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .tell-me-how p,
-    .tell-me-how-translate p {
-        font-size: 0.9rem !important;
-        line-height: 1.8 !important;
-    }
-
-    .wrecked p,
-    .wrecked-translate p {
-        font-size: 0.85rem !important;
-        line-height: 1.5 !important;
-    }
-
-    .last-hope p,
-    .last-hope-translate p {
-        font-size: 0.85rem !important;
-        line-height: 1.4 !important;
-    }
-
-    .little-talks p,
-    .little-talks-translate p,
-    .little-talks-note p {
-        font-size: 0.9rem !important;
-        line-height: 1.5 !important;
-    }
-
-    .eski-dostum p,
-    .eski-dostum-translate p,
-    .eski-dostum-note p {
-        font-size: 0.9rem !important;
-        line-height: 1.5 !important;
-    }
+    
 }
 
 /* --- 4. Small Desktop (Max 1200px) --- */
@@ -268,7 +174,7 @@
     .content-wrapper {
         height: auto;
         gap: 2rem;
-        width: 92%
+        width: 90%
     }
 
     .part-header {
