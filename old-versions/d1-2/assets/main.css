@@ -1,0 +1,1301 @@
+@import "tailwindcss";
+@font-face {
+    font-family: 'Kalam';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(../fonts/kalam-latin-400-normal.woff2) format('woff2'), url(fonts/kalam-latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Patrick Hand';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(../fonts/patrick-hand-latin-400-normal.woff2) format('woff2'), url(../fonts/patrick-hand-latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Indie Flower';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(../fonts/indie-flower-latin-400-normal.woff2) format('woff2'), url(../fonts/indie-flower-latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+body {
+    --sb-track-color: #000000;
+    --sb-thumb-color: #ffffff;
+    --sb-size: 6px;
+
+    /* 1. Metin seçimini (mavi arka planı) engeller */
+    -webkit-user-select: none;
+    /* Safari ve Chrome için */
+    -moz-user-select: none;
+    /* Firefox için */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge için */
+    user-select: none;
+    /* Standart sözdizimi */
+
+    /* 2. İmlecin "I" şeklindeki metin seçme ikonuna dönüşmesini engeller */
+    cursor: default;
+}
+
+/* Body yerine genel seçici kullanıyoruz çünkü asıl scroll .container'da */
+::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 8px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    * {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+}
+
+
+/* --- Genel Stiller ve Sıfırlama --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+    overflow-x: hidden;
+    /* JS ile değiştirilecek */
+    /* Mobil Safari için viewport height düzeltmesi */
+    min-height: -webkit-fill-available;
+}
+
+/* iOS Safari adres çubuğu sorunu için */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* --- Header --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100% - var(--sb-size));
+    padding: 15px 20px;
+    /* Biraz daha iç boşluk */
+    z-index: 1000;
+
+    /* Arka planı tamamen kaldırmak yerine, üstten aşağıya hafif bir karartma */
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0) 100%);
+
+    /* Kenarlık veya gölge yok, sadece yumuşak bir geçiş */
+    box-shadow: none;
+    border: none;
+
+    transition: transform 0.5s ease, opacity 0.5s ease, background 0.5s ease;
+}
+
+/* Sayfa aşağı kaydırıldığında header biraz daha belirginleşebilir (Glassmorphism) */
+.site-header.scrolled {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.site-header.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.logo a {
+    /* Mevcut font ayarların kalsın */
+    font-family: 'Indie Flower', cursive;
+    /* El yazısı hissi için */
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    letter-spacing: 2px;
+
+    /* Sert gölge yerine, etrafa yayılan bir ışık huzmesi */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    /* Hafif şeffaf, hover olunca parlar */
+}
+
+.logo a:hover {
+    color: #fff;
+    opacity: 1;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 165, 0, 0.6);
+    /* Turuncu hafif bir hare */
+    transform: scale(1.02);
+    /* Çok hafif büyür */
+}
+
+/* --- Scroll Snap Konteyneri --- */
+.container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+}
+
+/* --- Genel Bölüm (Section) Stilleri --- */
+section {
+    width: 100%;
+    height: 100vh;
+    min-height: -webkit-fill-available; /* iOS Safari için */
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    /* transition ekle ki sayfa geçişlerinde sert durmasın */
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* Mobil için section padding optimizasyonu */
+@media (max-width: 768px) {
+    section {
+        padding: 1rem 0.5rem;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+}
+
+@keyframes slowZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+
+    /* %10 büyür */
+}
+
+section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+    pointer-events: none;
+    /* Tıklamaları engellememesi için */
+    z-index: 0;
+}
+
+/* --- Giriş (Hero) Bölümü --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 50;
+}
+
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    /* Video görünür olması için pozitif z-index */
+}
+
+.hero-content {
+    padding: 2rem 4rem;
+    border-radius: 10px;
+    z-index: 2;
+    /* İçerik videonun üstünde kalması için */
+    position: relative;
+}
+
+#typewriter {
+    font-family: 'Jim Nightshade', 'Monaco', 'Menlo', 'Consolas', monospace;
+    /* Typewriter benzeri monospace font */
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 4px 3px 0px #2c2c2c;
+    border-right: .15em solid rgb(255, 255, 255);
+    /* İmleç efekti */
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 3;
+    position: relative;
+    letter-spacing: 0.05em;
+    /* Karakter arası boşluk */
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+
+
+}
+
+/* Typewriter animasyonları */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: orange;
+    }
+}
+
+/* Scroll Indicator */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.arrow {
+    position: absolute;
+    width: 28px;
+    height: 8px;
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+    animation: move 3s ease-out infinite;
+}
+
+.arrow:first-child {
+    animation: move 3s ease-out 1s infinite;
+}
+
+.arrow:nth-child(2) {
+    animation: move 3s ease-out 2s infinite;
+}
+
+.arrow:before,
+.arrow:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    background: #fff;
+    height: 100%;
+    width: 51%;
+}
+
+.arrow:before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+}
+
+.arrow:after {
+    right: 0;
+    width: 50%;
+    transform: skew(0deg, -30deg);
+}
+
+@keyframes pulse {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes move {
+    25% {
+        opacity: 1;
+    }
+
+    33% {
+        opacity: 1;
+        transform: translateY(30px);
+    }
+
+    67% {
+        opacity: 1;
+        transform: translateY(40px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+    }
+}
+
+/* --- İçerik Bölümleri --- */
+.content-wrapper {
+    width: 90%;
+    height: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    position: relative;
+}
+
+/* Başlık içeren section'ın içindeki content-wrapper'ı yakala */
+section:has(.part-header) .content-wrapper {
+    height: 70%;
+    top: 2rem;
+}
+
+.content-wrapper.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content-wrapper.reverse {
+    flex-direction: row-reverse;
+}
+
+.video-container {
+    width: 75%;
+    /* Changed from 80% to 75% to fit with 25% text container */
+    height: 100%;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(-30px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.content-wrapper.animate-in .video-container {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.content-wrapper.reverse .video-container {
+    transform: translateX(30px);
+}
+
+.content-wrapper.reverse.animate-in .video-container {
+    transform: translateX(0);
+}
+
+/* Ensure Plyr/iframe/poster fill the container exactly */
+.video-container .player,
+.video-container .plyr,
+.video-container .plyr__video-wrapper,
+.video-container .plyr__poster {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: inherit;
+}
+
+.video-container .plyr__video-embed,
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Poster image should cover without letterboxing */
+.video-container .plyr__poster {
+    background-position: center center !important;
+    background-size: cover !important;
+}
+
+.text-container {
+    width: 25%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.288);
+    /* Daha şeffaf */
+    backdrop-filter: blur(10px);
+    /* Arka planı bulanıklaştırır */
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari için */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* İnce, zarif bir çerçeve */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    /* Derinlik katar */
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative;
+    overflow-y: auto;
+    /* Allow scrolling for long text */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transform: translateX(30px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+    overflow-y: hidden;
+    container-type: inline-size;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 5rem;
+}
+
+.content-wrapper.animate-in .text-container {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.content-wrapper.reverse .text-container {
+    transform: translateX(-30px);
+}
+
+.content-wrapper.reverse.animate-in .text-container {
+    transform: translateX(0);
+}
+
+/* --- Content Title --- */
+.content-title {
+    position: relative; /* Çizgiyi buna göre konumlandıracağız */
+    text-align: center;
+    font-family: 'Indie Flower', cursive; /* Başlık fontu */
+    font-size: 1.3rem;
+    color: #FFC857; /* Temanla uyumlu sarı/turuncu ton */
+    margin-top: 0;
+    flex-shrink: 0;
+    margin-bottom: 1rem; /* Yazıdan uzaklaşsın */
+    padding-bottom: 0.8rem; /* Çizgi ile yazı arası boşluk */
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* İşte o %90 genişliğindeki Border-Bottom Hilesi */
+.content-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* En alta yapıştır */
+    left: 50%; /* Ortala */
+    transform: translateX(-50%); /* Tam merkezle */
+    
+    width: 90%; /* Genişlik */
+    height: 1px; /* Kalınlık */
+    
+    /* Çizgi rengi (Kenarları silik stil) */
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15) 20%, 
+        rgba(255, 255, 255, 0.350) 80%, 
+        transparent
+    );
+}
+
+.lyrics {
+    color: #E6E6E6; 
+}
+
+.translated {
+    color: #B0B0B0; 
+}
+.lyrics, 
+.translated, 
+.p-note, 
+.p-message {
+    /* Bu özellik sihirli değnek gibidir: */
+    flex-grow: 1; /* Kalan tüm boşluğu kapla */
+    
+    /* Şimdi kapladığı bu boşluğun içinde metni ortala */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Dikey ortalama */
+    align-items: center;     /* Yatay ortalama (zaten text-align center ise gerekmez ama garantidir) */
+    
+    /* Eğer metin çok uzunsa ve taşarsa scroll çıksın diye önlem (opsiyonel) */
+    min-height: 0; 
+}
+
+/* Original text transition enhancement */
+.lyrics,
+.translated,
+.p-note {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.site-header,
+#typewriter,
+.part-header {
+    font-family: 'Indie Flower', cursive;
+}
+
+.lyrics p,
+.translated p {
+    font-family: 'Patrick Hand', cursive;
+}
+
+.p-note p {
+    font-family: 'Kalam', cursive;
+}
+
+.p-message p {
+    font-family: 'Kalam', cursive;
+}
+
+.song-divider {
+    border: 0;
+    /* Standart kenarlığı kaldır */
+    height: 1px;
+    /* Çizgi kalınlığı */
+
+    /* Soldan ve sağdan şeffaflaşan beyaz bir gradyan */
+    background-image: linear-gradient(to right,
+            rgba(255, 255, 255, 0),
+            /* Sol uç şeffaf */
+            rgba(255, 255, 255, 0.75),
+            /* Orta kısım parlak */
+            rgba(255, 255, 255, 0)
+            /* Sağ uç şeffaf */
+        );
+
+    margin: 1rem 0;
+    /* Üstten ve alttan boşluk bırak */
+    width: 60%;
+    /* Çizginin genişliği (Kutunun %60'ı kadar) */
+    margin-left: auto;
+    /* Ortalamak için */
+    margin-right: auto;
+    /* Ortalamak için */
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.song-divider.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Text Animations --- */
+/* Line by line animation styles */
+.text-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-line.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.text-line:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.text-line:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.text-line:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.text-line:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.text-line:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.text-line:nth-child(6) {
+    transition-delay: 0.6s;
+}
+
+.text-line:nth-child(7) {
+    transition-delay: 0.7s;
+}
+
+.text-line:nth-child(8) {
+    transition-delay: 0.8s;
+}
+
+.text-line:nth-child(9) {
+    transition-delay: 0.9s;
+}
+
+.text-line:nth-child(10) {
+    transition-delay: 1.0s;
+}
+
+.text-line:nth-child(11) {
+    transition-delay: 1.1s;
+}
+
+.text-line:nth-child(12) {
+    transition-delay: 1.2s;
+}
+
+.text-line:nth-child(13) {
+    transition-delay: 1.3s;
+}
+
+.text-line:nth-child(14) {
+    transition-delay: 1.4s;
+}
+
+.text-line:nth-child(15) {
+    transition-delay: 1.5s;
+}
+
+.text-line:nth-child(16) {
+    transition-delay: 1.6s;
+}
+
+.text-line:nth-child(17) {
+    transition-delay: 1.7s;
+}
+
+.text-line:nth-child(18) {
+    transition-delay: 1.8s;
+}
+
+.text-line:nth-child(19) {
+    transition-delay: 1.9s;
+}
+
+.text-line:nth-child(20) {
+    transition-delay: 2.0s;
+}
+
+/* --- Letter Glow Animation --- */
+@keyframes letter-glow {
+  0%   { opacity: 0; text-shadow: 0px 0px 1px rgba(255,255,255,0.1); }
+  66%  { opacity: 1; text-shadow: 0px 0px 20px rgba(255,255,255,0.9); }
+  77%  { opacity: 1; }
+  100% { opacity: 0.7; text-shadow: 0px 0px 20px rgba(255,255,255,0.0); }
+}
+
+.text-container p span.letter-glow {
+    display: inline-block;
+    opacity: 0;
+    white-space: pre; /* Preserve spaces */
+}
+
+/* Trigger animation when content-wrapper has animate-in class */
+.content-wrapper.animate-in .text-container p span.letter-glow {
+    animation: letter-glow 0.7s ease both;
+    /* animation-delay is set inline via JS */
+}
+
+/* Reset animation state when hiding */
+.text-container .hidden .text-line,
+.text-container .hidden .song-divider,
+.p-note:not(.show) .text-line,
+.p-note:not(.show) .song-divider {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none;
+}
+
+.text-container .hidden {
+    display: none;
+}
+
+
+.p-note {
+    display: none;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.p-note.show {
+    display: block;
+    opacity: 1;
+    padding: 1rem 0;
+    margin: 1rem 0;
+}
+
+
+.text-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ffc107;
+}
+
+
+
+/* --- Part Header --- */
+.part-header {
+    position: absolute;
+    top: 10%;
+    /* Biraz daha aşağı, videoya daha yakın */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Kutu görünümünü kaldırıyoruz */
+    background: transparent;
+    padding: 0;
+
+    /* Yazı Stili */
+    color: rgb(255, 255, 255);
+    font-family: 'Indie Flower', cursive;
+    font-size: 2.5rem;
+    /* Daha büyük ve okunur */
+    font-weight: normal;
+    letter-spacing: 0.2em;
+    /* Harflerin arasını açarak sinematik hava veriyoruz */
+    text-shadow: 0 2px 15px rgb(0, 0, 0);
+    /* Arka plan karışık olsa bile okunmasını sağlar */
+
+    /* Altına ince bir çizgi ekleyerek vurgu yapıyoruz */
+    border-bottom: 2px solid rgba(255, 254, 254, 0.836);
+    padding-bottom: 5px;
+
+    /* Mobilde satıra sığmazsa diye */
+    width: 80%;
+    text-align: center;
+    white-space: no
+}
+
+/* --- Arka Plan Resimleri --- */
+#see-you-again {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/see-you-again.webp');
+}
+
+#somewhere-only-we-know {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/somewhere-only-we-know.webp');
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#the-scientist {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/the-scientist.webp');
+}
+
+#all-i-want {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/all-i-want.webp');
+}
+
+#until-its-gone {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/until-its-gone.webp');
+}
+
+#wrecked {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/wrecked.webp');
+}
+
+#my-immortal {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/my-immortal.webp');
+}
+
+#little-talks {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/little-talks.webp');
+}
+
+#tell-me-how {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/tell-me-how.webp');
+}
+
+#wish-you-were-here {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/wish-you-were-here.webp');
+}
+
+#lost {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/lost.webp');
+}
+
+#bedshaped {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/bedshaped.webp');
+}
+
+#last-hope {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/last-hope.webp');
+}
+
+#one-more-light {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/one-more-light.webp');
+}
+
+#leave-out-all-the-rest {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/leave-out-all-the-rest.webp');
+}
+
+#twenty-six {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/26.webp');
+}
+
+#already-gone {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/already-gone.webp');
+}
+
+#everglow {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/everglow.webp');
+}
+
+#yitirmeden {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/yitirmeden.webp');
+}
+
+#eski-dostum {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/eski-dostum.webp');
+}
+
+#end {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end1.webp');
+    transition: background-image 0.3s ease-in-out;
+    background-size: cover;
+    background-position: center;
+}
+
+#end.bg-left {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end2.webp');
+}
+
+#end.bg-right {
+    background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end3.webp');
+}
+
+/* --- Click Overlays (SVG) --- */
+.click-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    /* Allow clicks to pass through the SVG canvas */
+}
+
+.click-overlay a {
+    pointer-events: auto;
+    /* Enable clicks on the links/rects */
+    cursor: pointer;
+}
+
+.click-overlay rect {
+    transition: fill 0.3s ease;
+}
+
+/* Default visibility (Desktop) */
+.desktop-overlay {
+    display: block;
+}
+
+.mobile-overlay {
+    display: none;
+}
+
+/* Ensure content is above zones */
+.end-container,
+footer {
+    z-index: 10;
+    position: relative;
+}
+
+
+/* Mobile Images */
+@media (max-width: 768px) {
+    #end {
+        background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end1-m.webp');
+    }
+
+    #end.bg-left {
+        background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end2-m.webp');
+    }
+
+    #end.bg-right {
+        background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end3-m.webp');
+    }
+}
+
+/* --- Son Bölüm ve Footer --- */
+#end {
+    position: relative;
+    /* Add relative positioning */
+    justify-content: flex-start;
+    /* start near top instead of center */
+    align-items: center;
+    text-align: center;
+    padding-top: 96px;
+    /* start from the red area under the header */
+}
+
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 10px;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffc107;
+}
+
+
+.end-container {
+    position: relative;
+    width: 40vw;
+    height: 40vh;
+    overflow-y: auto;
+    padding: 1.5rem 2rem 4rem 2rem;
+    background-color: rgba(20, 20, 20, 0.397) !important;
+    border-radius: 8px;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: -2rem auto;
+    opacity: 1;
+    transition: none;
+}
+
+#end.animate-in .end-container {
+    opacity: 1;
+}
+
+/* Make text visible in end-container */
+/* Only show the active .p-message, hide others */
+.end-container .p-message {
+    min-height: 220px;
+    width: 100%;
+    display: none;
+    box-sizing: border-box;
+    /* Prevent container resize on message switch */
+}
+
+.end-container .p-message:not(.hidden) {
+    display: block;
+}
+
+.end-container p {
+    margin: 0 0 1rem 0 !important;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    color: #ffffff !important;
+    text-align: center;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.end-container .translate-btn {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+
+/* --- Responsive Media Queries --- */
+
+/* High DPI Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .site-header {
+        backdrop-filter: blur(20px);
+    }
+
+    .text-container p {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Dark Mode Respection */
+@media (prefers-color-scheme: dark) {
+
+    /* Site already dark, but ensure good contrast */
+    .text-container {
+        background-color: rgba(15, 15, 15, 0.8);
+    }
+
+    .translate-btn {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .site-header {
+        transition: none;
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .content-wrapper {
+        transition: none
+    }
+
+    .banner,
+    .part-header,
+    .content-section {
+        background-attachment: scroll !important
+    }
+}
+
+/* --- Text Navigation Styles --- */
+/* 1. Ana Kutudaki Border'ı Kaldırıyoruz */
+.text-navigation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    
+    /* ESKİSİ: border-top: 1px solid rgba(255, 255, 255, 0.4);  <-- Bunu SİLİYORUZ */
+    border-top: none; 
+    
+    background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+    z-index: 20;
+}
+
+/* 2. Çizgiyi Sanal Bir Element Olarak Ekliyoruz */
+.text-navigation::before {
+    content: ''; /* Görünmesi için şart */
+    position: absolute;
+    top: 0; /* En tepeye yapıştır */
+    
+    /* Ortalamak için sihirli formül: */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 80%; /* İstediğin genişlik */
+    height: 1px; /* Çizgi kalınlığı */
+    
+    /* Çizginin rengi (veya istersen gradient yapabilirsin) */
+        background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15) 20%, 
+        rgba(255, 255, 255, 0.350) 80%, 
+        transparent
+    );
+    
+    /* İstersen kenarlarını yumuşatmak için gradyan da kullanabilirsin: */
+    /* background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.5) 80%, transparent); */
+}
+
+.nav-arrow {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5); /* Pasifken soluk */
+    font-size: 1rem; /* Çok büyük olmasın, zarif dursun */
+    cursor: pointer;
+    
+    /* Tıklamayı kolaylaştırmak için geniş alan ama ince görünüm */
+    width: 40px; 
+    height: 100%; /* Konteyner boyu kadar olsun */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: all 0.3s ease;
+}
+
+.nav-arrow:hover {
+    color: #ffa500; /* Senin tema rengin (Turuncu) */
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.6); /* Hafif parlama */
+}
+
+/* Subtle animation for next button to encourage interaction */
+@keyframes pulse-right {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateX(5px);
+        opacity: 1;
+        color: #FF8C42;
+    }
+}
+
+.nav-arrow.next {
+    animation: pulse-right 2s infinite ease-in-out;
+}
+
+.nav-arrow.next:hover {
+    animation: none;
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+/* --- Stil 2: Starlight / Parlayan Küreler --- */
+/* --- Stil 3: Orbit / Yörünge --- */
+/* --- Stil 1: Timeline / Çubuklar --- */
+.nav-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-dot {
+    width: 20px;     /* Yuvarlak yerine çubuk */
+    height: 3px;     /* İnce çizgi */
+    border: none;    /* Kenarlığı kaldır */
+    background: rgba(255, 255, 255, 0.3); /* Pasifken soluk */
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.nav-dot.active {
+    width: 40px;     /* Aktifken uzasın */
+    background: #ffa500; /* Turuncu vurgu (Senin temanın rengi) */
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); /* Hafif parlama */
+}
+
+/* Ensure text containers have space for navigation */
+.text-container {
+    padding-bottom: 4rem !important;
+}
+
+
+/* Credits Animation Styles */
+.end-container.credits-mode {
+    overflow: hidden !important;
+    /* Mask the scrolling content */
+    justify-content: flex-start !important;
+    /* Align to top so animation starts correctly */
+}
+
+.end-container.credits-mode .text-navigation {
+    display: none !important;
+}
+
+.credits-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    /* Increased space between messages */
+    top: 100%;
+    /* Start below the container */
+    animation: credits-scroll 50s linear infinite;
+    /* Slower animation */
+}
+
+.end-container.credits-mode .p-message {
+    display: block !important;
+    /* Show all messages */
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: 100%;
+    text-align: center;
+    margin: 0 !important;
+    /* Reset margins, handled by gap */
+}
+
+/* Force text lines to be visible in credits mode */
+.end-container.credits-mode .text-line,
+.end-container.credits-mode .song-divider {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Style adjustments for credits look */
+.end-container.credits-mode .p-message p {
+    font-size: 1.5rem !important;
+    /* Larger text for credits */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes credits-scroll {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(calc(-100% - 600px));
+        /* Scroll completely out of view */
+    }
+}

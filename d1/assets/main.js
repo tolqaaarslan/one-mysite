@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const typewriterElement = document.getElementById('typewriter');
     const siteHeader = document.querySelector('.site-header');
+    const heroSection = document.querySelector('.hero');
 
     console.log('Typewriter element found:', typewriterElement);
 
@@ -13,11 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Normal scroll'u etkinleştir
     body.style.overflow = 'auto';
 
-    // Basit typewriter efekti (sadece text boşsa)
-    if (typewriterElement && typewriterElement.textContent.trim() === '') {
-        const text = "for my old friends";
+    // Basit typewriter efekti
+    if (typewriterElement) {
+        const text = "for those i still long for";
         let i = 0;
-        const speed = 90;
+        const speed = 130;
+
+        // Yazma öncesi sıfırla ve imleci aktif et
+        typewriterElement.textContent = '';
+        typewriterElement.classList.remove('typing-done');
+        typewriterElement.style.animation = 'blink-caret .75s step-end infinite';
+        typewriterElement.style.borderRight = '.18em solid orange';
 
         function typeWriter() {
             if (i < text.length) {
@@ -25,15 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 i++;
                 setTimeout(typeWriter, speed);
             } else {
-                // Cursor'u kaldır
-                setTimeout(() => {
-                    typewriterElement.style.animation = 'none';
-                    typewriterElement.style.borderRight = 'none';
-                }, 1000);
+                // Metin bittiğinde imleci kaldır
+                typewriterElement.classList.add('typing-done');
+                typewriterElement.style.animation = 'none';
+                typewriterElement.style.borderRight = 'none';
             }
         }
 
         typeWriter();
+    }
+
+    // 380px ve altinda hero disinda header'i gizle
+    if (siteHeader && heroSection) {
+        const hideHeaderObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    siteHeader.classList.remove('hide-on-mobile');
+                } else {
+                    siteHeader.classList.add('hide-on-mobile');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        hideHeaderObserver.observe(heroSection);
     }
 
     // Scroll-based animasyonları başlat
@@ -382,6 +403,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 updateState(currentIndex + 1);
             });
+
+            // Mobile swipe support (left/right) for text navigation
+            // Keeps vertical scrolling intact by only capturing the gesture when horizontal intent is clear.
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchLockedDirection = null; // 'x' | 'y' | null
+
+            const onTouchStart = (e) => {
+                if (!e.touches || e.touches.length !== 1) return;
+                const t = e.touches[0];
+                touchStartX = t.clientX;
+                touchStartY = t.clientY;
+                touchLockedDirection = null;
+            };
+
+            const onTouchMove = (e) => {
+                if (!e.touches || e.touches.length !== 1) return;
+                const t = e.touches[0];
+                const dx = t.clientX - touchStartX;
+                const dy = t.clientY - touchStartY;
+
+                // Decide gesture direction once
+                if (!touchLockedDirection) {
+                    const absDx = Math.abs(dx);
+                    const absDy = Math.abs(dy);
+                    if (absDx < 10 && absDy < 10) return;
+                    touchLockedDirection = absDx > absDy * 1.3 ? 'x' : 'y';
+                }
+
+                // If it's a horizontal swipe, prevent vertical scroll jitter
+                if (touchLockedDirection === 'x') {
+                    e.preventDefault();
+                }
+            };
+
+            const onTouchEnd = (e) => {
+                // Only act if we locked to horizontal
+                if (touchLockedDirection !== 'x') return;
+
+                const endTouch = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+                if (!endTouch) return;
+
+                const dx = endTouch.clientX - touchStartX;
+                const absDx = Math.abs(dx);
+                const threshold = 45; // px
+                if (absDx < threshold) return;
+
+                if (container.classList.contains('end-container')) {
+                    cancelCreditsAnimation();
+                }
+
+                // Swipe left => next, swipe right => prev
+                if (dx < 0) updateState(currentIndex + 1);
+                else updateState(currentIndex - 1);
+            };
+
+            // Attach to the container (works for .text-container/.tc-*/.end-container)
+            container.addEventListener('touchstart', onTouchStart, { passive: true });
+            container.addEventListener('touchmove', onTouchMove, { passive: false });
+            container.addEventListener('touchend', onTouchEnd, { passive: true });
         });
 
         // Initialize credits observer
@@ -582,3 +663,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+	$(document).on("scroll", function(){
+		if
+      ($(document).scrollTop() > 100){
+		  $(".site-header").addClass("shrink");
+		}
+		else
+		{
+			$(".site-header").removeClass("shrink");
+		}
+	});

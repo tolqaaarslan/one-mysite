@@ -1,0 +1,88 @@
+
+/* --- Responsive Styles for End Section & Credits --- */
+
+/* Tablet / Small Laptop */
+@media (max-width: 1200px) {
+    .end-container {
+        width: 60vw;
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 992px) {
+    .end-container {
+        width: 80vw;
+        height: 450px;
+    }
+    
+    .end-container p {
+        font-size: 1.05rem !important;
+    }
+}
+
+/* Mobile Landscape / Large Mobile */
+@media (max-width: 768px) {
+    .end-container {
+        width: 90%;
+        height: 420px;
+        padding: 1.5rem;
+        padding-bottom: 4rem; /* Space for nav */
+    }
+
+    /* Adjust credits text for mobile */
+    .end-container.credits-mode .p-message p {
+        font-size: 1.2rem !important;
+    }
+    
+    .credits-wrapper {
+        gap: 60px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .end-container {
+        width: 95%;
+        height: 380px;
+        padding: 1rem;
+        padding-bottom: 3.5rem;
+    }
+
+    .end-container p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Smaller credits text */
+    .end-container.credits-mode .p-message p {
+        font-size: 1.1rem !important;
+    }
+    
+    .credits-wrapper {
+        gap: 50px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 380px) {
+    .end-container {
+        height: 350px;
+    }
+    
+    .end-container p {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Landscape Orientation (Phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .end-container {
+        height: 85vh;
+        width: 85vw;
+        margin: 0 auto;
+    }
+    
+    .end-container p {
+        font-size: 0.9rem !important;
+    }
+}

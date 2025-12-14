@@ -1,0 +1,331 @@
+/* 360px and below */
+
+@media (max-width: 360px) {
+    
+}
+
+
+
+
+/* Çok Küçük Ekranlar (380px altı) */
+@media (max-width: 380px) {
+    .video-container {
+        height: 25vh;
+    }
+
+    .text-container {
+        height: 40vh;
+    }
+
+    .site-header {
+        padding: 4px 8px;
+    }
+
+    .logo a {
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+    .end-container {
+        height: 350px;
+    }
+
+    .end-container p {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Küçük Ekranlar (500px altı) */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .end-container {
+        height: 85vh;
+        width: 85vw;
+        margin: 0 auto;
+    }
+
+    .end-container p {
+        font-size: 0.9rem !important;
+    }
+    .content-wrapper {
+        gap: 1.5rem;
+        padding: 0.5rem 0;
+    }
+
+    .video-container {
+        height: 60vh;
+        min-height: 180px;
+    }
+
+    .text-container {
+        min-height: 15vh;
+        padding: 1rem;
+    }
+
+    .text-container p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .site-header {
+        padding: 4px 8px;
+    }
+}
+
+
+
+@media (max-width: 600px) {
+    #end {
+        /* daha az gökyüzü, daha çok insanlar */
+        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end1-m.webp);           /* tam ekran yüksekliği */
+    }
+}
+
+
+/* Mobile Landscape / Large Mobile */
+@media (max-width: 768px) {
+
+    .site-header {
+        padding: .5rem .8rem;
+    }
+
+    /* 2. Content Section Layout */
+    /* Align content to start from top instead of center */
+    .content-section {
+        justify-content: flex-start !important;
+        padding-top: 0 !important;
+        /* We'll manage spacing via margins */
+    }
+
+    /* Adjust content wrapper to allow full height usage */
+    .content-wrapper {
+        height: 90% !important;
+        justify-content: flex-start !important;
+        gap: 0 !important;
+    }
+
+    /* 3. Video Container Positioning */
+    /* Move it up, but leave space for the part-header */
+    .video-container {
+        margin-top: 110px !important;
+        /* Space for header + part-header */
+        margin-bottom: 1rem !important;
+        /* Keep width/height as is (already set in previous queries) */
+    }
+
+    /* 4. Text Container Sizing */
+    /* Increase height to fill the bottom area (red box in request) */
+    .text-container {
+        height: 50vh !important;
+        /* Fixed height to fill bottom */
+        min-height: 50vh !important;
+        margin-bottom: 1rem !important;
+        justify-content: center !important;
+        /* Center text vertically inside */
+        padding-bottom: 4rem !important;
+        /* Space for nav dots */
+        padding: 1.25rem;
+        padding-bottom: 3.25rem;
+        position: relative;
+    }
+
+
+    .lyrics,
+    .translated {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        display: block;
+        text-align: center;
+    }
+
+
+    .end-container {
+        width: 90%;
+        height: 420px;
+        padding: 1.5rem;
+        padding-bottom: 4rem;
+        /* Space for nav */
+    }
+
+    /* Adjust credits text for mobile */
+    .end-container.credits-mode .p-message p {
+        font-size: 1.2rem !important;
+    }
+
+    .credits-wrapper {
+        gap: 60px;
+    }
+    
+    /* 1. Part Header Positioning */
+    /* Position it absolutely at the top, right under the site header */
+    .part-header {
+        position: absolute !important;
+        top: 60px !important;
+        /* Adjust based on header height */
+        left: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin: 0 !important;
+        transform: none !important;
+        z-index: 20 !important;
+        pointer-events: none;
+        /* Let clicks pass through if needed */
+    }
+
+    .part-header span {
+        display: inline-block;
+        background: rgba(0, 0, 0, 0.5);
+        pointer-events: auto;
+    }
+
+
+
+    #end {
+        background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end1-m.webp');
+    }
+    
+    #end.bg-left {
+        background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end2-m.webp');
+    }
+    
+    #end.bg-right {
+        background-image: url('https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/images/end3-m.webp');
+    }
+
+    /* Toggle Overlays */
+    .desktop-overlay {
+        display: none;
+    }
+    .mobile-overlay {
+        display: block;
+    }
+
+    
+}
+
+
+@media (max-width: 776px) {
+
+    .part-header {
+        height: 4vh;
+        top: 80px !important
+    }
+
+    .content-wrapper,
+    .content-wrapper.reverse {
+        flex-direction: column;
+        height: auto;
+        gap: 1.5rem;
+        width: 95%;
+        padding: 1rem 0 1rem 0;
+        /* Üst boşluk (overlap önleme) */
+        justify-content: flex-start;
+    }
+
+    .content-section:nth-child(even) .content-wrapper {
+        flex-direction: column;
+    }
+
+    .video-container,
+    .text-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    /* Video yüksekliği azaltıldı (~%10) */
+    .video-container {
+        height: 40vh;
+        /* 45vh'den 40vh'ye */
+        min-height: 200px;
+    }
+
+    /* Text yüksekliği artırıldı ve sabitlendi */
+    .text-container {
+        height: 35vh;
+        /* Artırıldı */
+        padding: 1.5rem;
+        padding-bottom: 3.5rem;
+        overflow-y: auto;
+    }
+
+    .site-header {
+        padding: 8px 12px;
+    }
+
+    .part-header {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        display: inline-block;
+    }
+
+    /* Hero ve Typewriter ayarları */
+    #typewriter {
+        font-size: clamp(1rem, 5vw, 2.5rem);
+    }
+
+    .logo a {
+        font-size: 1.3rem;
+        letter-spacing: 1.5px;
+    }
+
+
+    .text-container {
+        padding: 1rem;
+        padding-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 30vh;
+        width: 90%;
+        margin: 1rem auto;
+    }
+
+    /* Video container mobilde daha küçük (%20 azaltıldı) */
+    .video-container {
+        min-height: 28vh;
+        max-height: 32vh;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+
+    .translate-btn {
+        bottom: .5rem;
+        right: .5rem
+    }
+
+
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .translate-btn {
+        padding: 12px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .logo a {
+        padding: 2px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Tap targets genişletme */
+    button,
+    a,
+    [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+
