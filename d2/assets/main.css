@@ -1288,39 +1288,3 @@ footer {
     }
 }
 
-/* Mobil Scrollbar Düzeltmesi */
-@media (max-width: 768px) {
-    /* Ana container hariç tüm scrollbar'ları gizle */
-    body *:not(.container)::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-    
-    section,
-    .content-section,
-    .content-wrapper,
-    .text-container {
-        overflow: hidden !important;
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-    }
-    
-    /* Lyrics ve translated içerik için scroll ama scrollbar yok */
-    .lyrics,
-    .translated,
-    .p-note,
-    .p-message {
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-    }
-    
-    .lyrics::-webkit-scrollbar,
-    .translated::-webkit-scrollbar,
-    .p-note::-webkit-scrollbar,
-    .p-message::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-    }
-}
-

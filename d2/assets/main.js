@@ -4,43 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const siteHeader = document.querySelector('.site-header');
     const heroSection = document.querySelector('.hero');
 
-    // Tarayıcı tespiti ve CSS custom property ayarlama
-    (function detectBrowserAndSetVh() {
-        const ua = navigator.userAgent.toLowerCase();
-        let browserClass = '';
-        
-        // Tarayıcı tespiti
-        if (ua.includes('edg/') || ua.includes('edge')) {
-            browserClass = 'browser-edge';
-        } else if (ua.includes('brave')) {
-            browserClass = 'browser-brave';
-        } else if (ua.includes('opr/') || ua.includes('opera')) {
-            browserClass = 'browser-opera';
-        } else if (ua.includes('firefox')) {
-            browserClass = 'browser-firefox';
-        } else if (ua.includes('chrome')) {
-            browserClass = 'browser-chrome';
-        } else if (ua.includes('safari')) {
-            browserClass = 'browser-safari';
-        }
-        
-        if (browserClass) {
-            document.documentElement.classList.add(browserClass);
-        }
-        
-        // Gerçek viewport yüksekliğini hesapla ve CSS variable olarak ayarla
-        function setRealVh() {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--real-vh', `${vh}px`);
-        }
-        
-        setRealVh();
-        window.addEventListener('resize', setRealVh);
-        window.addEventListener('orientationchange', () => {
-            setTimeout(setRealVh, 100);
-        });
-    })();
-
     console.log('Typewriter element found:', typewriterElement);
 
     // Header'ı hemen göster

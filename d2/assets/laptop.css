@@ -1,0 +1,199 @@
+@media (min-width: 1440px) and (max-width: 1600px) {
+
+}
+
+@media (min-width: 1280px) and (max-width: 1440px) {
+
+}
+
+@media (min-width: 1024px) and (max-width: 1200px) {
+
+}
+
+/* --- 1.75 Small Desktop (1651px to 1919px) --- */
+@media (min-width: 1119px) and (max-width: 1367px) {
+
+}
+
+@media (max-width: 1440px) and (min-width: 1366px) {
+    .see-you-again p,
+    .see-you-again-translate p {
+        font-size: 1.1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .somewhere-only-we-know p,
+    .somewhere-only-we-know-translate p {
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .my-immortal p,
+    .my-immortal-translate p {
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .bedshaped p,
+    .bedshaped-translate p {
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .lost p,
+    .lost-translate p,
+    .lost-note p {
+        font-size: 1.1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .until-its-gone p,
+    .until-its-gone-translate p,
+    .until-its-gone-note p {
+        font-size: 1.2rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .leave-out-all-the-rest p,
+    .leave-out-all-the-rest-translate p {
+        font-size: 1.2rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .the-scientist p,
+    .the-scientist-translate p {
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .one-more-light p,
+    .one-more-light-translate p,
+    .one-more-light-note p {
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .everglow p,
+    .everglow-translate p {
+        font-size: 0.95rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .tell-me-how p,
+    .tell-me-how-translate p {
+        font-size: 1rem !important;
+        line-height: 1.8 !important;
+    }
+
+    .wrecked p,
+    .wrecked-translate p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+    }
+
+    .last-hope p,
+    .last-hope-translate p {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .little-talks p,
+    .little-talks-translate p,
+    .little-talks-note p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
+
+    .eski-dostum p,
+    .eski-dostum-translate p,
+    .eski-dostum-note p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
+}
+/* --- 3. Standard Desktop / Laptop (Max 1366px) --- */
+/* 1200px - 1001px Arası (Orantılı Küçülme) */
+@media (max-width: 1366px) and (min-width: 1001px) {
+    .content-wrapper {
+        width: 90%;
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    .video-container {
+        width: 65%;
+        height: auto;
+    }
+
+    .text-container {
+        width: 25%;
+        padding: 2rem;
+        height: auto;
+    }
+
+    /* 1200px altı için özel ayar */
+    @media (max-width: 1200px) {
+        .video-container {
+            width: 60%;
+        }
+
+        .text-container {
+            width: 30%;
+        }
+    }
+
+    .part-header {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-bottom: 2rem;
+        display: inline-block;
+    }
+
+    .site-header {
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+    .logo a {
+        font-size: 1.4rem;
+    }
+
+    
+}
+
+/* --- 4. Small Desktop (Max 1200px) --- */
+@media (max-width:1200px) {
+    .content-section {
+        height: 100vh;
+        min-height: 100vh;
+        padding: 1rem 0
+    }
+
+    .content-wrapper {
+        height: auto;
+        gap: 2rem;
+        width: 90%
+    }
+
+    .part-header {
+        height: 6vh
+    }
+
+    .part-header h2 {
+        font-size: 2.4rem
+    }
+
+    .banner h1 {
+        font-size: 3rem
+    }
+}
+
+/* Tablet / Small Laptop */
+@media (max-width: 1200px) {
+    .end-container {
+        width: 60vw;
+    }
+}
+
