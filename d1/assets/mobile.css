@@ -1,11 +1,22 @@
 /* Cok Kucuk Ekranlar (380px ve altı) */
 @media (max-width: 380px) {
 
+    .content-section    {
+        height: 100dvh; /* adress çubuklarını hesaba katar */
+        display: flex;
+        flex-direction: column;
+        padding-top: 0 !important;
+        overflow: hidden !important;
+    }
+
     .content-wrapper, .content-wrapper.reverse {
-        width: 96%;
-        max-height: calc(100vh - var(--mobile-header) - 0.5rem);
-        border-radius: 12px;
-        top: 1rem !important;
+        height: 100%;
+        width: 95%;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start;
+        padding: 0 !important;
+        gap: 0 !important;
     }
 
     section:has(.part-header) .content-wrapper {
@@ -18,16 +29,22 @@
     }
 
     .video-container {
+        flex-shrink: 0;
+        height: 30dvh;
         min-height: 160px;
-        max-height: 180px;
-        border-radius: 12px 12px 0 0;
+        width: 100%;
+        margin: 0 !important;
     }
 
     .text-container {
-        height: 42vh;
-        min-height: 260px;
-        max-height: calc(100vh - var(--mobile-header) - 220px);
-        padding: 0.75rem 1rem 1rem;
+        flex-grow: 1;
+        height: auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 10px 30px 40px 30px !important;
     }
 
     .content-title {
@@ -40,6 +57,11 @@
         padding-top: 0.5rem;
         height: auto;
         min-height: 36px;
+    }
+
+    .lyrics, .translated, .p-note {
+        flex: 1;
+        overflow-y: auto;
     }
 
     .lyrics,
@@ -67,8 +89,9 @@
     }
 
     .part-header {
-        font-size: clamp(0.85rem, 2.5vw, 1rem);
-        padding: 0.4rem 0;
+        flex-shrink: 0;
+        padding: 5px 0;
+        margin: 0 !important
     }
 
     .logo a {
@@ -648,7 +671,7 @@
     /* End Section */
     .end-container {
         width: 92%;
-        height: clamp(380px, 65vh, 480px);
+        height: clamp(380px, 65vh, 480px) !important;
         padding: 1.5rem;
         padding-bottom: 4rem;
         overflow-y: auto;
@@ -854,8 +877,4 @@
         height: calc(var(--real-vh, 1vh) * 53) !important;
     }
     
-    /* End container içindeki nav-arrow'ları göster */
-    .end-container .text-navigation .nav-arrow {
-        display: flex !important;
-    }
-}
+
