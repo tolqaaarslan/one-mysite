@@ -623,8 +623,25 @@ section:has(.part-header) .content-wrapper {
 
 .p-message p {
     font-family: 'Kalam', cursive;
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     line-height: 1.7;
+}
+
+/* Individual p-message font sizes based on content length */
+.p-message.pm-1 p {
+    font-size: clamp(0.95rem, 1.5vw, 1.07rem);
+}
+
+
+.p-message.pm-2 p {
+    font-size: clamp(0.9rem, 1.45vw, .94rem);
+}
+
+.p-message.pm-3 p {
+    font-size: clamp(0.75rem, 1.35vw, 1.05rem);
+}
+
+.p-message.pm-4 p {
+    font-size: clamp(0.85rem, 1.2vw, .95rem);
 }
 
 .song-divider {
@@ -872,9 +889,9 @@ section:has(.part-header) .content-wrapper {
     background: transparent;
     border: none;
     color: rgba(255, 255, 255, 0.5);
-    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    font-size: clamp(0.8rem, 2.5vw, 1.2rem);
     cursor: pointer;
-    width: 40px;
+    width: clamp(30px, 5vw, 40px);
     height: 100%;
     display: flex;
     align-items: center;
@@ -1043,7 +1060,7 @@ section:has(.part-header) .content-wrapper {
    ============================================ */
 .end-container {
     position: relative;
-    width: clamp(320px, 40vw, 600px);
+    width: clamp(320px, 65vw, 700px);
     height: clamp(300px, 40vh, 500px);
     overflow: hidden;
     background-color: rgba(20, 20, 20, 0.397) !important;
@@ -1052,13 +1069,14 @@ section:has(.part-header) .content-wrapper {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     margin: -2rem auto;
     opacity: 1;
     transition: none;
 }
 
 .end-container-default {
-    padding: 1.5rem 2rem 4rem 2rem;
+    padding: 1.5rem 2rem 5rem 2rem;
     width: 100%;
     height: 100%;
     display: flex;
@@ -1767,6 +1785,7 @@ footer {
             0 0 0 1px rgba(255, 255, 255, 0.05) inset;
         overflow: hidden;
         padding: 0;
+        justify-content: flex-start !important;
     }
 
     .video-container {
@@ -1786,8 +1805,8 @@ footer {
     .text-container {
         width: 100% !important;
         height: auto !important;
-        min-height: 450px;
-        max-height: 500px;
+        flex: 1 !important;
+        min-height: 400px;
         border-radius: 0;
         box-shadow: none;
         border: none;
@@ -1796,25 +1815,35 @@ footer {
         -webkit-backdrop-filter: none;
         transform: none !important;
         opacity: 1 !important;
-        padding: 1rem 2rem;
+        padding: 0.5rem 2rem 1rem 2rem;
+        justify-content: flex-start !important;
+        gap: 0 !important;
     }
 
     .content-title {
         padding-bottom: 0.3rem;
-        margin-bottom: 0;
+        padding-top: 0;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
     }
 
     .text-navigation {
         height: 50px;
+        bottom: 0;
     }
 
     section:has(.part-header) .content-wrapper {
         margin-top: 4rem;
-        height: 90%;
+        height: auto;
+        max-height: 75vh;
+        justify-content: flex-start !important;
     }
 
     section:not(:has(.part-header)) .content-wrapper {
         margin-top: 3.5rem;
+        height: auto;
+        max-height: 80vh;
+        justify-content: flex-start !important;
     }
 
     .part-header {
@@ -1875,7 +1904,6 @@ footer {
 /* Medium length texts - Standard fonts */
 .lyrics.somewhere-only-we-know p,
 .lyrics.the-scientist p,
-.lyrics.wrecked p,
 .lyrics.little-talks p,
 .lyrics.tell-me-how p,
 .lyrics.wish-you-were-here p,
@@ -1888,6 +1916,10 @@ footer {
 
 .translated.wrecked-translate p {
     font-size: clamp(0.88rem, 1.48vw, 1.08rem) !important;
+}
+
+.lyrics.wrecked p {
+    font-size: clamp(0.86rem, 1.42vw, 1.02rem) !important;
 }
 
 .p-note.wrecked-note p {
@@ -1936,5 +1968,17 @@ footer {
     .lyrics.twenty-six p {
         font-size: clamp(0.82rem, 1.35vw, 1.0rem) !important;
         line-height: 1.6;
+    }
+}
+
+/* ============================================
+   FIX: Part-Header Spacing (480px - 1024px)
+   ============================================ */
+@media (min-width: 320px) and (max-width: 1024px) {
+    section:has(.part-header) .content-wrapper {
+        height: auto !important;
+        justify-content: flex-start !important;
+        gap: 0 !important;
+        flex-direction: column !important;
     }
 }
