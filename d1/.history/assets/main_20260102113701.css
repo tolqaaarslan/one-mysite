@@ -25,6 +25,7 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+
 body {
     --sb-track-color: #000000;
     --sb-thumb-color: #ffffff;
@@ -71,7 +72,6 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}ox-sizing: border-box;
 }
 
 html,
@@ -299,12 +299,6 @@ section::after {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-.scroll-indicator.hide-on-end {
-    opacity: 0;
-    visibility: hidden;
 }
 
 .arrow {
@@ -467,10 +461,9 @@ section:has(.part-header) .content-wrapper {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     /* Derinlik katar */
     padding: 2rem;
-    padding-bottom: 60px; /* text-navigation için alan bırak */
     border-radius: 8px;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
     /* Allow scrolling for long text */
     display: flex;
     flex-direction: column;
@@ -478,8 +471,11 @@ section:has(.part-header) .content-wrapper {
     transform: translateX(30px);
     opacity: 0;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+    overflow-y: hidden;
     container-type: inline-size;
     text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 5rem;
 }
 
 .content-wrapper.animate-in .text-container {
@@ -503,12 +499,11 @@ section:has(.part-header) .content-wrapper {
     font-size: 1.3rem;
     color: #FFC857; /* Temanla uyumlu sarı/turuncu ton */
     margin-top: 0;
-    flex-shrink: 0 !important; /* Asla küçülmesin */
+    flex-shrink: 0;
     margin-bottom: 1rem; /* Yazıdan uzaklaşsın */
     padding-bottom: 0.8rem; /* Çizgi ile yazı arası boşluk */
     letter-spacing: 1px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    z-index: 10; /* Üstte kalsın */
 }
 
 /* İşte o %90 genişliğindeki Border-Bottom Hilesi */
@@ -539,41 +534,21 @@ section:has(.part-header) .content-wrapper {
 .translated {
     color: #B0B0B0; 
 }
-
-.p-message {
-    color: #E6E6E6;
-}
 .lyrics, 
 .translated, 
 .p-note, 
 .p-message {
     /* Bu özellik sihirli değnek gibidir: */
-    flex: 1 1 auto; /* Kalan tüm boşluğu kapla ama küçülebilir */
+    flex-grow: 1; /* Kalan tüm boşluğu kapla */
     
     /* Şimdi kapladığı bu boşluğun içinde metni ortala */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Uzun içerikler için baştan başla */
+    justify-content: center; /* Dikey ortalama */
     align-items: center;     /* Yatay ortalama (zaten text-align center ise gerekmez ama garantidir) */
     
-    /* Eğer metin çok uzunsa ve taşarsa scroll çıksın diye önlem */
-    min-height: 0;
-    max-height: 100%; /* Container'ı aşmasın */
-    overflow-y: auto; /* Scroll ekle */
-    overflow-x: hidden;
-    width: 100%;
-    padding: 0.5rem 0;
-    
-    /* Scrollbar gizleme */
-    scrollbar-width: none;
-    -ms-overflow-scrolling: none;
-}
-
-.lyrics::-webkit-scrollbar,
-.translated::-webkit-scrollbar,
-.p-note::-webkit-scrollbar,
-.p-message::-webkit-scrollbar {
-    display: none;
+    /* Eğer metin çok uzunsa ve taşarsa scroll çıksın diye önlem (opsiyonel) */
+    min-height: 0; 
 }
 
 /* Original text transition enhancement */
@@ -592,13 +567,10 @@ section:has(.part-header) .content-wrapper {
 .lyrics p,
 .translated p {
     font-family: 'Patrick Hand', cursive;
-    margin: auto 0; /* Kısa içerikler için dikey ortalama */
 }
 
 .p-note p {
     font-family: 'Kalam', cursive;
-    color: #E6E6E6;
-    margin: auto 0; /* Kısa içerikler için dikey ortalama */
 }
 
 .p-message p {
@@ -1017,10 +989,12 @@ footer {
 
 
 .end-container {
-    position: relative;
+    position: relative !important;
+    overflow: hidden !important
     width: 40vw;
     height: 40vh;
-    overflow: hidden;
+    overflow-y: auto;
+    padding: 1.5rem 2rem 4rem 2rem;
     background-color: rgba(20, 20, 20, 0.397) !important;
     border-radius: 8px;
     display: flex !important;
@@ -1032,17 +1006,131 @@ footer {
     transition: none;
 }
 
-.end-container-default {
-    padding: 1.5rem 2rem 4rem 2rem;
-    width: 100%;
-    height: 100%;
-    display: flex;
+/* --- Authentication Form ve Floating Label Stilleri --- */
+
+
+/* 2. Form Overlay (Arka Plan) */
+.auth-overlay {
+    position: absolute !important;
+    top: 0; left: 0;
+    width: 100% !important; height: 100% !important;
+    background: rgba(0, 0, 0, 0.85); /* Hafif saydam siyah */
+    backdrop-filter: blur(5px);
+    display: flex !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    overflow-y: auto;
-    overflow-x: hidden;
+    z-index: 50;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* 3. Form Kutusu */
+.auth-box {
+    width: 90%;
+    max-width: 400px;
+    max-height: 95%;
+    overflow-y: auto; /* Scroll gerekirse */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* 4. Floating Label (Yüzen Etiket) Sistemi */
+.floating-wrapper {
+    position: relative;
+    margin-bottom: 25px;
+    padding-top: 15px;
+    text-align: left;
+}
+
+.material-input {
+    width: 100%;
+    padding: 10px 0 !important;
+    padding-bottom: 5px !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 0 !important;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Label'ın kendisi */
+.material-label {
+    position: absolute;
+    left: 0;
+    top: 25px; /* Başlangıçta inputun içinde */
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+/* Animasyon: Focus olunca veya Doluysa yukarı çık */
+.material-input:focus ~ .material-label,
+.material-input:valid ~ .material-label {
+    top: -5px;
+    font-size: 0.85rem;
+    color: #ffa500;
+}
+
+.material-input:focus {
+    border-bottom-color: #ffa500 !important;
+}
+
+/* Placeholder Gecikmesi */
+.material-input::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+}
+.material-input:focus::placeholder {
+    opacity: 0.5;
+}
+
+/* 5. İpucu ve İkonlar */
+.with-icons .material-input {
+    padding-right: 70px !important;
+}
+.input-icons {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+}
+.toggle-hint, .toggle-password {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.toggle-hint:hover { color: #ffd700; }
+.toggle-password:hover { color: #fff; }
+
+.hint-text {
+    display: none;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #81ecec;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 4px;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 6. Tablet Düzeni Fix (En Sona Ekle) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .content-wrapper {
+        flex-direction: row !important;
+        align-items: center;
+    }
+    .video-container { width: 45% !important; height: 60vh !important; }
+    .text-container { width: 55% !important; height: 70vh !important; }
+    .auth-box { margin-bottom: 10vh; }
 }
 
 #end.animate-in .end-container {
@@ -1081,302 +1169,6 @@ footer {
 }
 
 
-/* --- Authentication Form Stilleri --- */
-
-/* Formun kapsayıcısı: Mevcut container'ı tam kaplar */
-.auth-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex; /* İçeriği ortalamak için */
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
-    padding: 0;
-    z-index: 50; /* En üstte dur */
-    
-    /* Animasyonlu açılış */
-    animation: fadeIn 0.4s ease-out;
-}
-
-.auth-box {
-    width: calc(100% - var(--sb-size));
-    max-height: calc(100% - 1rem);
-    overflow-y: scroll;
-    padding: 0.5rem .5rem 1.25rem;
-    margin-top: 0.5rem;
-    margin-right: 0;
-    text-align: center;
-    /* Scrollbar stilleri */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 165, 0, 0.5) rgba(255, 255, 255, 0.1);
-}
-
-.auth-box::-webkit-scrollbar {
-    width: 3px;
-}
-
-.auth-box::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-.auth-box::-webkit-scrollbar-thumb {
-    background: rgba(255, 165, 0, 0.5);
-    border-radius: 3px;
-}
-
-.auth-box::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 165, 0, 0.7);
-}
-
-.auth-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.auth-box h3 {
-    font-family: 'Indie Flower', cursive; /* Senin fontun */
-    font-size: 1.8rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.auth-box p {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 1.5rem;
-}
-
-/* --- FLOATING LABEL YAPISI --- */
-
-.floating-wrapper {
-    position: relative;
-    margin-bottom: 30px; /* Aşağıdaki elemana yapışmasın */
-    padding-top: 15px; /* Yukarı çıkan yazı için yer açalım */
-}
-
-/* --- 1. INPUT STİLİ (Sadece Alt Çizgi) --- */
-.material-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Pasif çizgi rengi */
-    padding: 10px 0; /* Yanlardan boşluk yok, sadece alt-üst */
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-/* --- 2. LABEL STİLİ (Sahte Placeholder) --- */
-.material-label {
-    position: absolute;
-    left: 0;
-    top: 25px; /* Inputun tam ortasına denk gelecek şekilde ayarla */
-    color: rgba(255, 255, 255, 0.5); /* Silik yazı rengi */
-    font-size: 1rem;
-    pointer-events: none; /* Tıklamayı inputa geçirsin diye */
-    transition: 0.3s ease all;
-}
-
-/* --- 3. ANİMASYON (SİHİR BURADA) --- */
-
-/* Inputa odaklanılınca (Focus) VEYA içi doluysa (Valid) -> LABEL YUKARI */
-.material-input:focus ~ .material-label,
-.material-input:valid ~ .material-label {
-    top: 0; /* En tepeye çık */
-    font-size: 0.8rem; /* Ufal */
-    color: #ffa500; /* Turuncu (veya tema rengin) olsun */
-    font-weight: bold;
-}
-
-/* Alt çizgi rengi değişsin */
-.material-input:focus {
-    border-bottom-color: #ffa500;
-}
-
-/* --- 4. GECİKMELİ PLACEHOLDER (İlçe yazısı) --- */
-
-/* Başlangıçta placeholder'ı GİZLE */
-.material-input::placeholder {
-    opacity: 0;
-    transition: opacity 0.3s ease; /* Yavaşça gelsin */
-}
-
-/* Inputa tıklanınca (Focus) placeholder'ı GÖSTER */
-.material-input:focus::placeholder {
-    opacity: 0.6; /* Hafif silik görünsün */
-    color: rgba(255, 255, 255, 0.3);
-}
-
-/* Eski class isimleri için backward compatibility */
-.glass-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 0;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.glass-input:focus {
-    border-bottom-color: #ffa500;
-}
-
-.unlock-btn {
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    transition: background 0.3s;
-}
-
-.unlock-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-}
-
-/* Vazgeç butonu */
-.cancel-btn {
-    margin-top: 15px;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9rem;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-
-
-/* --- Character Content Styles --- */
-.character-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40vw;
-    height: 40vh;
-    overflow-y: auto;
-    padding: 1.5rem 2rem 4rem 2rem;
-    background-color: rgba(20, 20, 20, 0.397) !important;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 15;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-.character-content:not(.hidden) {
-    opacity: 1;
-    visibility: visible;
-}
-
-.character-content.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.character-form {
-    min-height: 220px;
-    width: 100%;
-    display: none;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-.character-form:not(.hidden) {
-    display: block;
-}
-
-.character-form p {
-    margin: 0 0 1rem 0 !important;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    color: #ffffff !important;
-    text-align: center;
-    opacity: 1 !important;
-    visibility: visible !important;
-    font-family: 'Patrick Hand', cursive;
-}
-
-/* Character content navigation */
-.character-content .text-navigation {
-    position: absolute;
-    bottom: 0.8rem;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Back button for character content */
-.character-back-btn {
-    position: absolute;
-    top: 0.8rem;
-    right: 0.8rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 20;
-}
-
-.character-back-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-}
-
-.character-back-btn i {
-    font-size: 0.9rem;
-}
-
-/* Hide end-container when character content is active */
-#end.character-active .end-container {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-/* Responsive character content */
-@media (max-width: 768px) {
-    .character-content {
-        width: 85vw;
-        max-height: 50vh;
-        padding: 1rem 1.5rem 3.5rem 1.5rem;
-    }
-    
-    .character-form p {
-        font-size: 1rem;
-    }
-}
 
 /* --- Responsive Media Queries --- */
 
@@ -1439,7 +1231,6 @@ footer {
     left: 0;
     width: 100%;
     height: 60px;
-    flex-shrink: 0 !important; /* Asla küçülmesin */
     
     display: flex;
     justify-content: space-between;
@@ -1447,9 +1238,8 @@ footer {
     padding: 0 2rem;
     
     /* ESKİSİ: border-top: 1px solid rgba(255, 255, 255, 0.4);  <-- Bunu SİLİYORUZ */
-    border-top: none;
-    background: transparent; /* Şeffaf arka plan */
-    z-index: 30; /* Diğer içeriklerin üstünde */
+    border-top: none; 
+    z-index: 20;
 }
 
 /* 2. Çizgiyi Sanal Bir Element Olarak Ekliyoruz */
@@ -1662,9 +1452,17 @@ footer {
     }
 }
 
+/* --- Loading Screen (Yükleme Ekranı) --- */
+/* Sayfa yüklenirken sadece Hero ve Header görünür */
+body.is-loading .container {
+    overflow: hidden; /* Yükleme sırasında scroll yapılmasını engelle */
+    overflow: hidden !important; /* Yükleme sırasında scroll yapılmasını engelle */
+    scroll-snap-type: none !important;
+}
 
-/* Animasyon */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+body.is-loading .content-section,
+body.is-loading #end,
+body.is-loading .scroll-indicator {
+    display: none; /* Hero ve Header dışındaki tüm bölümleri gizle */
+    display: none !important; /* Hero ve Header dışındaki tüm bölümleri gizle */
 }

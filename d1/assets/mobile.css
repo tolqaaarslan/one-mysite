@@ -1,6 +1,17 @@
 /* Cok Kucuk Ekranlar (380px ve altı) */
 @media (max-width: 380px) {
 
+    
+    /* Giriste goster, diger bolumlerde gizle */
+    .site-header.hide-on-mobile {
+        transform: translateY(-110%);
+        opacity: 0;
+        pointer-events: none;
+    }
+    .site-header {
+        transition: transform 0.6s ease, opacity 0.4s ease;
+    }
+
     .content-section    {
         height: 100dvh; /* adress çubuklarını hesaba katar */
         display: flex;
@@ -21,7 +32,7 @@
 
     section:has(.part-header) .content-wrapper {
         margin-top: 1.5rem;
-        top: 0 !important;
+        top: 1rem !important;
     }
 
     section:has(.part-header) .text-container {
@@ -79,18 +90,13 @@
         margin-bottom: 0.4rem;
     }
 
-    .site-header {
-        padding: 0.25rem 0.5rem;
-        height: 48px;
-    }
-
     :root {
         --mobile-header: 48px;
     }
 
     .part-header {
         flex-shrink: 0;
-        padding: 5px 0;
+        padding: 1rem 0px 0.25rem;
         margin: 0 !important
     }
 
@@ -103,6 +109,11 @@
         height: clamp(340px, 62vh, 420px);
         width: 96%;
         border-radius: 12px;
+    }
+
+    .end-container-default {
+        padding: 1rem 1rem 3rem 1rem;
+        overflow-y: auto;
     }
 
     .end-container p {
@@ -142,21 +153,14 @@
         margin-bottom: 0.15rem;
     }
 
-}
-
-/* En Dar Ekranlar (360px ve altı) */
-@media (max-width: 360px) {
-    /* İçerik bölümlerinde site-header'ı tamamen gizle */
-    .content-section .site-header {
+    .nav-arrow {
         display: none;
     }
 
-    .content-section .part-header {
-        top: 0; /* Gizlenen site-header'ın boşluğunu doldur */
-    }
 }
 
-@media(min-width: 361px) and (max-width: 480px) {
+/* 360px-480px arası ekranlar için ortak stiller */
+@media (min-width: 360px) and (max-width: 480px) {
 
     /* Giriste goster, diger bolumlerde gizle */
     .site-header.hide-on-mobile {
@@ -205,6 +209,11 @@
 
     .end-container {
         padding-bottom: .2rem !important;
+    }
+
+    .end-container-default {
+        padding: 0.8rem 0.8rem 2.5rem 0.8rem;
+        overflow-y: auto;
     }
 
     section:has(.end-container) .text-navigation {
@@ -301,7 +310,7 @@
     }
 
     :root {
-        --mobile-header: 44px;
+        --mobile-header: 25px;
     }
 }
 
@@ -448,10 +457,11 @@
         overflow: hidden !important;
         overflow-y: hidden !important;
         overflow-x: hidden !important;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
         background: transparent;
         border-radius: 0;
         border: none;
@@ -542,6 +552,8 @@
         -ms-overflow-style: none !important;
         -webkit-overflow-scrolling: touch;
         padding: 0.5rem 0.25rem;
+        margin-top: auto;
+        margin-bottom: auto;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -590,7 +602,7 @@
     .p-message p {
         font-size: clamp(0.9rem, 2.5vw, 1rem);
         line-height: 1.65;
-        margin-bottom: 0.5rem;
+        margin: auto 0 !important; /* dikey ortala */
         color: rgba(255, 255, 255, 0.9);
     }
 
@@ -676,12 +688,24 @@
         padding-bottom: 4rem;
         overflow-y: auto;
         overflow-x: hidden;
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
         border-radius: 16px;
         background: rgba(15, 15, 15, 0.85);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+    }
+
+    .end-container-default {
+        padding: 1rem 1.2rem 3rem 1.2rem;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+
+    .end-container-default::-webkit-scrollbar {
+        display: none !important;
     }
 
     .end-container::-webkit-scrollbar {
@@ -758,6 +782,10 @@
     }
     .mobile-overlay {
         display: block;
+    }
+
+    .nav-arrow {
+        display: none;
     }
 }
 

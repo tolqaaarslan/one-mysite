@@ -1,3 +1,486 @@
+
+
+
+/* ============================================
+   RESPONSIVE VIEWPORT HEIGHT FIX
+   Add this to your main.js file
+   ============================================ */
+
+// 1. Real Viewport Height Calculator
+function setRealVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--real-vh', `${vh}px`);
+}
+
+// 2. Browser Detection (for CSS-specific fixes)
+function detectBrowser() {
+    const ua = navigator.userAgent.toLowerCase();
+    const html = document.documentElement;
+    
+    // Remove all browser classes first
+    html.classList.remove('browser-chrome', 'browser-firefox', 'browser-safari', 
+                          'browser-edge', 'browser-brave', 'browser-opera');
+    
+    if (ua.indexOf('edg/') > -1 || ua.indexOf('edge/') > -1) {
+        html.classList.add('browser-edge');
+    } else if (ua.indexOf('brave') > -1) {
+        html.classList.add('browser-brave');
+    } else if (ua.indexOf('opr/') > -1 || ua.indexOf('opera') > -1) {
+        html.classList.add('browser-opera');
+    } else if (ua.indexOf('chrome') > -1 && ua.indexOf('edg') === -1) {
+        html.classList.add('browser-chrome');
+    } else if (ua.indexOf('safari') > -1 && ua.indexOf('chrome') === -1) {
+        html.classList.add('browser-safari');
+    } else if (ua.indexOf('firefox') > -1) {
+        html.classList.add('browser-firefox');
+    }
+}
+
+// 3. Device Detection
+function detectDevice() {
+    const html = document.documentElement;
+    const width = window.innerWidth;
+    
+    // Remove all device classes
+    html.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
+    
+    if (width <= 768) {
+        html.classList.add('device-mobile');
+    } else if (width <= 1024) {
+        html.classList.add('device-tablet');
+    } else {
+        html.classList.add('device-desktop');
+    }
+}
+
+// 4. Orientation Detection
+function detectOrientation() {
+    const html = document.documentElement;
+    const orientation = window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+    
+    html.classList.remove('orientation-portrait', 'orientation-landscape');
+    html.classList.add(`orientation-${orientation}`);
+    
+    html.setAttribute('data-orientation', orientation);
+}
+
+// 5. iOS Safe Area Support
+function handleSafeArea() {
+    // iOS 11+ için safe area padding'leri ayarla
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (isIOS) {
+        document.documentElement.classList.add('ios-device');
+        
+        // Safe area değişkenlerini ayarla
+        const safeAreaTop = getComputedStyle(document.documentElement)
+            .getPropertyValue('--safe-area-inset-top') || '0px';
+        const safeAreaBottom = getComputedStyle(document.documentElement)
+            .getPropertyValue('--safe-area-inset-bottom') || '0px';
+        
+        // CSS değişkenlerine aktar
+        document.documentElement.style.setProperty('--ios-safe-top', safeAreaTop);
+        document.documentElement.style.setProperty('--ios-safe-bottom', safeAreaBottom);
+    }
+}
+
+// 6. Touch Device Detection
+function detectTouch() {
+    const html = document.documentElement;
+    const hasTouch = 'ontouchstart' in window || 
+                     navigator.maxTouchPoints > 0 || 
+                     navigator.msMaxTouchPoints > 0;
+    
+    if (hasTouch) {
+        html.classList.add('touch-device');
+    } else {
+        html.classList.add('no-touch');
+    }
+}
+
+// 7. Throttled Resize Handler (Performance Optimization)
+let resizeTimeout;
+function handleResize() {
+    // Debounce resize events
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        setRealVH();
+        detectDevice();
+        detectOrientation();
+    }, 150);
+}
+
+// 8. Initialize Everything
+function initResponsive() {
+    // İlk yükleme
+    setRealVH();
+    detectBrowser();
+    detectDevice();
+    detectOrientation();
+    detectTouch();
+    handleSafeArea();
+    
+    // Event listeners
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => {
+        // Orientation change'de biraz bekle (tarayıcı UI geçişi için)
+        setTimeout(() => {
+            setRealVH();
+            detectOrientation();
+        }, 100);
+    });
+    
+    // Scroll event için (mobile address bar'ı handle etmek için)
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                setRealVH();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // Focus/blur events (keyboard açılıp kapanınca)
+    window.addEventListener('focus', setRealVH);
+    window.addEventListener('blur', setRealVH);
+}
+
+// 9. DOM Ready - Initialize
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initResponsive);
+} else {
+    initResponsive();
+}
+
+/* ============================================
+   LOADING SCREEN HANDLER
+   ============================================ */
+function initLoadingScreen() {
+    // Sayfa tamamen yüklendiğinde (tüm resimler, videolar, vb.)
+    window.addEventListener('load', function() {
+        // Küçük bir gecikme ekle (typewriter animasyonunun tamamlanması için)
+        setTimeout(function() {
+            // Loading sınıfını kaldır
+            document.body.classList.remove('loading');
+            
+            // Content section'ları yumuşak bir şekilde göster
+            const contentSections = document.querySelectorAll('.content-section');
+            contentSections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.6s ease, visibility 0.6s ease';
+                    section.style.opacity = '1';
+                    section.style.visibility = 'visible';
+                }, index * 50); // Her section için küçük bir gecikme
+            });
+            
+            // Scroll indicator'ı göster
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) {
+                scrollIndicator.style.transition = 'opacity 0.6s ease, visibility 0.6s ease';
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.visibility = 'visible';
+            }
+            
+            // Container'a scroll özelliğini geri ver
+            const container = document.querySelector('.container');
+            if (container) {
+                container.style.overflow = 'scroll';
+                container.style.overflowY = 'scroll';
+                container.style.pointerEvents = 'auto';
+            }
+        }, 1500); // Typewriter animasyonu için 1.5 saniye bekle
+    });
+}
+
+// Loading screen'i başlat
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLoadingScreen);
+} else {
+    initLoadingScreen();
+}
+
+// 10. Page Visibility API (tab değişimlerinde)
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        setRealVH();
+    }
+});
+
+// 11. Export functions (eğer modül sistemi kullanıyorsan)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        setRealVH,
+        detectBrowser,
+        detectDevice,
+        detectOrientation,
+        detectTouch,
+        initResponsive
+    };
+}
+
+/* ============================================
+   USAGE EXAMPLE IN YOUR EXISTING CODE
+   ============================================ */
+
+// Mevcut kodunuzun başına bu satırları ekleyin:
+/*
+// Initialize responsive fixes
+initResponsive();
+
+// Artık tüm CSS'inizde var(--real-vh) kullanabilirsiniz
+// Örnek: height: calc(var(--real-vh, 1vh) * 100);
+*/
+
+/* ============================================
+   MOBILE KEYBOARD HANDLING (BONUS)
+   ============================================ */
+
+// Mobile'da klavye açılınca viewport değişimini handle et
+let lastHeight = window.innerHeight;
+window.visualViewport?.addEventListener('resize', () => {
+    const currentHeight = window.visualViewport.height;
+    const diff = lastHeight - currentHeight;
+    
+    // Klavye açıldı
+    if (diff > 150) {
+        document.documentElement.classList.add('keyboard-open');
+        document.body.style.height = `${currentHeight}px`;
+    } 
+    // Klavye kapandı
+    else if (diff < -150) {
+        document.documentElement.classList.remove('keyboard-open');
+        document.body.style.height = '';
+    }
+    
+    lastHeight = currentHeight;
+    setRealVH();
+});
+
+/* ============================================
+   DEBUG MODE (Development Only)
+   ============================================ */
+
+function debugResponsive() {
+    const info = {
+        'Window Width': window.innerWidth,
+        'Window Height': window.innerHeight,
+        'Device Pixel Ratio': window.devicePixelRatio,
+        'Screen Width': screen.width,
+        'Screen Height': screen.height,
+        'Orientation': window.innerHeight > window.innerWidth ? 'Portrait' : 'Landscape',
+        'Touch Support': 'ontouchstart' in window,
+        'User Agent': navigator.userAgent,
+        '--real-vh': getComputedStyle(document.documentElement).getPropertyValue('--real-vh')
+    };
+    
+    console.table(info);
+}
+
+// Debug modunu aktif etmek için console'da çalıştır:
+// debugResponsive();
+
+/* ============================================
+   PERFORMANCE MONITORING
+   ============================================ */
+
+// Resize performansını izle
+let resizeCount = 0;
+let resizeStart = Date.now();
+
+const originalHandleResize = handleResize;
+handleResize = function() {
+    resizeCount++;
+    
+    // Her 50 resize event'inde performans raporu
+    if (resizeCount % 50 === 0) {
+        const duration = Date.now() - resizeStart;
+        const avgTime = duration / resizeCount;
+        
+        if (avgTime > 16.67) { // 60fps için 16.67ms threshold
+            console.warn(`Resize performance issue: ${avgTime.toFixed(2)}ms average`);
+        }
+        
+        // Reset counters
+        resizeCount = 0;
+        resizeStart = Date.now();
+    }
+    
+    originalHandleResize();
+};
+
+/* ============================================
+   SCROLLBAR FIX FOR DESKTOP
+   Add this to your main.js file
+   ============================================ */
+
+// Prevent section scrolling - only container should scroll
+function preventSectionScroll() {
+    const sections = document.querySelectorAll('section');
+    
+    sections.forEach(section => {
+        // Remove any scroll event listeners
+        section.style.overflow = 'hidden';
+        section.style.overflowY = 'hidden';
+        section.style.overflowX = 'hidden';
+        
+        // Prevent scroll events
+        section.addEventListener('wheel', (e) => {
+            // Allow scroll to pass through to container
+            e.stopPropagation();
+        }, { passive: true });
+        
+        section.addEventListener('touchmove', (e) => {
+            // Allow touch scroll to pass through to container
+            e.stopPropagation();
+        }, { passive: true });
+    });
+}
+
+// Fix text container scrollbar behavior
+function fixTextContainerScroll() {
+    const textContainers = document.querySelectorAll('.text-container');
+    
+    textContainers.forEach(container => {
+        // Text container itself shouldn't scroll
+        container.style.overflow = 'hidden';
+        
+        // Only lyrics/translated/p-note content should scroll
+        const scrollableContent = container.querySelectorAll('.lyrics, .translated, .p-note, .p-message');
+        
+        scrollableContent.forEach(content => {
+            content.style.overflowY = 'auto';
+            content.style.overflowX = 'hidden';
+            
+            // Hide scrollbar but keep functionality
+            content.style.scrollbarWidth = 'none';
+            content.style.msOverflowStyle = 'none';
+        });
+    });
+}
+
+// Prevent content wrapper scroll
+function fixContentWrapperScroll() {
+    const contentWrappers = document.querySelectorAll('.content-wrapper');
+    
+    contentWrappers.forEach(wrapper => {
+        wrapper.style.overflow = 'hidden';
+    });
+}
+
+// Main fix function
+function fixDesktopScrollbars() {
+    // Only run on desktop (768px+)
+    if (window.innerWidth >= 768) {
+        preventSectionScroll();
+        fixTextContainerScroll();
+        fixContentWrapperScroll();
+        
+        // Ensure only container has scrollbar
+        const container = document.querySelector('.container');
+        if (container) {
+            container.style.overflowY = 'scroll';
+            container.style.overflowX = 'hidden';
+        }
+    }
+}
+
+// Run on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixDesktopScrollbars);
+} else {
+    fixDesktopScrollbars();
+}
+
+// Run on resize (with debounce)
+let scrollFixTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(scrollFixTimeout);
+    scrollFixTimeout = setTimeout(fixDesktopScrollbars, 150);
+});
+
+// Run when content changes (for dynamic content)
+const observer = new MutationObserver(() => {
+    fixDesktopScrollbars();
+});
+
+// Observe body for changes
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+/* ============================================
+   ADDITIONAL FIX: Remove height fluctuation
+   ============================================ */
+
+// Prevent section height fluctuation
+function stabilizeSectionHeights() {
+    const sections = document.querySelectorAll('section');
+    const vh = window.innerHeight;
+    
+    sections.forEach(section => {
+        // Set explicit height to prevent fluctuation
+        section.style.height = `${vh}px`;
+        section.style.minHeight = `${vh}px`;
+        section.style.maxHeight = `${vh}px`;
+    });
+}
+
+// Run stabilization
+window.addEventListener('load', stabilizeSectionHeights);
+window.addEventListener('resize', () => {
+    clearTimeout(scrollFixTimeout);
+    scrollFixTimeout = setTimeout(stabilizeSectionHeights, 150);
+});
+
+/* ============================================
+   DEBUG: Check for multiple scrollbars
+   ============================================ */
+
+function debugScrollbars() {
+    const elementsWithScroll = [];
+    
+    // Check all elements
+    document.querySelectorAll('*').forEach(el => {
+        const styles = window.getComputedStyle(el);
+        const hasScrollY = styles.overflowY === 'scroll' || styles.overflowY === 'auto';
+        const hasScrollX = styles.overflowX === 'scroll' || styles.overflowX === 'auto';
+        
+        if (hasScrollY || hasScrollX) {
+            elementsWithScroll.push({
+                element: el.tagName + (el.className ? '.' + el.className.split(' ')[0] : ''),
+                overflowY: styles.overflowY,
+                overflowX: styles.overflowX,
+                scrollHeight: el.scrollHeight,
+                clientHeight: el.clientHeight,
+                hasVerticalScrollbar: el.scrollHeight > el.clientHeight
+            });
+        }
+    });
+    
+    console.log('Elements with scroll enabled:', elementsWithScroll);
+    return elementsWithScroll;
+}
+
+// Console'da çalıştırın: debugScrollbars()
+
+/* ============================================
+   EXPORT
+   ============================================ */
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        fixDesktopScrollbars,
+        preventSectionScroll,
+        fixTextContainerScroll,
+        fixContentWrapperScroll,
+        stabilizeSectionHeights,
+        debugScrollbars
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const typewriterElement = document.getElementById('typewriter');
@@ -61,7 +544,10 @@ document.addEventListener('DOMContentLoaded', () => {
         typewriterElement.textContent = '';
         typewriterElement.classList.remove('typing-done');
         typewriterElement.style.animation = 'blink-caret .75s step-end infinite';
-        typewriterElement.style.borderRight = '.18em solid orange';
+        
+        // Mobilde daha ince imleç
+        const isMobile = window.innerWidth <= 768;
+        typewriterElement.style.borderRight = isMobile ? '.12em solid orange' : '.18em solid orange';
 
         function typeWriter() {
             if (i < text.length) {
@@ -79,14 +565,16 @@ document.addEventListener('DOMContentLoaded', () => {
         typeWriter();
     }
 
-    // 380px ve altinda hero disinda header'i gizle
+    // 1024px ve altinda hero disinda header'i gizle
     if (siteHeader && heroSection) {
         const hideHeaderObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     siteHeader.classList.remove('hide-on-mobile');
+                    document.body.classList.add('on-hero');
                 } else {
                     siteHeader.classList.add('hide-on-mobile');
+                    document.body.classList.remove('on-hero');
                 }
             });
         }, { threshold: 0.1 });
