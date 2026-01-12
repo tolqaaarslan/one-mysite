@@ -651,43 +651,12 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.position = container.style.position || 'relative';
         container.appendChild(ph);
         ph.addEventListener('click', () => {
-            // 1. Oynatıcıyı oluştur
-            const plyr = new Plyr(playerDiv, {
-                // YouTube ayarlarını buraya ekleyelim ki daha hızlı yüklensin
-                youtube: {
-                    noCookie: true,
-                    rel: 0,
-                    showinfo: 0,
-                    iv_load_policy: 3,
-                    modestbranding: 1
-                }
-            });
-
+            const plyr = new Plyr(playerDiv);
             players.set(playerDiv, plyr);
-
-            // 2. YouTube hazır olduğunda otomatik başlat
-            plyr.on('ready', () => {
-                // Küçük bir gecikme YouTube API'sinin komutu almasını garantiler
-                setTimeout(() => {
-                    plyr.play();
-                }, 100);
-            });
-
-            // 3. Placeholder'ı kaldır
             ph.remove();
-
-            // 4. Fallback: Eğer 'ready' gecikirse hemen denemeye devam et
-            // Bazı tarayıcılar için doğrudan tetikleme
-            const checkPlay = setInterval(() => {
-                if (plyr.ready) {
-                    plyr.play();
-                    clearInterval(checkPlay);
-                }
-            }, 200);
-
-            // 5 saniye sonra hala oynamadıysa denemeyi bırak (bellek için)
-            setTimeout(() => clearInterval(checkPlay), 5000);
-
+            try {
+                plyr.play();
+            } catch (e) {}
         }, {
             once: true
         });
@@ -1611,24 +1580,24 @@ securityForms.forEach(form => {
 // --- FORM AÇMA / KAPAMA FONKSİYONLARI ---
 
 // FORMU AÇ (KAPSAMLI SCROLL RESET)
-window.openAuth = function (side) {
+window.openAuth = function(side) {
     // 1. Önce diğer her şeyi kapat
-    closeAuth();
-
+    closeAuth(); 
+    
     const overlay = document.getElementById(`auth-form-${side}`);
-
-    if (overlay) {
+    
+    if(overlay) {
         const form = overlay.querySelector('form');
         const authBox = overlay.querySelector('.auth-box');
 
         // 2. Formu Temizle (Inputları boşalt)
-        if (form) {
+        if(form) {
             form.reset();
             const errorMsg = overlay.querySelector('.error-msg');
-            if (errorMsg) errorMsg.style.display = 'none';
-
+            if(errorMsg) errorMsg.style.display = 'none';
+            
             const btn = form.querySelector('.unlock-btn');
-            if (btn) {
+            if(btn) {
                 btn.disabled = false;
                 btn.innerHTML = `Doğrula (${side === 'left' ? 'Ö' : 'H'}) <i class="fas fa-arrow-right"></i>`;
             }
@@ -1642,17 +1611,14 @@ window.openAuth = function (side) {
         // 4. TÜM OLASI ELEMENTLERİ YUKARI KAYDIR (Scroll Reset)
         // CSS'te hangisinde "overflow: auto" varsa onu yakalamak için hepsini deniyoruz.
         const scrollTargets = [overlay, authBox, form];
-
+        
         scrollTargets.forEach(el => {
-            if (el) {
+            if(el) {
                 // Yöntem 1: Klasik
                 el.scrollTop = 0;
                 // Yöntem 2: Modern
-                if (typeof el.scrollTo === 'function') {
-                    el.scrollTo({
-                        top: 0,
-                        behavior: 'instant'
-                    });
+                if(typeof el.scrollTo === 'function') {
+                    el.scrollTo({ top: 0, behavior: 'instant' });
                 }
             }
         });
@@ -1661,7 +1627,7 @@ window.openAuth = function (side) {
         // Minik bir gecikme (10ms) scroll işleminin tarayıcı tarafından işlenmesini garantiler
         setTimeout(() => {
             overlay.style.opacity = '1';
-            if (authBox) authBox.style.transform = 'translateY(0) scale(1)';
+            if(authBox) authBox.style.transform = 'translateY(0) scale(1)';
         }, 20);
     }
 };
