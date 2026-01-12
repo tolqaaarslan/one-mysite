@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap dosyanın yerini Google'a bildir
+Sitemap: https://tolqaarslan.com/sitemap.xml
+
+# AI botlarını engellemek istiyorsan (isteğe bağlı)
+User-agent: GPTBot
+Disallow: /
+User-agent: Google-Extended
+Disallow: /
