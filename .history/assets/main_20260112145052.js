@@ -571,18 +571,15 @@ headerElement && window.addEventListener("scroll", (() => {
                 i = s ? s.querySelector(".error-msg") : null,
                 r = (document.getElementById(`auth-form-${o}`), document.getElementById("secret-content")),
                 l = (document.querySelector(".end-container-default"), document.querySelector(".text-navigation"), n.innerHTML);
-
             n.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kontrol ediliyor...', n.disabled = !0, i && (i.style.display = "none");
-
             const a = new FormData(e),
                 c = {};
             a.forEach(((e, t) => {
                 c[t] = e
             }));
-
             try {
-                const e_url = "https://one.tolqaarslan.workers.dev/",
-                    res = await fetch(e_url, {
+                const e = "https://one.tolqaarslan.workers.dev/",
+                    t = await fetch(e, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -592,36 +589,16 @@ headerElement && window.addEventListener("scroll", (() => {
                             answers: c
                         })
                     }),
-                    data = await res.json();
-
-                if (!data.success) throw new Error("Yanlış cevap");
-
-                // --- ANALYTICS: BAŞARILI GİRİŞ ---
-                if (typeof gtag === 'function') {
-                    gtag('event', 'gizli_bolum_acildi', {
-                        'event_category': 'Secret_Box',
-                        'event_label': o === 'left' ? 'O_Karakteri' : 'H_Karakteri',
-                        'value': 1
-                    });
-                }
-
-                closeAuth(), r && (r.innerHTML = data.html, r.style.display = "block", requestAnimationFrame((() => {
+                    n = await t.json();
+                if (!n.success) throw new Error("Yanlış cevap");
+                closeAuth(), r && (r.innerHTML = n.html, r.style.display = "block", requestAnimationFrame((() => {
                     r.classList.add("visible")
-                })));
-
-            } catch (t_err) {
-                // --- ANALYTICS: HATALI DENEME ---
-                if (typeof gtag === 'function') {
-                    gtag('event', 'hatali_sifre_denemesi', {
-                        'event_category': 'Secret_Box',
-                        'event_label': o === 'left' ? 'O_Karakteri' : 'H_Karakteri'
-                    });
-                }
-
-                console.error("Hata:", t_err), i && (i.style.display = "block", i.textContent = "Cevaplar yanlış veya sunucu hatası.");
-                e.querySelectorAll("input").forEach((inp => {
-                    inp.classList.add("shake-error"), setTimeout((() => inp.classList.remove("shake-error")), 500)
-                })), n.innerHTML = l, n.disabled = !1;
+                })))
+            } catch (t) {
+                console.error("Hata:", t), i && (i.style.display = "block", i.textContent = "Cevaplar yanlış veya sunucu hatası.");
+                e.querySelectorAll("input").forEach((e => {
+                    e.classList.add("shake-error"), setTimeout((() => e.classList.remove("shake-error")), 500)
+                })), n.innerHTML = l, n.disabled = !1
             }
         }))
     }))
