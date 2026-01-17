@@ -1,11 +1,35 @@
 User-agent: *
 Allow: /
 
-# Sitemap dosyanın yerini Google'a bildir
+# Sitemap Adresi
 Sitemap: https://tolqaarslan.com/sitemap.xml
 
-# AI botlarını engellemek istiyorsan (isteğe bağlı)
+# --- AI ve Gereksiz Bot Engellemeleri ---
+
+# ChatGPT (OpenAI)
 User-agent: GPTBot
 Disallow: /
+
+# Google'ın AI Eğitimi (Bard/Gemini)
 User-agent: Google-Extended
+Disallow: /
+
+# Claude AI (Anthropic)
+User-agent: ClaudeBot
+Disallow: /
+
+# Amazon'un Botu
+User-agent: Amazonbot
+Disallow: /
+
+# ByteDance (TikTok) Botu
+User-agent: Bytespider
+Disallow: /
+
+# Common Crawl (Genel AI Veri Toplayıcı)
+User-agent: CCBot
+Disallow: /
+
+# Apple AI Botu
+User-agent: Applebot-Extended
 Disallow: /
