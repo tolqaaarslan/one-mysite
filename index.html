@@ -1145,7 +1145,8 @@
             margin-right: 0;
             text-align: center;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255, 165, 0, .5) rgba(255, 255, 255, .1)
+            scrollbar-color: rgba(255, 165, 0, .5) rgba(255, 255, 255, .1);
+            position: relative
         }
 
         .auth-box::-webkit-scrollbar {
@@ -1164,6 +1165,23 @@
 
         .auth-box::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 165, 0, .7)
+        }
+
+        .close-auth-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: 0 0;
+            border: none;
+            color: rgba(255, 255, 255, .5);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: color .3s ease
+        }
+
+        .close-auth-btn:hover {
+            color: #fff
         }
 
         .auth-icon {
@@ -1219,23 +1237,25 @@
             color: #fff;
             font-size: clamp(.9rem, 1.5vw, 1rem);
             outline: 0;
-            transition: all .3s ease
+            transition: border-bottom-color .3s ease
         }
 
         .material-label {
             position: absolute;
             left: 0;
-            top: 25px;
+            top: 0;
             color: rgba(255, 255, 255, .5);
-            font-size: clamp(.9rem, 1.5vw, 1rem);
+            font-size: clamp(.75rem, 1.3vw, .8rem);
             pointer-events: none;
-            transition: .3s ease all
+            transform-origin: left top;
+            transform: translate3d(0, 25px, 0) scale(1.25);
+            transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), color .3s ease;
+            will-change: transform
         }
 
         .material-input:focus~.material-label,
         .material-input:valid~.material-label {
-            top: 0;
-            font-size: clamp(.75rem, 1.3vw, .8rem);
+            transform: translate3d(0, 0, 0) scale(1);
             color: orange;
             font-weight: 700
         }
@@ -3684,113 +3704,99 @@
                             apart,<br>but some part of you both still walks with me.. quietly, peacefully.<br></p>
                     </div>
                     <div class="p-message pm-2">
-                        <p>Merhaba, uzun bir süredir göremediğim, konuşamadığım dostlarım.<br>İlk başlarda insan
-                            alışabileceğini, unutabileceğini hiç düşünmüyor.<br>Ama dedikleri gibi zamanla insan her
-                            şeye alışıyor.<br>Bunu ben biraz zor yoldan öğrendim.<br>Yokluğunuza alışmam uzun
-                            sürdü.<br>Ama unutmak,<br>olmuyor işte.<br>Alıştım, evet...<br>Ama yokluğunuz içimde hâlâ
-                            kapanmayan bir yara gibi duruyor.<br></p>
-                    </div>
-                    <div class="p-message pm-3">
-                        <p>Aklıma geldiğinizde uzun bir süredir eskisi gibi üzülmüyorum.<br>Özellikle beş sene önce
-                            yaşadığım bir şeyden sonra.<br>Ama maalesef bu hep böyle sürmedi.<br>Uzun sürmüyor… ama
-                            sürdüğü kadar da insanı yoruyor.<br>Bu genelde sizin doğum günlerinizden sonra,<br>ya da
-                            sizi rüyamda gördükten sonra oluyor.<br>Bu sefer Ekim’in üçüncü haftasından sonra
-                            oldu.<br>Ve ben de o zamandan sonra bunu yapmaya başladım.<br></p>
-                    </div>
-                    <div class="p-message pm-4">
-                        <p>Burayı çok fazla uzun tutmak istemiyorum.<br>Büyük ihtimalle buraya hiç denk
-                            gelmeyeceksiniz.<br>Ama eğer bir şekilde denk gelirseniz, arka plan resminde kendi üzerinize
-                            tıklayarak<br>ve açılacak yeni kısımdaki soruları cevaplayarak ikinize özel kısma
-                            ulaşabilirsiniz.<br>Giriş ekranı biraz farklı.<br>Oradaki cevapların hepsi birer
-                            şifre.<br>Size özel olan kısma girebilmeniz için<br>hepsine doğru cevap vermeniz
-                            gerekiyor.<br></p>
+                        <p>
+                            Eğer arka plan resminde bulunan kişilerseniz, resimde kendi üzerinize tıklayarak<br>
+                            ve açılacak yeni kısımdaki soruları cevaplayarak ikinize özel kısma ulaşabilirsiniz.<br>
+                            Giriş ekranı biraz farklı, oradaki soruların cevapları birer şifre.<br>
+                            Size özel olan kısma girebilmeniz için<br>hepsine doğru cevap vermeniz gerekiyor.<br>
+                        </p>
                     </div>
                 </div>
-                <div class="auth-overlay" style="display:none" id="auth-form-left">
-                    <div class="auth-box"><i class="fas auth-icon fa-user-lock"></i>
-                        <h3>Ö. Doğrulama</h3>
-                        <p>Beni en son gördüğün zamana göre soruları yanıtlayın.</p>
-                        <form class="security-form" data-target="left">
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q1" placeholder="Adın Soyadın" required type="password"> <label
-                                    class="material-label">Ad - Soyad?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q2" placeholder="GG.AA.YYYY" required type="password"> <label
-                                    class="material-label">Doğum Tarihin?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q3" placeholder="Nerelisin?" required type="password"> <label
-                                    class="material-label">Nerelisin?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q4" placeholder="İlçe?" required type="password"> <label
-                                    class="material-label">Beni en son gördüğün yer?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q5" placeholder="Oturduğun sokak?" required type="password"> <label
-                                    class="material-label">Oturduğun sokak?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q6" placeholder="Kaç yıl oldu?" required type="password"> <label
-                                    class="material-label">Kaç yıl oldu?</label></div>
-                            <div class="floating-wrapper with-icons"><input autocomplete="off"
-                                    class="glass-input material-input" name="q7" placeholder="Cevap..." required
-                                    type="password"> <label class="material-label">İlk sevdiğim kişinin adı?</label>
-                                <div class="input-icons"><i class="fas fa-lightbulb toggle-hint" title="İpucu"></i> <i
-                                        class="fas fa-eye toggle-password" title="Göster"></i></div>
-                                <div class="hint-text"><i class="fas fa-info-circle"></i> İpucu: O zamanlar sevdiğin
-                                    kişinin adının son harfini değiştirip bulabilirsin.</div>
-                            </div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q8" placeholder="Bar adı?" required type="password"> <label
-                                    class="material-label">Sevdiğin barın adı?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q9" placeholder="Whatsapp, Instagram vb." required type="password"> <label
-                                    class="material-label">En son ne aracılığı ile konuştuk?</label></div><button
-                                class="unlock-btn btn-glow-gold" type="submit">Doğrula (Ö) <i
-                                    class="fas fa-arrow-right"></i></button>
-                        </form>
-                        <div class="error-msg" style="display:none;color:#ff6b6b;margin-top:10px">Cevaplardan biri veya
-                            birkaçı yanlış.</div><button class="cancel-btn" onclick="closeAuth()">Vazgeç</button>
-                    </div>
-                </div>
-                <div class="auth-overlay" style="display:none" id="auth-form-right">
-                    <div class="auth-box"><i class="fas auth-icon fa-user-lock"></i>
-                        <h3>H. Doğrulama</h3>
-                        <p>Beni en son gördüğün zamana göre soruları yanıtlayın.</p>
-                        <form class="security-form" data-target="right">
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q1" placeholder="Adın Soyadın" required type="password"> <label
-                                    class="material-label">Ad - Soyad?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q2" placeholder="GG.AA.YYYY" required type="password"> <label
-                                    class="material-label">Doğum Tarihin?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q3" placeholder="Nerelisin?" required type="password"> <label
-                                    class="material-label">Nerelisin?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q4" placeholder="İl?" required type="password"> <label
-                                    class="material-label">Beni en son gördüğün yer?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q5" placeholder="Oturduğun sokak?" required type="password"> <label
-                                    class="material-label">Oturduğun sokak?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q6" placeholder="Kaç yıl oldu?" required type="password"> <label
-                                    class="material-label">Kaç yıl oldu?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q7" placeholder="Cafe adı?" required type="password"> <label
-                                    class="material-label">Okuduğun şehirde gittiğimiz cafenin adı?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q8" placeholder="Park adı?" required type="password"> <label
-                                    class="material-label">İçmeye gittiğimiz park?</label></div>
-                            <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
-                                    name="q9" placeholder="Whatsapp, Instagram vb." required type="password"> <label
-                                    class="material-label">En son ne aracılığı ile konuştuk?</label></div><button
-                                class="unlock-btn btn-glow-blue" type="submit">Doğrula (H) <i
-                                    class="fas fa-arrow-right"></i></button>
-                        </form>
-                        <div class="error-msg" style="display:none;color:#ff6b6b;margin-top:10px">Cevaplardan biri veya
-                            birkaçı yanlış.</div><button class="cancel-btn" onclick="closeAuth()">Vazgeç</button>
-                    </div>
-                </div>
-                <div style="display:none" id="secret-content"></div>
             </div>
+            <div class="auth-overlay" style="display:none" id="auth-form-left">
+                <div class="auth-box"><i class="fas auth-icon fa-user-lock"></i>
+                    <h3>Ö. Doğrulama</h3>
+                    <p>Beni en son gördüğün zamana göre soruları yanıtlayın.</p>
+                    <form class="security-form" data-target="left">
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q1" placeholder="Adın Soyadın" required type="password"> <label
+                                class="material-label">Ad - Soyad?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q2" placeholder="GG.AA.YYYY" required type="password"> <label
+                                class="material-label">Doğum Tarihin?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q3" placeholder="Nerelisin?" required type="password"> <label
+                                class="material-label">Nerelisin?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q4" placeholder="İlçe?" required type="password"> <label
+                                class="material-label">Beni en son gördüğün yer?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q5" placeholder="Oturduğun sokak?" required type="password"> <label
+                                class="material-label">Oturduğun sokak?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q6" placeholder="Kaç yıl oldu?" required type="password"> <label
+                                class="material-label">Kaç yıl oldu?</label></div>
+                        <div class="floating-wrapper with-icons"><input autocomplete="off"
+                                class="glass-input material-input" name="q7" placeholder="Cevap..." required
+                                type="password"> <label class="material-label">İlk sevdiğim kişinin adı?</label>
+                            <div class="input-icons"><i class="fas fa-lightbulb toggle-hint" title="İpucu"></i> <i
+                                    class="fas fa-eye toggle-password" title="Göster"></i></div>
+                            <div class="hint-text"><i class="fas fa-info-circle"></i> İpucu: O zamanlar sevdiğin
+                                kişinin adının son harfini değiştirip bulabilirsin.</div>
+                        </div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q8" placeholder="Bar adı?" required type="password"> <label
+                                class="material-label">Sevdiğin barın adı?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q9" placeholder="Whatsapp, Instagram vb." required type="password"> <label
+                                class="material-label">En son ne aracılığı ile konuştuk?</label></div><button
+                            class="unlock-btn btn-glow-gold" type="submit">Doğrula (Ö) <i
+                                class="fas fa-arrow-right"></i></button>
+                    </form>
+                    <div class="error-msg" style="display:none;color:#ff6b6b;margin-top:10px">Cevaplardan biri veya
+                        birkaçı yanlış.</div><button class="cancel-btn" onclick="closeAuth()">Vazgeç</button>
+                </div>
+            </div>
+            <div class="auth-overlay" style="display:none" id="auth-form-right">
+                <div class="auth-box"><i class="fas auth-icon fa-user-lock"></i>
+                    <h3>H. Doğrulama</h3>
+                    <p>Beni en son gördüğün zamana göre soruları yanıtlayın.</p>
+                    <form class="security-form" data-target="right">
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q1" placeholder="Adın Soyadın" required type="password"> <label
+                                class="material-label">Ad - Soyad?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q2" placeholder="GG.AA.YYYY" required type="password"> <label
+                                class="material-label">Doğum Tarihin?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q3" placeholder="Nerelisin?" required type="password"> <label
+                                class="material-label">Nerelisin?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q4" placeholder="İl?" required type="password"> <label
+                                class="material-label">Beni en son gördüğün yer?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q5" placeholder="Oturduğun sokak?" required type="password"> <label
+                                class="material-label">Oturduğun sokak?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q6" placeholder="Kaç yıl oldu?" required type="password"> <label
+                                class="material-label">Kaç yıl oldu?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q7" placeholder="Cafe adı?" required type="password"> <label
+                                class="material-label">Okuduğun şehirde gittiğimiz cafenin adı?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q8" placeholder="Park adı?" required type="password"> <label
+                                class="material-label">İçmeye gittiğimiz park?</label></div>
+                        <div class="floating-wrapper"><input autocomplete="off" class="glass-input material-input"
+                                name="q9" placeholder="Whatsapp, Instagram vb." required type="password"> <label
+                                class="material-label">En son ne aracılığı ile konuştuk?</label></div><button
+                            class="unlock-btn btn-glow-blue" type="submit">Doğrula (H) <i
+                                class="fas fa-arrow-right"></i></button>
+                    </form>
+                    <div class="error-msg" style="display:none;color:#ff6b6b;margin-top:10px">Cevaplardan biri veya
+                        birkaçı yanlış.</div><button class="cancel-btn" onclick="closeAuth()">Vazgeç</button>
+                </div>
+            </div>
+            <div style="display:none" id="secret-content"></div>
             <footer>
                 <p>© 2024 Tolga Arslan. Tüm hakları saklıdır.</p>
             </footer>
