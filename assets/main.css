@@ -955,81 +955,81 @@
       }
 
       #see-you-again {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/see-you-again.webp);
+        background-image: url(images/background/see-you-again.webp);
       }
 
       #somewhere-only-we-know {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/somewhere-only-we-know.webp);
+        background-image: url(images/background/somewhere-only-we-know.webp);
         background-blend-mode: overlay;
         background-color: rgba(0, 0, 0, 0.4);
       }
 
       #the-scientist {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/the-scientist.webp);
+        background-image: url(images/background/the-scientist.webp);
       }
 
       #all-i-want {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/all-i-want.webp);
+        background-image: url(images/background/all-i-want.webp);
       }
 
       #until-its-gone {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/until-its-gone.webp);
+        background-image: url(images/background/until-its-gone.webp);
       }
 
       #wrecked {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/wrecked.webp);
+        background-image: url(images/background/wrecked.webp);
       }
 
       #little-talks {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/little-talks.webp);
+        background-image: url(images/background/little-talks.webp);
       }
 
       #tell-me-how {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/tell-me-how.webp);
+        background-image: url(images/background/tell-me-how.webp);
       }
 
       #wish-you-were-here {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/wish-you-were-here.webp);
+        background-image: url(images/background/wish-you-were-here.webp);
       }
 
       #lost {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/lost.webp);
+        background-image: url(images/background/lost.webp);
       }
 
       #bedshaped {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/bedshaped.webp);
+        background-image: url(images/background/bedshaped.webp);
       }
 
       #last-hope {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/last-hope.webp);
+        background-image: url(images/background/last-hope.webp);
       }
 
       #one-more-light {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/one-more-light.webp);
+        background-image: url(images/background/one-more-light.webp);
       }
 
       #leave-out-all-the-rest {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/leave-out-all-the-rest.webp);
+        background-image: url(images/background/leave-out-all-the-rest.webp);
       }
 
       #twenty-six {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/26.webp);
+        background-image: url(images/background/26.webp);
       }
 
       #everglow {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/everglow.webp);
+        background-image: url(images/background/everglow.webp);
       }
 
       #yitirmeden {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/yitirmeden.webp);
+        background-image: url(images/background/yitirmeden.webp);
       }
 
       #eski-dostum {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/eski-dostum.webp);
+        background-image: url(images/background/eski-dostum.webp);
       }
 
       #end {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end1.webp);
+        background-image: url(images/background/end/end1.webp);
         transition: background-image 0.3s ease-in-out;
         background-size: cover;
         background-position: center;
@@ -1040,11 +1040,11 @@
       }
 
       #end.bg-left {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end2.webp);
+        background-image: url(images/background/end/end2.webp);
       }
 
       #end.bg-right {
-        background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end3.webp);
+        background-image: url(images/background/end/end3.webp);
       }
 
       .end-container {
@@ -2835,89 +2835,89 @@
         }
 
         #see-you-again {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/see-you-again.webp);
+          background-image: url(images/background/mobile/see-you-again.webp);
         }
 
         #somewhere-only-we-know {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/somewhere-only-we-know.webp);
+          background-image: url(images/background/mobile/somewhere-only-we-know.webp);
           background-blend-mode: overlay;
           background-color: rgba(0, 0, 0, 0.4);
         }
 
         #the-scientist {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/the-scientist.webp);
+          background-image: url(images/background/mobile/the-scientist.webp);
         }
 
         #all-i-want {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/all-i-want.webp);
+          background-image: url(images/background/mobile/all-i-want.webp);
         }
 
         #until-its-gone {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/until-its-gone.webp);
+          background-image: url(images/background/mobile/until-its-gone.webp);
         }
 
         #wrecked {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/wrecked.webp);
+          background-image: url(images/background/mobile/wrecked.webp);
         }
 
         #little-talks {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/little-talks.webp);
+          background-image: url(images/background/mobile/little-talks.webp);
         }
 
         #tell-me-how {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/tell-me-how.webp);
+          background-image: url(images/background/mobile/tell-me-how.webp);
         }
 
         #wish-you-were-here {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/wish-you-were-here.webp);
+          background-image: url(images/background/mobile/wish-you-were-here.webp);
         }
 
         #lost {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/lost.webp);
+          background-image: url(images/background/mobile/lost.webp);
         }
 
         #bedshaped {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/bedshaped.webp);
+          background-image: url(images/background/mobile/bedshaped.webp);
         }
 
         #last-hope {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/last-hope.webp);
+          background-image: url(images/background/mobile/last-hope.webp);
         }
 
         #one-more-light {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/one-more-light.webp);
+          background-image: url(images/background/mobile/one-more-light.webp);
         }
 
         #leave-out-all-the-rest {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/leave-out-all-the-rest.webp);
+          background-image: url(images/background/mobile/leave-out-all-the-rest.webp);
         }
 
         #twenty-six {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/26.webp);
+          background-image: url(images/background/mobile/26.webp);
         }
 
         #everglow {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/everglow.webp);
+          background-image: url(images/background/mobile/everglow.webp);
         }
 
         #yitirmeden {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/yitirmeden.webp);
+          background-image: url(images/background/mobile/yitirmeden.webp);
         }
 
         #eski-dostum {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/mobile/eski-dostum.webp);
+          background-image: url(images/background/mobile/eski-dostum.webp);
         }
 
         #end {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end1-m.webp);
+          background-image: url(images/background/end/end1-m.webp);
         }
 
         #end.bg-left {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end2-m.webp);
+          background-image: url(images/background/end/end2-m.webp);
         }
 
         #end.bg-right {
-          background-image: url(https://pub-4f8238b4a8704e4dab4f0567f3465f43.r2.dev/background/end/end3-m.webp);
+          background-image: url(images/background/end/end3-m.webp);
         }
 
         .desktop-overlay {
