@@ -993,7 +993,7 @@
       }
 
       #lost {
-        background-image: url(images/background/lost.webp);
+        background-image: url(../images/background/lost.webp);
       }
 
       #bedshaped {
@@ -2873,7 +2873,7 @@
         }
 
         #lost {
-          background-image: url(images/background/mobile/lost.webp);
+          background-image: url(../images/background/mobile/lost.webp);
         }
 
         #bedshaped {
