@@ -996,6 +996,10 @@
         background-image: url(../images/background/lost.webp);
       }
 
+      #kavaklar {
+        background-image: url(../images/background/kavaklar.webp);
+      }
+
       #bedshaped {
         background-image: url(images/background/bedshaped.webp);
       }
@@ -1962,6 +1966,7 @@
       .lyrics.everglow p,
       .lyrics.little-talks p,
       .lyrics.lost p,
+      .lyrics.kavaklar p,
       .lyrics.somewhere-only-we-know p,
       .lyrics.tell-me-how p,
       .lyrics.the-scientist p,
