@@ -1966,7 +1966,6 @@
       .lyrics.everglow p,
       .lyrics.little-talks p,
       .lyrics.lost p,
-      .lyrics.waiting-for-the-end p,
       .lyrics.somewhere-only-we-know p,
       .lyrics.tell-me-how p,
       .lyrics.the-scientist p,
@@ -1983,7 +1982,7 @@
         font-size: clamp(0.86rem, 1.42vw, 1.02rem) !important;
       }
 
-      .p-note.wrecked-note p {
+      .lyrics.waiting-for-the-end p, .p-note.wrecked-note p {
         font-size: clamp(0.86rem, 1.42vw, 1.02rem) !important;
       }
 
